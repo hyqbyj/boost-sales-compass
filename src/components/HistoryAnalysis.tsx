@@ -277,7 +277,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                 <span>六维能力画像</span>
               </CardTitle>
               <CardDescription>
-                基于历史工作数据分析的能力评估，蓝色为当前水平，红色为目标水平
+                基于历史工作数据分析的能力评估，蓝色为当前水平，绿色为目标水平
               </CardDescription>
             </CardHeader>
             <CardContent>
