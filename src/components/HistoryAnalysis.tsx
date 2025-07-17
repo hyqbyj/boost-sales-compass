@@ -8,16 +8,11 @@ import { Progress } from '@/components/ui/progress';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { 
-  BarChart3, 
-  TrendingUp, 
-  TrendingDown, 
   User, 
   Calendar, 
   BookOpen, 
-  Target, 
   Award, 
   MessageSquare, 
-  Phone, 
   Lightbulb,
   ChevronDown,
   Play,
@@ -25,7 +20,7 @@ import {
   Clock
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
 
 interface HistoryAnalysisProps {
   department: {
@@ -55,16 +50,6 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
     { skill: '谈判技巧', current: 71, target: 80, improvement: 9 },
     { skill: '时间管理', current: 88, target: 90, improvement: 2 },
     { skill: '情绪管理', current: 75, target: 85, improvement: 10 }
-  ];
-
-  // 历史业绩趋势数据
-  const performanceTrend = [
-    { month: '1月', value: 68 },
-    { month: '2月', value: 72 },
-    { month: '3月', value: 78 },
-    { month: '4月', value: 75 },
-    { month: '5月', value: 82 },
-    { month: '6月', value: 85 }
   ];
 
   // 学习计划数据
@@ -189,7 +174,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
         return <BookOpen className="w-4 h-4 text-green-600" />;
       case 'practice':
       case '实战演练':
-        return <Target className="w-4 h-4 text-purple-600" />;
+        return <Award className="w-4 h-4 text-purple-600" />;
       default:
         return <FileText className="w-4 h-4 text-gray-600" />;
     }
@@ -266,7 +251,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
-                <TrendingUp className="w-5 h-5 text-purple-600" />
+                <Lightbulb className="w-5 h-5 text-purple-600" />
                 <div>
                   <p className="text-sm font-medium text-gray-600">成长指数</p>
                   <p className="text-2xl font-bold text-gray-900">+15%</p>
@@ -278,9 +263,8 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
       </div>
 
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="ability">能力画像</TabsTrigger>
-          <TabsTrigger value="performance">历史业绩</TabsTrigger>
           <TabsTrigger value="learning">学习资料</TabsTrigger>
         </TabsList>
 
@@ -354,68 +338,6 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                       </div>
                     </motion.div>
                   ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="performance" className="space-y-6 mt-6">
-          {/* 历史业绩趋势 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <BarChart3 className="w-5 h-5 text-blue-600" />
-                <span>历史业绩趋势</span>
-              </CardTitle>
-              <CardDescription>
-                近6个月的业绩完成率变化趋势
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64">
-                <ChartContainer config={chartConfig}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={performanceTrend}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="value" 
-                        stroke="var(--color-current)" 
-                        strokeWidth={3}
-                        dot={{ fill: 'var(--color-current)', strokeWidth: 2, r: 6 }}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* 月度数据统计 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>月度工作数据统计</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <Phone className="w-8 h-8 mx-auto mb-2 text-blue-600" />
-                  <p className="text-2xl font-bold text-blue-900">1,248</p>
-                  <p className="text-sm text-blue-700">外呼总数</p>
-                </div>
-                <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <MessageSquare className="w-8 h-8 mx-auto mb-2 text-green-600" />
-                  <p className="text-2xl font-bold text-green-900">856</p>
-                  <p className="text-sm text-green-700">有效沟通</p>
-                </div>
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <Award className="w-8 h-8 mx-auto mb-2 text-purple-600" />
-                  <p className="text-2xl font-bold text-purple-900">68%</p>
-                  <p className="text-sm text-purple-700">转化成功率</p>
                 </div>
               </div>
             </CardContent>
