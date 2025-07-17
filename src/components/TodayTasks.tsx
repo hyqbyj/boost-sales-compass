@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -6,8 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star } from 'lucide-react';
+import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star, Expand } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CommunicationDetailModal } from './CommunicationDetailModal';
 
 interface TodayTasksProps {
   department: {
@@ -22,6 +22,8 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStage, setFilterStage] = useState('all');
   const [filterMethod, setFilterMethod] = useState('all');
+  const [communicationModalOpen, setCommunicationModalOpen] = useState(false);
+  const [selectedClientForModal, setSelectedClientForModal] = useState<any>(null);
 
   // 模拟客户数据 - 更丰富的数据结构
   const clients = [
@@ -150,6 +152,11 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
     const matchesMethod = filterMethod === 'all' || client.lastContact === filterMethod;
     return matchesSearch && matchesStage && matchesMethod;
   });
+
+  const handleCommunicationDetailClick = (client: any) => {
+    setSelectedClientForModal(client);
+    setCommunicationModalOpen(true);
+  };
 
   return (
     <motion.div
@@ -380,17 +387,21 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                     </TableCell>
                     <TableCell className="max-w-md">
                       <div className="space-y-3">
-                        <div className="flex items-start space-x-2">
-                          <Lightbulb className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                          <div className="space-y-1">
-                            <p className="text-sm text-gray-700 leading-relaxed">
-                              {client.suggestion}
-                            </p>
-                            <div className="bg-gray-50 p-2 rounded text-xs text-gray-600">
-                              下步行动: {client.nextAction}
-                            </div>
-                          </div>
+                        <div className="text-sm text-gray-700 line-clamp-2">
+                          {client.suggestion}
                         </div>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="flex items-center space-x-1 hover:bg-blue-50"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCommunicationDetailClick(client);
+                          }}
+                        >
+                          <Expand className="w-3 h-3" />
+                          <span>查看详细建议</span>
+                        </Button>
                       </div>
                     </TableCell>
                   </motion.tr>
@@ -407,6 +418,12 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
           )}
         </CardContent>
       </Card>
+
+      <CommunicationDetailModal 
+        open={communicationModalOpen}
+        onOpenChange={setCommunicationModalOpen}
+        client={selectedClientForModal}
+      />
     </motion.div>
   );
 };
