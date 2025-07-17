@@ -583,57 +583,59 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
               当期与历史同期业绩对比分析
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-80">
-              <ChartContainer config={chartConfig}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={kpiData.trendData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis 
-                      dataKey="time" 
-                      stroke="hsl(var(--muted-foreground))"
-                      fontSize={12}
-                    />
-                    <YAxis 
-                      stroke="hsl(var(--muted-foreground))"
-                      fontSize={12}
-                    />
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Bar 
-                      dataKey="target" 
-                      fill="hsl(var(--muted))" 
-                      fillOpacity={0.3}
-                      name="目标"
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="value" 
-                      stroke="hsl(var(--primary))" 
-                      strokeWidth={3}
-                      name="今日"
-                      dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 4 }}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="yesterday" 
-                      stroke="hsl(var(--chart-3))" 
-                      strokeWidth={2}
-                      strokeDasharray="5 5"
-                      name="昨日"
-                      dot={{ fill: "hsl(var(--chart-3))", strokeWidth: 2, r: 3 }}
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="lastWeek" 
-                      stroke="hsl(var(--chart-4))" 
-                      strokeWidth={2}
-                      strokeDasharray="3 3"
-                      name="上周同期"
-                      dot={{ fill: "hsl(var(--chart-4))", strokeWidth: 2, r: 3 }}
-                    />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </ChartContainer>
+          <CardContent className="p-4">
+            <div className="h-80 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart data={kpiData.trendData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis 
+                    dataKey="time" 
+                    stroke="hsl(var(--muted-foreground))"
+                    fontSize={12}
+                    tickLine={false}
+                    axisLine={false}
+                  />
+                  <YAxis 
+                    stroke="hsl(var(--muted-foreground))"
+                    fontSize={12}
+                    tickLine={false}
+                    axisLine={false}
+                  />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar 
+                    dataKey="target" 
+                    fill="hsl(var(--chart-5))" 
+                    fillOpacity={0.3}
+                    name="目标"
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="value" 
+                    stroke="hsl(var(--primary))" 
+                    strokeWidth={3}
+                    name="今日"
+                    dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 4 }}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="yesterday" 
+                    stroke="hsl(var(--chart-3))" 
+                    strokeWidth={2}
+                    strokeDasharray="5 5"
+                    name="昨日"
+                    dot={{ fill: "hsl(var(--chart-3))", strokeWidth: 2, r: 3 }}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="lastWeek" 
+                    stroke="hsl(var(--chart-4))" 
+                    strokeWidth={2}
+                    strokeDasharray="3 3"
+                    name="上周同期"
+                    dot={{ fill: "hsl(var(--chart-4))", strokeWidth: 2, r: 3 }}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
@@ -649,28 +651,27 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
               团队成员业绩完成度分布情况
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-80">
-              <ChartContainer config={chartConfig}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={kpiData.performanceDistribution}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                      label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                    >
-                      {kpiData.performanceDistribution.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                  </PieChart>
-                </ResponsiveContainer>
-              </ChartContainer>
+          <CardContent className="p-4">
+            <div className="h-80 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
+                  <Pie
+                    data={kpiData.performanceDistribution}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={90}
+                    innerRadius={30}
+                    paddingAngle={5}
+                    dataKey="value"
+                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  >
+                    {kpiData.performanceDistribution.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
@@ -689,29 +690,28 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
               多维度能力分析雷达图
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-64">
-              <ChartContainer config={chartConfig}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart data={kpiData.radarData}>
-                    <PolarGrid gridType="polygon" stroke="hsl(var(--border))" />
-                    <PolarAngleAxis dataKey="indicator" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                    <PolarRadiusAxis
-                      domain={[0, 100]}
-                      tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                      tickCount={6}
-                    />
-                    <Radar
-                      name="能力评分"
-                      dataKey="A"
-                      stroke="hsl(var(--primary))"
-                      fill="hsl(var(--primary))"
-                      fillOpacity={0.2}
-                      strokeWidth={2}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
-              </ChartContainer>
+          <CardContent className="p-4">
+            <div className="h-64 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <RadarChart data={kpiData.radarData} margin={{ top: 20, right: 80, bottom: 20, left: 80 }}>
+                  <PolarGrid gridType="polygon" stroke="hsl(var(--border))" />
+                  <PolarAngleAxis dataKey="indicator" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
+                  <PolarRadiusAxis
+                    domain={[0, 100]}
+                    tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+                    tickCount={6}
+                  />
+                  <Radar
+                    name="能力评分"
+                    dataKey="A"
+                    stroke="hsl(var(--chart-1))"
+                    fill="hsl(var(--chart-1))"
+                    fillOpacity={0.3}
+                    strokeWidth={3}
+                  />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                </RadarChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
@@ -782,44 +782,46 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
             本周与上周同期业绩对比，发现规律和问题
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="h-80">
-            <ChartContainer config={chartConfig}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={kpiData.weeklyData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                  <XAxis 
-                    dataKey="day" 
-                    stroke="hsl(var(--muted-foreground))"
-                    fontSize={12}
-                  />
-                  <YAxis 
-                    stroke="hsl(var(--muted-foreground))"
-                    fontSize={12}
-                  />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Bar 
-                    dataKey="target" 
-                    fill="hsl(var(--muted))" 
-                    fillOpacity={0.4}
-                    name="目标"
-                    radius={[2, 2, 0, 0]}
-                  />
-                  <Bar 
-                    dataKey="actual" 
-                    fill="hsl(var(--primary))" 
-                    name="本周实际"
-                    radius={[2, 2, 0, 0]}
-                  />
-                  <Bar 
-                    dataKey="lastWeek" 
-                    fill="hsl(var(--chart-3))" 
-                    name="上周同期"
-                    radius={[2, 2, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
+        <CardContent className="p-4">
+          <div className="h-80 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={kpiData.weeklyData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis 
+                  dataKey="day" 
+                  stroke="hsl(var(--muted-foreground))"
+                  fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
+                />
+                <YAxis 
+                  stroke="hsl(var(--muted-foreground))"
+                  fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
+                />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Bar 
+                  dataKey="target" 
+                  fill="hsl(var(--chart-5))" 
+                  fillOpacity={0.4}
+                  name="目标"
+                  radius={[2, 2, 0, 0]}
+                />
+                <Bar 
+                  dataKey="actual" 
+                  fill="hsl(var(--chart-1))" 
+                  name="本周实际"
+                  radius={[2, 2, 0, 0]}
+                />
+                <Bar 
+                  dataKey="lastWeek" 
+                  fill="hsl(var(--chart-2))" 
+                  name="上周同期"
+                  radius={[2, 2, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </CardContent>
       </Card>

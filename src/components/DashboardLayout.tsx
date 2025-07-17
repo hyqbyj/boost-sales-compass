@@ -94,13 +94,11 @@ export const DashboardLayout = ({ children, activeTab, onTabChange, departmentNa
                 </AnimatePresence>
               </motion.button>
             ))}
-          </nav>
-
-          {/* AI Assistant Trigger */}
-          <div className="p-4">
+            
+            {/* AI Assistant Trigger - moved here after navigation items */}
             <motion.button
               onClick={() => setShowAIAssistant(true)}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg p-3 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transition-shadow"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg p-3 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transition-shadow mt-4"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -118,7 +116,7 @@ export const DashboardLayout = ({ children, activeTab, onTabChange, departmentNa
                 )}
               </AnimatePresence>
             </motion.button>
-          </div>
+          </nav>
         </motion.div>
 
         {/* Main Content */}
