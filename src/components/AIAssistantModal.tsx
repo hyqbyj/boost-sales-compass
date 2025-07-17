@@ -158,7 +158,7 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col space-y-4">
+        <div className="flex-1 flex flex-col space-y-4 min-h-0">
           {/* Preset Prompts */}
           <div className="flex flex-wrap gap-2">
             {presetPrompts.map((prompt, index) => (
@@ -175,9 +175,9 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
             ))}
           </div>
 
-          {/* Messages */}
+          {/* Messages with ScrollArea */}
           <ScrollArea className="flex-1 pr-4">
-            <div className="space-y-4">
+            <div className="space-y-4 min-h-[300px]">
               <AnimatePresence>
                 {messages.map((message) => (
                   <motion.div
@@ -196,7 +196,7 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
                         )}
                       </div>
                       <div className={`px-4 py-2 rounded-lg ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900'}`}>
-                        <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+                        <div className="text-sm whitespace-pre-wrap break-words">{message.content}</div>
                         <div className={`text-xs mt-1 ${message.type === 'user' ? 'text-blue-100' : 'text-gray-500'}`}>
                           {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </div>
@@ -231,7 +231,7 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
           </ScrollArea>
 
           {/* Input */}
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 mt-4">
             <Input
               placeholder="输入您的问题..."
               value={inputMessage}

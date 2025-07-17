@@ -8,6 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star, Expand } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CommunicationDetailModal } from './CommunicationDetailModal';
+import { ClientAnalysisModal } from './ClientAnalysisModal';
+import { MaterialDetailModal } from './MaterialDetailModal';
+import { LearningMaterialModal } from './LearningMaterialModal';
 
 interface TodayTasksProps {
   department: {
@@ -24,6 +27,12 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   const [filterMethod, setFilterMethod] = useState('all');
   const [communicationModalOpen, setCommunicationModalOpen] = useState(false);
   const [selectedClientForModal, setSelectedClientForModal] = useState<any>(null);
+  const [analysisModalOpen, setAnalysisModalOpen] = useState(false);
+  const [selectedClientForAnalysis, setSelectedClientForAnalysis] = useState<any>(null);
+  const [materialModalOpen, setMaterialModalOpen] = useState(false);
+  const [selectedMaterial, setSelectedMaterial] = useState<any>(null);
+  const [learningModalOpen, setLearningModalOpen] = useState(false);
+  const [selectedLearningMaterial, setSelectedLearningMaterial] = useState<any>(null);
 
   // 模拟客户数据 - 更丰富的数据结构
   const clients = [
@@ -156,6 +165,21 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   const handleCommunicationDetailClick = (client: any) => {
     setSelectedClientForModal(client);
     setCommunicationModalOpen(true);
+  };
+
+  const handleAnalysisClick = (client: any) => {
+    setSelectedClientForAnalysis(client);
+    setAnalysisModalOpen(true);
+  };
+
+  const handleMaterialClick = (material: any) => {
+    setSelectedMaterial(material);
+    setMaterialModalOpen(true);
+  };
+
+  const handleLearningClick = (material: any) => {
+    setSelectedLearningMaterial(material);
+    setLearningModalOpen(true);
   };
 
   return (
@@ -352,6 +376,10 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                         variant="outline" 
                         size="sm"
                         className="flex items-center space-x-1 hover:bg-blue-50"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAnalysisClick(client);
+                        }}
                       >
                         <FileText className="w-3 h-3" />
                         <span>查看解析</span>
@@ -419,10 +447,61 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
         </CardContent>
       </Card>
 
+      {/* 添加测试按钮区域，模拟不同功能入口 */}
+      <Card>
+        <CardHeader>
+          <CardTitle>功能测试区域</CardTitle>
+          <CardDescription>点击下方按钮测试各个新增功能</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            <Button 
+              onClick={() => handleMaterialClick({
+                title: '产品功能深度解析',
+                type: '技术文档',
+                description: '详细介绍AI智能客服系统的核心功能和技术优势'
+              })}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              查看素材详情
+            </Button>
+            <Button 
+              onClick={() => handleLearningClick({
+                title: '客户异议处理技巧训练',
+                type: '培训课程',
+                progress: 60
+              })}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              继续学习
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 模态框组件 */}
       <CommunicationDetailModal 
         open={communicationModalOpen}
         onOpenChange={setCommunicationModalOpen}
         client={selectedClientForModal}
+      />
+
+      <ClientAnalysisModal
+        open={analysisModalOpen}
+        onOpenChange={setAnalysisModalOpen}
+        client={selectedClientForAnalysis}
+      />
+
+      <MaterialDetailModal
+        open={materialModalOpen}
+        onOpenChange={setMaterialModalOpen}
+        material={selectedMaterial}
+      />
+
+      <LearningMaterialModal
+        open={learningModalOpen}
+        onOpenChange={setLearningModalOpen}
+        material={selectedLearningMaterial}
       />
     </motion.div>
   );
