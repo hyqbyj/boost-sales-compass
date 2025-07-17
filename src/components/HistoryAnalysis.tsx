@@ -4,28 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { 
-  BarChart3, 
-  TrendingUp, 
-  TrendingDown, 
-  User, 
-  Calendar, 
-  BookOpen, 
-  Target, 
-  Award, 
-  MessageSquare, 
-  Phone, 
-  Lightbulb,
-  ChevronDown,
-  Play,
-  FileText,
-  Clock
-} from 'lucide-react';
+import { BookOpen, Clock, Target, Users, Star, Calendar, FileText, Award, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 interface HistoryAnalysisProps {
   department: {
@@ -36,163 +16,101 @@ interface HistoryAnalysisProps {
 }
 
 export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
-  const [selectedTab, setSelectedTab] = useState('ability');
-  const [expandedSections, setExpandedSections] = useState<string[]>(['learning-plan']);
+  const [activeTab, setActiveTab] = useState('materials');
 
-  const toggleSection = (section: string) => {
-    setExpandedSections(prev => 
-      prev.includes(section) 
-        ? prev.filter(s => s !== section)
-        : [...prev, section]
-    );
-  };
-
-  // 能力雷达图数据
-  const abilityData = [
-    { skill: '沟通技巧', current: 85, target: 90, improvement: 5 },
-    { skill: '产品知识', current: 78, target: 85, improvement: 7 },
-    { skill: '客户洞察', current: 82, target: 88, improvement: 6 },
-    { skill: '谈判技巧', current: 71, target: 80, improvement: 9 },
-    { skill: '时间管理', current: 88, target: 90, improvement: 2 },
-    { skill: '情绪管理', current: 75, target: 85, improvement: 10 }
+  // 学习资料数据
+  const learningMaterials = [
+    {
+      id: 1,
+      title: '医疗销售话术精华版',
+      category: '话术技巧',
+      status: '已完成',
+      progress: 100,
+      duration: '30分钟',
+      rating: 4.8,
+      lastStudied: '2024-01-15',
+      description: '专业医疗产品销售话术，包含开场白、产品介绍、异议处理等核心技巧'
+    },
+    {
+      id: 2,
+      title: '客户心理分析与沟通策略',
+      category: '心理学',
+      status: '学习中',
+      progress: 65,
+      duration: '45分钟',
+      rating: 4.9,
+      lastStudied: '2024-01-14',
+      description: '深入了解客户心理，掌握不同类型客户的沟通方式和技巧'
+    },
+    {
+      id: 3,
+      title: '电话销售实战案例分析',
+      category: '案例分析',
+      status: '待学习',
+      progress: 0,
+      duration: '60分钟',
+      rating: 4.7,
+      lastStudied: null,
+      description: '真实电话销售案例分解，学习成功销售的关键要素'
+    },
+    {
+      id: 4,
+      title: '异议处理技巧大全',
+      category: '销售技巧',
+      status: '已完成',
+      progress: 100,
+      duration: '40分钟',
+      rating: 4.6,
+      lastStudied: '2024-01-13',
+      description: '常见客户异议的专业处理方法，提升成交率的核心技能'
+    }
   ];
 
-  // 历史业绩趋势数据
-  const performanceTrend = [
-    { month: '1月', value: 68 },
-    { month: '2月', value: 72 },
-    { month: '3月', value: 78 },
-    { month: '4月', value: 75 },
-    { month: '5月', value: 82 },
-    { month: '6月', value: 85 }
-  ];
-
-  // 学习计划数据
-  const learningPlan = {
+  // 个人学习计划
+  const studyPlan = {
     currentWeek: {
-      title: "本周学习计划",
+      target: 5,
+      completed: 3,
+      remaining: 2,
       tasks: [
-        { 
-          title: "客户异议处理技巧训练", 
-          duration: "30分钟",
-          progress: 80,
-          type: "video",
-          completed: false
-        },
-        { 
-          title: "产品功能深度解析", 
-          duration: "45分钟",
-          progress: 60,
-          type: "course",
-          completed: false
-        },
-        { 
-          title: "销冠话术模拟练习", 
-          duration: "25分钟",
-          progress: 100,
-          type: "practice",
-          completed: true
-        }
+        { name: '医疗销售话术精华版', status: 'completed', dueDate: '周一' },
+        { name: '客户心理分析与沟通策略', status: 'completed', dueDate: '周二' },
+        { name: '电话销售实战案例分析', status: 'completed', dueDate: '周三' },
+        { name: '异议处理技巧大全', status: 'pending', dueDate: '周四' },
+        { name: '销售流程优化指南', status: 'pending', dueDate: '周五' }
       ]
     },
-    recommendations: [
-      {
-        category: "沟通技巧提升",
-        priority: "高",
-        items: [
-          {
-            title: "高效电话开场白技巧",
-            description: "学习如何在30秒内抓住客户注意力，提高通话接续率",
-            duration: "20分钟",
-            type: "视频课程",
-            link: "#"
-          },
-          {
-            title: "客户需求挖掘方法",
-            description: "掌握SPIN提问技巧，深度了解客户真实需求",
-            duration: "35分钟",
-            type: "互动课程",
-            link: "#"
-          }
-        ]
-      },
-      {
-        category: "产品知识强化",
-        priority: "中",
-        items: [
-          {
-            title: "AI智能客服核心功能详解",
-            description: "深入了解产品核心功能，提升专业度和说服力",
-            duration: "40分钟",
-            type: "产品手册",
-            link: "#"
-          },
-          {
-            title: "竞品对比分析",
-            description: "了解市场竞品优劣势，准备有效应对话术",
-            duration: "30分钟",
-            type: "分析报告",
-            link: "#"
-          }
-        ]
-      },
-      {
-        category: "案例实战训练",
-        priority: "高",
-        items: [
-          {
-            title: "医疗行业成功案例分析",
-            description: "学习同行业成功销售案例，掌握行业特点和话术",
-            duration: "50分钟",
-            type: "案例分析",
-            link: "#"
-          },
-          {
-            title: "疑难客户攻坚实战",
-            description: "针对性解决疑难客户问题，提升成交转化率",
-            duration: "45分钟",
-            type: "实战演练",
-            link: "#"
-          }
-        ]
-      }
-    ]
-  };
-
-  const chartConfig = {
-    current: {
-      label: "当前水平",
-      color: "hsl(var(--chart-1))",
-    },
-    target: {
-      label: "目标水平", 
-      color: "hsl(var(--chart-2))",
+    nextWeek: {
+      target: 4,
+      tasks: [
+        { name: '高效沟通技巧训练', dueDate: '周一' },
+        { name: '客户关系维护策略', dueDate: '周二' },
+        { name: '销售数据分析方法', dueDate: '周三' },
+        { name: '团队协作与管理', dueDate: '周四' }
+      ]
     }
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case '高': return 'bg-red-100 text-red-800 border-red-200';
-      case '中': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case '低': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case 'video':
-      case '视频课程':
-        return <Play className="w-4 h-4 text-blue-600" />;
-      case 'course':
-      case '互动课程':
-        return <BookOpen className="w-4 h-4 text-green-600" />;
-      case 'practice':
-      case '实战演练':
-        return <Target className="w-4 h-4 text-purple-600" />;
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case '已完成':
+        return <Badge className="bg-green-100 text-green-800 border-green-200">已完成</Badge>;
+      case '学习中':
+        return <Badge className="bg-blue-100 text-blue-800 border-blue-200">学习中</Badge>;
+      case '待学习':
+        return <Badge className="bg-gray-100 text-gray-800 border-gray-200">待学习</Badge>;
       default:
-        return <FileText className="w-4 h-4 text-gray-600" />;
+        return <Badge variant="outline">{status}</Badge>;
     }
+  };
+
+  const getTaskStatusIcon = (status: string) => {
+    if (status === 'completed') {
+      return <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center">
+        <div className="w-2 h-2 bg-white rounded-full"></div>
+      </div>;
+    }
+    return <div className="w-4 h-4 rounded-full border-2 border-gray-300"></div>;
   };
 
   return (
@@ -200,355 +118,213 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="space-y-6"
+      className="space-y-6 p-6"
     >
-      {/* 页面头部统计 */}
-      <div className="grid grid-cols-4 gap-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <Calendar className="w-5 h-5 text-blue-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-600">工作天数</p>
-                  <p className="text-2xl font-bold text-gray-900">128</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <MessageSquare className="w-5 h-5 text-green-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-600">沟通记录</p>
-                  <p className="text-2xl font-bold text-gray-900">2,456</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.3 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <Award className="w-5 h-5 text-yellow-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-600">综合评分</p>
-                  <p className="text-2xl font-bold text-gray-900">82</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.4 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="w-5 h-5 text-purple-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-600">成长指数</p>
-                  <p className="text-2xl font-bold text-gray-900">+15%</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-foreground">历史工作分析</h2>
+          <p className="text-muted-foreground mt-1">学习资料管理与个人成长计划</p>
+        </div>
+        <Badge variant="outline" className="text-sm">
+          {department.name}
+        </Badge>
       </div>
 
-      <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="ability">能力画像</TabsTrigger>
-          <TabsTrigger value="performance">历史业绩</TabsTrigger>
-          <TabsTrigger value="learning">学习资料</TabsTrigger>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-2 h-12">
+          <TabsTrigger value="materials" className="flex items-center space-x-2">
+            <BookOpen className="w-4 h-4" />
+            <span>学习资料</span>
+          </TabsTrigger>
+          <TabsTrigger value="plan" className="flex items-center space-x-2">
+            <Target className="w-4 h-4" />
+            <span>学习计划</span>
+          </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="ability" className="space-y-6 mt-6">
-          {/* 能力雷达图 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <User className="w-5 h-5 text-blue-600" />
-                <span>六维能力画像</span>
-              </CardTitle>
-              <CardDescription>
-                基于历史工作数据分析的能力评估，蓝色为当前水平，红色为目标水平
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="h-80">
-                  <ChartContainer config={chartConfig}>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart data={abilityData}>
-                        <PolarGrid />
-                        <PolarAngleAxis dataKey="skill" tick={{ fontSize: 12 }} />
-                        <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} />
-                        <Radar
-                          name="当前水平"
-                          dataKey="current"
-                          stroke="var(--color-current)"
-                          fill="var(--color-current)"
-                          fillOpacity={0.3}
-                          strokeWidth={2}
-                        />
-                        <Radar
-                          name="目标水平"
-                          dataKey="target"
-                          stroke="var(--color-target)"
-                          fill="var(--color-target)"
-                          fillOpacity={0.1}
-                          strokeWidth={2}
-                          strokeDasharray="5 5"
-                        />
-                        <ChartTooltip content={<ChartTooltipContent />} />
-                      </RadarChart>
-                    </ResponsiveContainer>
-                  </ChartContainer>
-                </div>
-                
-                <div className="space-y-4">
-                  {abilityData.map((ability, index) => (
-                    <motion.div
-                      key={ability.skill}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
-                      className="space-y-2"
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium">{ability.skill}</span>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-600">{ability.current}/100</span>
-                          {ability.improvement > 0 && (
-                            <Badge variant="outline" className="text-xs bg-green-50 text-green-700">
-                              +{ability.improvement}
-                            </Badge>
-                          )}
+        <TabsContent value="materials" className="mt-6">
+          <div className="grid gap-4">
+            {learningMaterials.map((material, index) => (
+              <motion.div
+                key={material.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <Card className="hover:shadow-md transition-shadow border-l-4 border-l-blue-500">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-start justify-between">
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-3">
+                          <CardTitle className="text-lg font-semibold text-foreground">
+                            {material.title}
+                          </CardTitle>
+                          {getStatusBadge(material.status)}
+                        </div>
+                        <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                          <span className="flex items-center space-x-1">
+                            <FileText className="w-3 h-3" />
+                            <span>{material.category}</span>
+                          </span>
+                          <span className="flex items-center space-x-1">
+                            <Clock className="w-3 h-3" />
+                            <span>{material.duration}</span>
+                          </span>
+                          <span className="flex items-center space-x-1">
+                            <Star className="w-3 h-3 text-yellow-500" />
+                            <span>{material.rating}</span>
+                          </span>
                         </div>
                       </div>
-                      <Progress value={ability.current} className="h-2" />
-                      <div className="text-xs text-gray-500">
-                        距离目标还需提升 {ability.target - ability.current} 分
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-primary">
+                          {material.progress}%
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {material.lastStudied && `最后学习: ${material.lastStudied}`}
+                        </div>
                       </div>
-                    </motion.div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-sm leading-relaxed mb-4">
+                      {material.description}
+                    </CardDescription>
+                    
+                    {material.progress > 0 && material.progress < 100 && (
+                      <div className="space-y-2">
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div 
+                            className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                            style={{ width: `${material.progress}%` }}
+                          ></div>
+                        </div>
+                        <div className="flex justify-between text-xs text-muted-foreground">
+                          <span>进度: {material.progress}%</span>
+                          <span>还需学习 {Math.round((100 - material.progress) * parseInt(material.duration) / 100)} 分钟</span>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="flex justify-end mt-4">
+                      <Button 
+                        variant={material.status === '待学习' ? 'default' : 'outline'} 
+                        size="sm"
+                        className="min-w-[80px]"
+                      >
+                        {material.status === '已完成' ? '复习' : 
+                         material.status === '学习中' ? '继续学习' : '开始学习'}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="plan" className="mt-6">
+          <div className="grid gap-6">
+            {/* 本周学习计划 */}
+            <Card className="border-l-4 border-l-green-500">
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold flex items-center space-x-2">
+                  <Calendar className="w-5 h-5 text-green-600" />
+                  <span>本周学习计划</span>
+                </CardTitle>
+                <CardDescription>
+                  本周目标: {studyPlan.currentWeek.target} 个学习任务
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div className="flex items-center space-x-3">
+                      <Award className="w-6 h-6 text-green-600" />
+                      <div>
+                        <div className="font-medium text-green-800">
+                          已完成 {studyPlan.currentWeek.completed} / {studyPlan.currentWeek.target} 个任务
+                        </div>
+                        <div className="text-sm text-green-600">
+                          完成率 {Math.round((studyPlan.currentWeek.completed / studyPlan.currentWeek.target) * 100)}%
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-green-700">
+                        剩余 {studyPlan.currentWeek.remaining} 个
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    {studyPlan.currentWeek.tasks.map((task, index) => (
+                      <div key={index} className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+                        {getTaskStatusIcon(task.status)}
+                        <div className="flex-1">
+                          <div className={`font-medium ${task.status === 'completed' ? 'text-muted-foreground line-through' : 'text-foreground'}`}>
+                            {task.name}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            截止时间: {task.dueDate}
+                          </div>
+                        </div>
+                        {task.status === 'completed' && (
+                          <Badge variant="outline" className="text-green-600 border-green-600">
+                            已完成
+                          </Badge>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* 下周学习计划 */}
+            <Card className="border-l-4 border-l-blue-500">
+              <CardHeader>
+                <CardTitle className="text-xl font-semibold flex items-center space-x-2">
+                  <TrendingUp className="w-5 h-5 text-blue-600" />
+                  <span>下周学习计划</span>
+                </CardTitle>
+                <CardDescription>
+                  计划学习 {studyPlan.nextWeek.target} 个新主题
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {studyPlan.nextWeek.tasks.map((task, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+                      <div className="w-4 h-4 rounded-full border-2 border-blue-300 bg-blue-50"></div>
+                      <div className="flex-1">
+                        <div className="font-medium text-foreground">
+                          {task.name}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          计划时间: {task.dueDate}
+                        </div>
+                      </div>
+                      <Badge variant="outline" className="text-blue-600 border-blue-600">
+                        待安排
+                      </Badge>
+                    </div>
                   ))}
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="performance" className="space-y-6 mt-6">
-          {/* 历史业绩趋势 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <BarChart3 className="w-5 h-5 text-blue-600" />
-                <span>历史业绩趋势</span>
-              </CardTitle>
-              <CardDescription>
-                近6个月的业绩完成率变化趋势
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64">
-                <ChartContainer config={chartConfig}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={performanceTrend}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="value" 
-                        stroke="var(--color-current)" 
-                        strokeWidth={3}
-                        dot={{ fill: 'var(--color-current)', strokeWidth: 2, r: 6 }}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* 月度数据统计 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>月度工作数据统计</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <Phone className="w-8 h-8 mx-auto mb-2 text-blue-600" />
-                  <p className="text-2xl font-bold text-blue-900">1,248</p>
-                  <p className="text-sm text-blue-700">外呼总数</p>
+                
+                <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="flex items-center space-x-2 text-blue-800">
+                    <Users className="w-4 h-4" />
+                    <span className="font-medium">学习建议</span>
+                  </div>
+                  <p className="text-sm text-blue-700 mt-2 leading-relaxed">
+                    根据您的学习进度和部门业绩要求，建议重点关注客户沟通技巧和销售流程优化。
+                    可以结合实际工作案例进行学习，提升学习效果。
+                  </p>
                 </div>
-                <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <MessageSquare className="w-8 h-8 mx-auto mb-2 text-green-600" />
-                  <p className="text-2xl font-bold text-green-900">856</p>
-                  <p className="text-sm text-green-700">有效沟通</p>
-                </div>
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <Award className="w-8 h-8 mx-auto mb-2 text-purple-600" />
-                  <p className="text-2xl font-bold text-purple-900">68%</p>
-                  <p className="text-sm text-purple-700">转化成功率</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="learning" className="space-y-6 mt-6">
-          {/* 当前学习进度 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <BookOpen className="w-5 h-5 text-blue-600" />
-                <span>{learningPlan.currentWeek.title}</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {learningPlan.currentWeek.tasks.map((task, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className={`p-4 rounded-lg border ${task.completed ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-3">
-                        {getTypeIcon(task.type)}
-                        <div>
-                          <h4 className="font-medium text-gray-900">{task.title}</h4>
-                          <p className="text-sm text-gray-600 flex items-center">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {task.duration}
-                          </p>
-                        </div>
-                      </div>
-                      {task.completed ? (
-                        <Badge className="bg-green-100 text-green-800">已完成</Badge>
-                      ) : (
-                        <Button variant="outline" size="sm">继续学习</Button>
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>学习进度</span>
-                        <span>{task.progress}%</span>
-                      </div>
-                      <Progress value={task.progress} className="h-2" />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* 个人学习计划 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Lightbulb className="w-5 h-5 text-blue-600" />
-                <span>个人学习计划</span>
-              </CardTitle>
-              <CardDescription>
-                基于能力评估和业绩分析，为您量身定制的提升计划
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {learningPlan.recommendations.map((category, categoryIndex) => (
-                <Collapsible
-                  key={categoryIndex}
-                  open={expandedSections.includes(`learning-plan-${categoryIndex}`)}
-                  onOpenChange={() => toggleSection(`learning-plan-${categoryIndex}`)}
-                >
-                  <CollapsibleTrigger asChild>
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
-                      <div className="flex items-center space-x-3">
-                        <BookOpen className="w-5 h-5 text-blue-600" />
-                        <div>
-                          <h3 className="font-semibold text-gray-900 text-base">{category.category}</h3>
-                          <p className="text-sm text-gray-600">{category.items.length} 个学习项目</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Badge 
-                          variant="outline" 
-                          className={`${getPriorityColor(category.priority)} font-medium`}
-                        >
-                          {category.priority}优先级
-                        </Badge>
-                        <ChevronDown className={`w-4 h-4 transition-transform ${expandedSections.includes(`learning-plan-${categoryIndex}`) ? 'rotate-180' : ''}`} />
-                      </div>
-                    </div>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="mt-3">
-                    <div className="space-y-3 pl-8">
-                      {category.items.map((item, itemIndex) => (
-                        <motion.div
-                          key={itemIndex}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3, delay: itemIndex * 0.1 }}
-                          className="p-4 bg-white rounded-lg border border-gray-200 hover:shadow-sm transition-shadow"
-                        >
-                          <div className="flex items-start justify-between mb-3">
-                            <div className="flex-1">
-                              <div className="flex items-center space-x-2 mb-2">
-                                {getTypeIcon(item.type)}
-                                <h4 className="font-medium text-gray-900 text-base leading-tight">{item.title}</h4>
-                              </div>
-                              <p className="text-sm text-gray-600 leading-relaxed mb-3">{item.description}</p>
-                              <div className="flex items-center space-x-4 text-xs text-gray-500">
-                                <span className="flex items-center">
-                                  <Clock className="w-3 h-3 mr-1" />
-                                  {item.duration}
-                                </span>
-                                <span className="flex items-center">
-                                  <FileText className="w-3 h-3 mr-1" />
-                                  {item.type}
-                                </span>
-                              </div>
-                            </div>
-                            <Button variant="outline" size="sm" className="ml-4 shrink-0">
-                              开始学习
-                            </Button>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-              ))}
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
     </motion.div>
