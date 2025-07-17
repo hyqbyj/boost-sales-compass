@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,10 +16,15 @@ interface CommunicationDetailModalProps {
     suggestion: string;
     nextAction: string;
     stage: string;
-  };
+  } | null;
 }
 
 export const CommunicationDetailModal = ({ open, onOpenChange, client }: CommunicationDetailModalProps) => {
+  // Early return if client is null
+  if (!client) {
+    return null;
+  }
+
   const communicationDetails = {
     greeting: {
       title: "开场问候建议",
