@@ -59,11 +59,11 @@ interface PerformanceMetricsProps {
 export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
   const [selectedPeriod, setSelectedPeriod] = useState('today');
 
-  // 图表配置
+  // 彩色图表配置 - 使用鲜艳的颜色
   const chartConfig = {
     target: {
       label: "目标",
-      color: "hsl(var(--primary))",
+      color: "hsl(var(--chart-1))",
     },
     actual: {
       label: "实际",
@@ -71,40 +71,44 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
     },
     completed: {
       label: "已完成",
-      color: "hsl(var(--chart-1))",
+      color: "hsl(var(--chart-3))",
     },
     remaining: {
       label: "剩余",
-      color: "hsl(var(--muted))",
+      color: "hsl(var(--chart-4))",
     },
     yesterday: {
       label: "昨日",
-      color: "hsl(var(--chart-3))",
+      color: "hsl(var(--chart-5))",
     },
     lastWeek: {
       label: "上周",
-      color: "hsl(var(--chart-4))",
+      color: "hsl(var(--chart-6))",
     },
     lastMonth: {
       label: "上月",
-      color: "hsl(var(--chart-5))",
+      color: "hsl(var(--chart-7))",
     },
     value: {
       label: "今日",
-      color: "hsl(var(--primary))",
+      color: "hsl(var(--chart-1))",
     }
   };
 
+  // 彩色调色板 - 绝对不使用黑灰色
   const COLORS = [
-    'hsl(var(--primary))', 
-    'hsl(var(--chart-1))', 
-    'hsl(var(--chart-2))', 
-    'hsl(var(--chart-3))', 
-    'hsl(var(--chart-4))',
-    'hsl(var(--chart-5))'
+    'hsl(var(--chart-1))',  // 蓝色
+    'hsl(var(--chart-2))',  // 绿色
+    'hsl(var(--chart-3))',  // 红色
+    'hsl(var(--chart-4))',  // 橙色
+    'hsl(var(--chart-5))',  // 紫色
+    'hsl(var(--chart-6))',  // 青色
+    'hsl(var(--chart-7))',  // 暖橙色
+    'hsl(var(--chart-8))',  // 淡紫色
+    'hsl(var(--chart-9))',  // 深绿色
+    'hsl(var(--chart-10))'  // 珊瑚色
   ];
 
-  // 根据部门类型生成对应的KPI数据
   const getKpiData = () => {
     const baseData = {
       // 历史对比数据
@@ -184,10 +188,10 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           { day: '周五', target: 40, actual: 29, lastWeek: 33 }
         ],
         performanceDistribution: [
-          { name: '优秀(90%+)', value: 15, color: 'hsl(var(--chart-1))' },
-          { name: '良好(70-89%)', value: 45, color: 'hsl(var(--chart-2))' },
-          { name: '一般(50-69%)', value: 30, color: 'hsl(var(--chart-3))' },
-          { name: '待改进(<50%)', value: 10, color: 'hsl(var(--chart-4))' }
+          { name: '优秀(90%+)', value: 15, color: 'hsl(var(--chart-2))' },
+          { name: '良好(70-89%)', value: 45, color: 'hsl(var(--chart-1))' },
+          { name: '一般(50-69%)', value: 30, color: 'hsl(var(--chart-4))' },
+          { name: '待改进(<50%)', value: 10, color: 'hsl(var(--chart-3))' }
         ],
         radarData: [
           { indicator: '外呼量', A: 80, fullMark: 100 },
@@ -245,10 +249,10 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           { day: '周五', target: 25, actual: 16, lastWeek: 18 }
         ],
         performanceDistribution: [
-          { name: '优秀(90%+)', value: 12, color: 'hsl(var(--chart-1))' },
-          { name: '良好(70-89%)', value: 38, color: 'hsl(var(--chart-2))' },
-          { name: '一般(50-69%)', value: 35, color: 'hsl(var(--chart-3))' },
-          { name: '待改进(<50%)', value: 15, color: 'hsl(var(--chart-4))' }
+          { name: '优秀(90%+)', value: 12, color: 'hsl(var(--chart-2))' },
+          { name: '良好(70-89%)', value: 38, color: 'hsl(var(--chart-1))' },
+          { name: '一般(50-69%)', value: 35, color: 'hsl(var(--chart-4))' },
+          { name: '待改进(<50%)', value: 15, color: 'hsl(var(--chart-3))' }
         ],
         radarData: [
           { indicator: '深聊质量', A: 72, fullMark: 100 },
@@ -306,10 +310,10 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           { day: '周五', target: 4, actual: 2, lastWeek: 3 }
         ],
         performanceDistribution: [
-          { name: '优秀(90%+)', value: 20, color: 'hsl(var(--chart-1))' },
-          { name: '良好(70-89%)', value: 35, color: 'hsl(var(--chart-2))' },
-          { name: '一般(50-69%)', value: 30, color: 'hsl(var(--chart-3))' },
-          { name: '待改进(<50%)', value: 15, color: 'hsl(var(--chart-4))' }
+          { name: '优秀(90%+)', value: 20, color: 'hsl(var(--chart-2))' },
+          { name: '良好(70-89%)', value: 35, color: 'hsl(var(--chart-1))' },
+          { name: '一般(50-69%)', value: 30, color: 'hsl(var(--chart-4))' },
+          { name: '待改进(<50%)', value: 15, color: 'hsl(var(--chart-3))' }
         ],
         radarData: [
           { indicator: 'KP开发', A: 50, fullMark: 100 },
@@ -326,23 +330,23 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
   const kpiData = getKpiData();
 
   const getStatusColor = (completion: number) => {
-    if (completion >= 90) return 'text-green-600';
-    if (completion >= 70) return 'text-blue-600';
-    if (completion >= 50) return 'text-yellow-600';
-    return 'text-red-600';
+    if (completion >= 90) return 'text-chart-2';
+    if (completion >= 70) return 'text-chart-1';
+    if (completion >= 50) return 'text-chart-4';
+    return 'text-chart-3';
   };
 
   const getStatusBadge = (completion: number) => {
-    if (completion >= 90) return <Badge variant="default" className="bg-green-50 text-green-700 border-green-200 hover:bg-green-100">优秀</Badge>;
-    if (completion >= 70) return <Badge variant="default" className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100">良好</Badge>;
-    if (completion >= 50) return <Badge variant="default" className="bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100">待提升</Badge>;
-    return <Badge variant="default" className="bg-red-50 text-red-700 border-red-200 hover:bg-red-100">需改进</Badge>;
+    if (completion >= 90) return <Badge variant="default" className="bg-success/10 text-success border-success/20 hover:bg-success/20">优秀</Badge>;
+    if (completion >= 70) return <Badge variant="default" className="bg-info/10 text-info border-info/20 hover:bg-info/20">良好</Badge>;
+    if (completion >= 50) return <Badge variant="default" className="bg-warning/10 text-warning border-warning/20 hover:bg-warning/20">待提升</Badge>;
+    return <Badge variant="default" className="bg-error/10 text-error border-error/20 hover:bg-error/20">需改进</Badge>;
   };
 
   const getTrendIcon = (trendUp: boolean) => {
     return trendUp ? 
-      <ArrowUp className="w-4 h-4 text-green-600" /> : 
-      <ArrowDown className="w-4 h-4 text-red-600" />;
+      <ArrowUp className="w-4 h-4 text-chart-2" /> : 
+      <ArrowDown className="w-4 h-4 text-chart-3" />;
   };
 
   const formatNumber = (num: number) => {
@@ -374,12 +378,12 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <Card className="relative overflow-hidden border-l-4 border-l-primary bg-gradient-to-br from-background to-muted/20">
+          <Card className="relative overflow-hidden border-l-4 border-l-chart-1 bg-gradient-to-br from-chart-1/5 to-background">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <Calendar className="w-4 h-4 text-primary" />
+                  <div className="p-2 rounded-lg bg-chart-1/10">
+                    <Calendar className="w-4 h-4 text-chart-1" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">今日业绩</p>
@@ -394,18 +398,18 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
                     <div className="flex items-baseline space-x-1">
-                      <span className="text-2xl font-bold text-foreground">{kpiData.today.current}</span>
+                      <span className="text-2xl font-bold text-chart-1">{kpiData.today.current}</span>
                       <span className="text-sm text-muted-foreground">/ {kpiData.today.target}</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       {getTrendIcon(kpiData.today.trendUp)}
-                      <span className={`text-sm font-medium ${kpiData.today.trendUp ? 'text-green-600' : 'text-red-600'}`}>
+                      <span className={`text-sm font-medium ${kpiData.today.trendUp ? 'text-chart-2' : 'text-chart-3'}`}>
                         {kpiData.today.trend}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-semibold text-foreground">{kpiData.today.completion}%</p>
+                    <p className="text-lg font-semibold text-chart-1">{kpiData.today.completion}%</p>
                     <p className="text-xs text-muted-foreground">完成率</p>
                   </div>
                 </div>
@@ -427,12 +431,12 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.1 }}
         >
-          <Card className="relative overflow-hidden border-l-4 border-l-chart-1 bg-gradient-to-br from-background to-muted/20">
+          <Card className="relative overflow-hidden border-l-4 border-l-chart-2 bg-gradient-to-br from-chart-2/5 to-background">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="p-2 rounded-lg bg-chart-1/10">
-                    <BarChart3 className="w-4 h-4 text-chart-1" />
+                  <div className="p-2 rounded-lg bg-chart-2/10">
+                    <BarChart3 className="w-4 h-4 text-chart-2" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">本周业绩</p>
@@ -447,18 +451,18 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
                     <div className="flex items-baseline space-x-1">
-                      <span className="text-2xl font-bold text-foreground">{kpiData.weekly.current}</span>
+                      <span className="text-2xl font-bold text-chart-2">{kpiData.weekly.current}</span>
                       <span className="text-sm text-muted-foreground">/ {kpiData.weekly.target}</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       {getTrendIcon(kpiData.weekly.trendUp)}
-                      <span className={`text-sm font-medium ${kpiData.weekly.trendUp ? 'text-green-600' : 'text-red-600'}`}>
+                      <span className={`text-sm font-medium ${kpiData.weekly.trendUp ? 'text-chart-2' : 'text-chart-3'}`}>
                         {kpiData.weekly.trend}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-semibold text-foreground">{kpiData.weekly.completion}%</p>
+                    <p className="text-lg font-semibold text-chart-2">{kpiData.weekly.completion}%</p>
                     <p className="text-xs text-muted-foreground">完成率</p>
                   </div>
                 </div>
@@ -480,12 +484,12 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
         >
-          <Card className="relative overflow-hidden border-l-4 border-l-chart-2 bg-gradient-to-br from-background to-muted/20">
+          <Card className="relative overflow-hidden border-l-4 border-l-chart-3 bg-gradient-to-br from-chart-3/5 to-background">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="p-2 rounded-lg bg-chart-2/10">
-                    <Target className="w-4 h-4 text-chart-2" />
+                  <div className="p-2 rounded-lg bg-chart-3/10">
+                    <Target className="w-4 h-4 text-chart-3" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">本月业绩</p>
@@ -500,18 +504,18 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
                     <div className="flex items-baseline space-x-1">
-                      <span className="text-2xl font-bold text-foreground">{kpiData.monthly.current}</span>
+                      <span className="text-2xl font-bold text-chart-3">{kpiData.monthly.current}</span>
                       <span className="text-sm text-muted-foreground">/ {kpiData.monthly.target}</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       {getTrendIcon(kpiData.monthly.trendUp)}
-                      <span className={`text-sm font-medium ${kpiData.monthly.trendUp ? 'text-green-600' : 'text-red-600'}`}>
+                      <span className={`text-sm font-medium ${kpiData.monthly.trendUp ? 'text-chart-2' : 'text-chart-3'}`}>
                         {kpiData.monthly.trend}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-semibold text-foreground">{kpiData.monthly.completion.toFixed(1)}%</p>
+                    <p className="text-lg font-semibold text-chart-3">{kpiData.monthly.completion.toFixed(1)}%</p>
                     <p className="text-xs text-muted-foreground">完成率</p>
                   </div>
                 </div>
@@ -533,11 +537,11 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
         >
-          <Card className="relative overflow-hidden border-l-4 border-l-chart-3 bg-gradient-to-br from-background to-muted/20">
+          <Card className="relative overflow-hidden border-l-4 border-l-chart-4 bg-gradient-to-br from-chart-4/5 to-background">
             <CardHeader className="pb-2">
               <div className="flex items-center space-x-2">
-                <div className="p-2 rounded-lg bg-chart-3/10">
-                  <Activity className="w-4 h-4 text-chart-3" />
+                <div className="p-2 rounded-lg bg-chart-4/10">
+                  <Activity className="w-4 h-4 text-chart-4" />
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">效率分析</p>
@@ -549,21 +553,21 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="text-center">
-                    <p className="text-lg font-bold text-foreground">{kpiData.efficiencyMetrics.avgCallDuration}min</p>
+                    <p className="text-lg font-bold text-chart-4">{kpiData.efficiencyMetrics.avgCallDuration}min</p>
                     <p className="text-xs text-muted-foreground">平均通话</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-bold text-foreground">{kpiData.efficiencyMetrics.conversionRate}%</p>
+                    <p className="text-lg font-bold text-chart-5">{kpiData.efficiencyMetrics.conversionRate}%</p>
                     <p className="text-xs text-muted-foreground">转化率</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="text-center">
-                    <p className="text-lg font-bold text-foreground">{kpiData.efficiencyMetrics.avgResponseTime}s</p>
+                    <p className="text-lg font-bold text-chart-6">{kpiData.efficiencyMetrics.avgResponseTime}s</p>
                     <p className="text-xs text-muted-foreground">响应时间</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-bold text-foreground">{kpiData.efficiencyMetrics.customerSatisfaction}</p>
+                    <p className="text-lg font-bold text-chart-7">{kpiData.efficiencyMetrics.customerSatisfaction}</p>
                     <p className="text-xs text-muted-foreground">满意度</p>
                   </div>
                 </div>
@@ -579,7 +583,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
         <Card className="col-span-1">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <TrendingUp className="w-5 h-5 text-primary" />
+              <TrendingUp className="w-5 h-5 text-chart-1" />
               <span>历史对比趋势</span>
             </CardTitle>
             <CardDescription>
@@ -589,16 +593,16 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           <CardContent className="p-4">
             <ChartContainer config={chartConfig} className="h-80 w-full">
               <ComposedChart data={kpiData.trendData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--chart-5))" />
                 <XAxis 
                   dataKey="time" 
-                  stroke="hsl(var(--muted-foreground))"
+                  stroke="hsl(var(--chart-1))"
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
                 />
                 <YAxis 
-                  stroke="hsl(var(--muted-foreground))"
+                  stroke="hsl(var(--chart-1))"
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
@@ -613,264 +617,16 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <Line 
                   type="monotone" 
                   dataKey="value" 
-                  stroke="hsl(var(--primary))" 
+                  stroke="hsl(var(--chart-1))" 
                   strokeWidth={3}
                   name="今日"
-                  dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 4 }}
+                  dot={{ fill: "hsl(var(--chart-1))", strokeWidth: 2, r: 4 }}
                 />
                 <Line 
                   type="monotone" 
                   dataKey="yesterday" 
-                  stroke="hsl(var(--chart-3))" 
+                  stroke="hsl(var(--chart-2))" 
                   strokeWidth={2}
                   strokeDasharray="5 5"
                   name="昨日"
-                  dot={{ fill: "hsl(var(--chart-3))", strokeWidth: 2, r: 3 }}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="lastWeek" 
-                  stroke="hsl(var(--chart-4))" 
-                  strokeWidth={2}
-                  strokeDasharray="3 3"
-                  name="上周同期"
-                  dot={{ fill: "hsl(var(--chart-4))", strokeWidth: 2, r: 3 }}
-                />
-              </ComposedChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-
-        {/* 业绩分布分析 */}
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <PieChartIcon className="w-5 h-5 text-chart-1" />
-              <span>业绩分布分析</span>
-            </CardTitle>
-            <CardDescription>
-              团队成员业绩完成度分布情况
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-4">
-            <ChartContainer config={chartConfig} className="h-80 w-full">
-              <PieChart margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
-                <Pie
-                  data={kpiData.performanceDistribution}
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={90}
-                  innerRadius={30}
-                  paddingAngle={5}
-                  dataKey="value"
-                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                >
-                  {kpiData.performanceDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <ChartTooltip content={<ChartTooltipContent />} />
-              </PieChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* 能力雷达图和详细数据表 */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 能力雷达图 */}
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Zap className="w-5 h-5 text-chart-2" />
-              <span>能力评估</span>
-            </CardTitle>
-            <CardDescription>
-              多维度能力分析雷达图
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-4">
-            <ChartContainer config={chartConfig} className="h-64 w-full">
-              <RadarChart data={kpiData.radarData} margin={{ top: 20, right: 80, bottom: 20, left: 80 }}>
-                <PolarGrid gridType="polygon" stroke="hsl(var(--border))" />
-                <PolarAngleAxis dataKey="indicator" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                <PolarRadiusAxis
-                  domain={[0, 100]}
-                  tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                  tickCount={6}
-                />
-                <Radar
-                  name="能力评分"
-                  dataKey="A"
-                  stroke="hsl(var(--chart-1))"
-                  fill="hsl(var(--chart-1))"
-                  fillOpacity={0.3}
-                  strokeWidth={3}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-              </RadarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-        {/* 详细KPI数据表 */}
-        <Card className="col-span-2">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Calculator className="w-5 h-5 text-chart-3" />
-              <span>KPI详细数据</span>
-            </CardTitle>
-            <CardDescription>
-              {department.name}各项关键指标完成情况及缺口分析
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-4 px-4 font-semibold text-foreground">指标名称</th>
-                      <th className="text-right py-4 px-4 font-semibold text-foreground">目标</th>
-                      <th className="text-right py-4 px-4 font-semibold text-foreground">实际</th>
-                      <th className="text-right py-4 px-4 font-semibold text-foreground">完成率</th>
-                      <th className="text-right py-4 px-4 font-semibold text-foreground">缺口</th>
-                      <th className="text-center py-4 px-4 font-semibold text-foreground">状态</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {kpiData.kpiDetails.map((item, index) => (
-                      <motion.tr 
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
-                        className="border-b border-border hover:bg-muted/50 transition-colors"
-                      >
-                        <td className="py-4 px-4 font-medium text-foreground">{item.name}</td>
-                        <td className="text-right py-4 px-4 text-muted-foreground">{formatNumber(item.target)}{item.unit}</td>
-                        <td className="text-right py-4 px-4 font-semibold text-foreground">{formatNumber(item.actual)}{item.unit}</td>
-                        <td className={`text-right py-4 px-4 font-bold ${getStatusColor(item.completion)}`}>
-                          {item.completion}%
-                        </td>
-                        <td className="text-right py-4 px-4 text-red-600 font-medium">
-                          {item.gap > 0 ? `${item.gap}${item.unit}` : '已达成'}
-                        </td>
-                        <td className="text-center py-4 px-4">
-                          {getStatusBadge(item.completion)}
-                        </td>
-                      </motion.tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* 周度对比分析 */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Timer className="w-5 h-5 text-chart-4" />
-            <span>周度完成情况对比</span>
-          </CardTitle>
-          <CardDescription>
-            本周与上周同期业绩对比，发现规律和问题
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="p-4">
-          <ChartContainer config={chartConfig} className="h-80 w-full">
-            <BarChart data={kpiData.weeklyData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-              <XAxis 
-                dataKey="day" 
-                stroke="hsl(var(--muted-foreground))"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-              />
-              <YAxis 
-                stroke="hsl(var(--muted-foreground))"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-              />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar 
-                dataKey="target" 
-                fill="hsl(var(--chart-5))" 
-                fillOpacity={0.4}
-                name="目标"
-                radius={[2, 2, 0, 0]}
-              />
-              <Bar 
-                dataKey="actual" 
-                fill="hsl(var(--chart-1))" 
-                name="本周实际"
-                radius={[2, 2, 0, 0]}
-              />
-              <Bar 
-                dataKey="lastWeek" 
-                fill="hsl(var(--chart-2))" 
-                name="上周同期"
-                radius={[2, 2, 0, 0]}
-              />
-            </BarChart>
-          </ChartContainer>
-        </CardContent>
-      </Card>
-
-      {/* 预警提醒卡片 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="border-l-4 border-l-yellow-500 bg-gradient-to-r from-yellow-50 to-background">
-          <CardHeader className="pb-3">
-            <div className="flex items-center space-x-2">
-              <AlertCircle className="w-5 h-5 text-yellow-600" />
-              <CardTitle className="text-sm font-semibold text-yellow-800">日目标预警</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <p className="text-2xl font-bold text-yellow-700">{kpiData.gapAnalysis.dailyGap}</p>
-            <p className="text-sm text-yellow-600 mt-1">距离日目标还需完成</p>
-            <div className="mt-2 text-xs text-yellow-600">
-              预计完成时间: {kpiData.forecast.dailyPrediction > kpiData.today.target ? '可能超额' : '需要加油'}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-orange-500 bg-gradient-to-r from-orange-50 to-background">
-          <CardHeader className="pb-3">
-            <div className="flex items-center space-x-2">
-              <AlertCircle className="w-5 h-5 text-orange-600" />
-              <CardTitle className="text-sm font-semibold text-orange-800">周目标预警</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <p className="text-2xl font-bold text-orange-700">{kpiData.gapAnalysis.weeklyGap}</p>
-            <p className="text-sm text-orange-600 mt-1">距离周目标还需完成</p>
-            <div className="mt-2 text-xs text-orange-600">
-              按当前进度预测: {kpiData.forecast.weeklyPrediction}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-red-500 bg-gradient-to-r from-red-50 to-background">
-          <CardHeader className="pb-3">
-            <div className="flex items-center space-x-2">
-              <AlertCircle className="w-5 h-5 text-red-600" />
-              <CardTitle className="text-sm font-semibold text-red-800">月目标预警</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <p className="text-2xl font-bold text-red-700">{kpiData.gapAnalysis.monthlyGap}</p>
-            <p className="text-sm text-red-600 mt-1">距离月目标还需完成</p>
-            <div className="mt-2 text-xs text-red-600">
-              月末预测: {kpiData.forecast.monthlyPrediction} ({kpiData.forecast.monthlyPrediction >= kpiData.monthly.target ? '有望达成' : '存在风险'})
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-};
+                  dot={{ fill: "hsl(var(--chart-2))", strokeWidth: 2
