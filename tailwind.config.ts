@@ -28,12 +28,16 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					50: 'hsl(217.2 91.2% 95%)',
-					100: 'hsl(217.2 91.2% 90%)',
-					600: 'hsl(var(--primary))',
-					700: 'hsl(217.2 91.2% 50%)',
-					800: 'hsl(217.2 91.2% 40%)',
-					900: 'hsl(217.2 91.2% 30%)'
+					50: 'hsl(217 91% 95%)',
+					100: 'hsl(217 91% 90%)',
+					200: 'hsl(217 91% 80%)',
+					300: 'hsl(217 91% 70%)',
+					400: 'hsl(217 91% 60%)',
+					500: 'hsl(217 91% 50%)',
+					600: 'hsl(217 91% 45%)',
+					700: 'hsl(217 91% 40%)',
+					800: 'hsl(217 91% 35%)',
+					900: 'hsl(217 91% 30%)'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -71,33 +75,37 @@ export default {
 				},
 				success: {
 					DEFAULT: 'hsl(var(--success))',
-					50: 'hsl(142.1 76.2% 95%)',
-					100: 'hsl(142.1 76.2% 90%)',
-					600: 'hsl(var(--success))',
-					700: 'hsl(142.1 76.2% 30%)'
+					50: 'hsl(142 71% 95%)',
+					100: 'hsl(142 71% 90%)',
+					500: 'hsl(var(--success))',
+					600: 'hsl(142 71% 40%)',
+					700: 'hsl(142 71% 35%)'
 				},
 				warning: {
 					DEFAULT: 'hsl(var(--warning))',
-					50: 'hsl(45.4 93.4% 95%)',
-					100: 'hsl(45.4 93.4% 90%)',
-					600: 'hsl(var(--warning))',
-					700: 'hsl(45.4 93.4% 40%)'
+					50: 'hsl(38 92% 95%)',
+					100: 'hsl(38 92% 90%)',
+					500: 'hsl(var(--warning))',
+					600: 'hsl(38 92% 45%)',
+					700: 'hsl(38 92% 40%)'
 				},
 				error: {
 					DEFAULT: 'hsl(var(--error))',
-					50: 'hsl(346.8 77.2% 95%)',
-					100: 'hsl(346.8 77.2% 90%)',
-					600: 'hsl(var(--error))',
-					700: 'hsl(346.8 77.2% 40%)'
+					50: 'hsl(0 84% 95%)',
+					100: 'hsl(0 84% 90%)',
+					500: 'hsl(var(--error))',
+					600: 'hsl(0 84% 55%)',
+					700: 'hsl(0 84% 50%)'
 				},
 				info: {
 					DEFAULT: 'hsl(var(--info))',
-					50: 'hsl(217.2 91.2% 95%)',
-					100: 'hsl(217.2 91.2% 90%)',
-					600: 'hsl(var(--info))',
-					700: 'hsl(217.2 91.2% 50%)'
+					50: 'hsl(217 91% 95%)',
+					100: 'hsl(217 91% 90%)',
+					500: 'hsl(var(--info))',
+					600: 'hsl(217 91% 55%)',
+					700: 'hsl(217 91% 50%)'
 				},
-				// 图表专用颜色
+				// 专业图表配色
 				chart: {
 					1: 'hsl(var(--chart-1))',
 					2: 'hsl(var(--chart-2))',
@@ -109,6 +117,13 @@ export default {
 					8: 'hsl(var(--chart-8))',
 					9: 'hsl(var(--chart-9))',
 					10: 'hsl(var(--chart-10))'
+				},
+				// 文字颜色层次
+				text: {
+					heading: 'hsl(var(--text-heading))',
+					body: 'hsl(var(--text-body))',
+					secondary: 'hsl(var(--text-secondary))',
+					muted: 'hsl(var(--text-muted))'
 				}
 			},
 			borderRadius: {

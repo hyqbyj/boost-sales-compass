@@ -60,7 +60,7 @@ interface PerformanceMetricsProps {
 export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
   const [selectedPeriod, setSelectedPeriod] = useState('today');
 
-  // 彩色图表配置 - 使用鲜艳的颜色
+  // 专业数据看板配色方案
   const chartConfig = {
     target: {
       label: "目标",
@@ -72,23 +72,23 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
     },
     completed: {
       label: "已完成",
-      color: "hsl(var(--chart-3))",
+      color: "hsl(var(--chart-2))",
     },
     remaining: {
       label: "剩余",
-      color: "hsl(var(--chart-4))",
+      color: "hsl(var(--chart-5))",
     },
     yesterday: {
       label: "昨日",
-      color: "hsl(var(--chart-5))",
+      color: "hsl(var(--chart-6))",
     },
     lastWeek: {
       label: "上周",
-      color: "hsl(var(--chart-6))",
+      color: "hsl(var(--chart-7))",
     },
     lastMonth: {
       label: "上月",
-      color: "hsl(var(--chart-7))",
+      color: "hsl(var(--chart-8))",
     },
     value: {
       label: "今日",
@@ -96,18 +96,18 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
     }
   };
 
-  // 彩色调色板 - 绝对不使用黑灰色
+  // 专业配色调色板
   const COLORS = [
-    'hsl(var(--chart-1))',  // 蓝色
-    'hsl(var(--chart-2))',  // 绿色
-    'hsl(var(--chart-3))',  // 红色
-    'hsl(var(--chart-4))',  // 橙色
-    'hsl(var(--chart-5))',  // 紫色
-    'hsl(var(--chart-6))',  // 青色
-    'hsl(var(--chart-7))',  // 暖橙色
-    'hsl(var(--chart-8))',  // 淡紫色
-    'hsl(var(--chart-9))',  // 深绿色
-    'hsl(var(--chart-10))'  // 珊瑚色
+    'hsl(var(--chart-1))',  // 主蓝色
+    'hsl(var(--chart-2))',  // 成功绿色
+    'hsl(var(--chart-3))',  // 警告红色
+    'hsl(var(--chart-4))',  // 提醒橙色
+    'hsl(var(--chart-5))',  // 浅蓝色
+    'hsl(var(--chart-6))',  // 深蓝色
+    'hsl(var(--chart-7))',  // 辅助青色
+    'hsl(var(--chart-8))',  // 辅助紫色
+    'hsl(var(--chart-9))',  // 辅助绿色
+    'hsl(var(--chart-10))'  // 辅助橙色
   ];
 
   const getKpiData = () => {
@@ -331,23 +331,23 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
   const kpiData = getKpiData();
 
   const getStatusColor = (completion: number) => {
-    if (completion >= 90) return 'text-chart-2';
-    if (completion >= 70) return 'text-chart-1';
-    if (completion >= 50) return 'text-chart-4';
-    return 'text-chart-3';
+    if (completion >= 90) return 'text-success';
+    if (completion >= 70) return 'text-primary';
+    if (completion >= 50) return 'text-warning';
+    return 'text-error';
   };
 
   const getStatusBadge = (completion: number) => {
-    if (completion >= 90) return <Badge variant="default" className="bg-chart-2/10 text-chart-2 border-chart-2/20 hover:bg-chart-2/20">优秀</Badge>;
-    if (completion >= 70) return <Badge variant="default" className="bg-chart-1/10 text-chart-1 border-chart-1/20 hover:bg-chart-1/20">良好</Badge>;
-    if (completion >= 50) return <Badge variant="default" className="bg-chart-4/10 text-chart-4 border-chart-4/20 hover:bg-chart-4/20">待提升</Badge>;
-    return <Badge variant="default" className="bg-chart-3/10 text-chart-3 border-chart-3/20 hover:bg-chart-3/20">需改进</Badge>;
+    if (completion >= 90) return <Badge variant="default" className="bg-success/10 text-success border-success/20 hover:bg-success/20">优秀</Badge>;
+    if (completion >= 70) return <Badge variant="default" className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">良好</Badge>;
+    if (completion >= 50) return <Badge variant="default" className="bg-warning/10 text-warning border-warning/20 hover:bg-warning/20">待提升</Badge>;
+    return <Badge variant="default" className="bg-error/10 text-error border-error/20 hover:bg-error/20">需改进</Badge>;
   };
 
   const getTrendIcon = (trendUp: boolean) => {
     return trendUp ? 
-      <ArrowUp className="w-4 h-4 text-chart-2" /> : 
-      <ArrowDown className="w-4 h-4 text-chart-3" />;
+      <ArrowUp className="w-4 h-4 text-success" /> : 
+      <ArrowDown className="w-4 h-4 text-error" />;
   };
 
   const formatNumber = (num: number) => {
@@ -359,14 +359,14 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       {/* 时间维度选择器 */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-chart-1">业绩数据分析</h2>
-          <p className="text-chart-5 mt-1">实时监控业绩表现，洞察数据趋势</p>
+          <h2 className="text-2xl font-bold text-text-heading">业绩数据分析</h2>
+          <p className="text-text-muted mt-1">实时监控业绩表现，洞察数据趋势</p>
         </div>
         <Tabs value={selectedPeriod} onValueChange={setSelectedPeriod} className="w-auto">
-          <TabsList className="grid w-full grid-cols-3 bg-chart-1/10 border-chart-1/20">
-            <TabsTrigger value="today" className="data-[state=active]:bg-chart-1 data-[state=active]:text-white">日报表</TabsTrigger>
-            <TabsTrigger value="week" className="data-[state=active]:bg-chart-2 data-[state=active]:text-white">周报表</TabsTrigger>
-            <TabsTrigger value="month" className="data-[state=active]:bg-chart-3 data-[state=active]:text-white">月报表</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 bg-muted">
+            <TabsTrigger value="today" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">日报表</TabsTrigger>
+            <TabsTrigger value="week" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">周报表</TabsTrigger>
+            <TabsTrigger value="month" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">月报表</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
@@ -379,16 +379,16 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <Card className="relative overflow-hidden border-l-4 border-l-chart-1 bg-gradient-to-br from-chart-1/5 to-background shadow-lg shadow-chart-1/10">
+          <Card className="relative overflow-hidden border-l-4 border-l-primary bg-gradient-to-br from-primary/5 to-background">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="p-2 rounded-lg bg-chart-1/10">
-                    <Calendar className="w-4 h-4 text-chart-1" />
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Calendar className="w-4 h-4 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-chart-1">今日业绩</p>
-                    <p className="text-xs text-chart-5">vs 昨日: {kpiData.historicalComparison.yesterday.value}</p>
+                    <p className="text-sm font-medium text-text-heading">今日业绩</p>
+                    <p className="text-xs text-text-muted">vs 昨日: {kpiData.historicalComparison.yesterday.value}</p>
                   </div>
                 </div>
                 {getStatusBadge(kpiData.today.completion)}
@@ -399,24 +399,24 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
                     <div className="flex items-baseline space-x-1">
-                      <span className="text-2xl font-bold text-chart-1">{kpiData.today.current}</span>
-                      <span className="text-sm text-chart-5">/ {kpiData.today.target}</span>
+                      <span className="text-2xl font-bold text-primary">{kpiData.today.current}</span>
+                      <span className="text-sm text-text-muted">/ {kpiData.today.target}</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       {getTrendIcon(kpiData.today.trendUp)}
-                      <span className={`text-sm font-medium ${kpiData.today.trendUp ? 'text-chart-2' : 'text-chart-3'}`}>
+                      <span className={`text-sm font-medium ${kpiData.today.trendUp ? 'text-success' : 'text-error'}`}>
                         {kpiData.today.trend}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-semibold text-chart-1">{kpiData.today.completion}%</p>
-                    <p className="text-xs text-chart-5">完成率</p>
+                    <p className="text-lg font-semibold text-primary">{kpiData.today.completion}%</p>
+                    <p className="text-xs text-text-muted">完成率</p>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Progress value={kpiData.today.completion} className="h-2 bg-chart-1/20" />
-                  <div className="flex justify-between text-xs text-chart-5">
+                  <Progress value={kpiData.today.completion} className="h-2" />
+                  <div className="flex justify-between text-xs text-text-muted">
                     <span>还需: {kpiData.gapAnalysis.dailyGap}</span>
                     <span>预测: {kpiData.forecast.dailyPrediction}</span>
                   </div>
@@ -432,16 +432,16 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.1 }}
         >
-          <Card className="relative overflow-hidden border-l-4 border-l-chart-2 bg-gradient-to-br from-chart-2/5 to-background shadow-lg shadow-chart-2/10">
+          <Card className="relative overflow-hidden border-l-4 border-l-success bg-gradient-to-br from-success/5 to-background">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="p-2 rounded-lg bg-chart-2/10">
-                    <BarChart3 className="w-4 h-4 text-chart-2" />
+                  <div className="p-2 rounded-lg bg-success/10">
+                    <BarChart3 className="w-4 h-4 text-success" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-chart-2">本周业绩</p>
-                    <p className="text-xs text-chart-6">vs 上周: {kpiData.historicalComparison.lastWeek.value}</p>
+                    <p className="text-sm font-medium text-text-heading">本周业绩</p>
+                    <p className="text-xs text-text-muted">vs 上周: {kpiData.historicalComparison.lastWeek.value}</p>
                   </div>
                 </div>
                 {getStatusBadge(kpiData.weekly.completion)}
@@ -452,24 +452,24 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
                     <div className="flex items-baseline space-x-1">
-                      <span className="text-2xl font-bold text-chart-2">{kpiData.weekly.current}</span>
-                      <span className="text-sm text-chart-6">/ {kpiData.weekly.target}</span>
+                      <span className="text-2xl font-bold text-success">{kpiData.weekly.current}</span>
+                      <span className="text-sm text-text-muted">/ {kpiData.weekly.target}</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       {getTrendIcon(kpiData.weekly.trendUp)}
-                      <span className={`text-sm font-medium ${kpiData.weekly.trendUp ? 'text-chart-2' : 'text-chart-3'}`}>
+                      <span className={`text-sm font-medium ${kpiData.weekly.trendUp ? 'text-success' : 'text-error'}`}>
                         {kpiData.weekly.trend}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-semibold text-chart-2">{kpiData.weekly.completion}%</p>
-                    <p className="text-xs text-chart-6">完成率</p>
+                    <p className="text-lg font-semibold text-success">{kpiData.weekly.completion}%</p>
+                    <p className="text-xs text-text-muted">完成率</p>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Progress value={kpiData.weekly.completion} className="h-2 bg-chart-2/20" />
-                  <div className="flex justify-between text-xs text-chart-6">
+                  <Progress value={kpiData.weekly.completion} className="h-2" />
+                  <div className="flex justify-between text-xs text-text-muted">
                     <span>还需: {kpiData.gapAnalysis.weeklyGap}</span>
                     <span>预测: {kpiData.forecast.weeklyPrediction}</span>
                   </div>
@@ -485,16 +485,16 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
         >
-          <Card className="relative overflow-hidden border-l-4 border-l-chart-3 bg-gradient-to-br from-chart-3/5 to-background shadow-lg shadow-chart-3/10">
+          <Card className="relative overflow-hidden border-l-4 border-l-warning bg-gradient-to-br from-warning/5 to-background">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <div className="p-2 rounded-lg bg-chart-3/10">
-                    <Target className="w-4 h-4 text-chart-3" />
+                  <div className="p-2 rounded-lg bg-warning/10">
+                    <Target className="w-4 h-4 text-warning" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-chart-3">本月业绩</p>
-                    <p className="text-xs text-chart-7">vs 上月: {kpiData.historicalComparison.lastMonth.value}</p>
+                    <p className="text-sm font-medium text-text-heading">本月业绩</p>
+                    <p className="text-xs text-text-muted">vs 上月: {kpiData.historicalComparison.lastMonth.value}</p>
                   </div>
                 </div>
                 {getStatusBadge(kpiData.monthly.completion)}
@@ -505,24 +505,24 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
                     <div className="flex items-baseline space-x-1">
-                      <span className="text-2xl font-bold text-chart-3">{kpiData.monthly.current}</span>
-                      <span className="text-sm text-chart-7">/ {kpiData.monthly.target}</span>
+                      <span className="text-2xl font-bold text-warning">{kpiData.monthly.current}</span>
+                      <span className="text-sm text-text-muted">/ {kpiData.monthly.target}</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       {getTrendIcon(kpiData.monthly.trendUp)}
-                      <span className={`text-sm font-medium ${kpiData.monthly.trendUp ? 'text-chart-2' : 'text-chart-3'}`}>
+                      <span className={`text-sm font-medium ${kpiData.monthly.trendUp ? 'text-success' : 'text-error'}`}>
                         {kpiData.monthly.trend}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-semibold text-chart-3">{kpiData.monthly.completion.toFixed(1)}%</p>
-                    <p className="text-xs text-chart-7">完成率</p>
+                    <p className="text-lg font-semibold text-warning">{kpiData.monthly.completion.toFixed(1)}%</p>
+                    <p className="text-xs text-text-muted">完成率</p>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Progress value={kpiData.monthly.completion} className="h-2 bg-chart-3/20" />
-                  <div className="flex justify-between text-xs text-chart-7">
+                  <Progress value={kpiData.monthly.completion} className="h-2" />
+                  <div className="flex justify-between text-xs text-text-muted">
                     <span>还需: {kpiData.gapAnalysis.monthlyGap}</span>
                     <span>预测: {kpiData.forecast.monthlyPrediction}</span>
                   </div>
@@ -538,15 +538,15 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
         >
-          <Card className="relative overflow-hidden border-l-4 border-l-chart-4 bg-gradient-to-br from-chart-4/5 to-background shadow-lg shadow-chart-4/10">
+          <Card className="relative overflow-hidden border-l-4 border-l-info bg-gradient-to-br from-info/5 to-background">
             <CardHeader className="pb-2">
               <div className="flex items-center space-x-2">
-                <div className="p-2 rounded-lg bg-chart-4/10">
-                  <Activity className="w-4 h-4 text-chart-4" />
+                <div className="p-2 rounded-lg bg-info/10">
+                  <Activity className="w-4 h-4 text-info" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-chart-4">效率分析</p>
-                  <p className="text-xs text-chart-8">综合效率评估</p>
+                  <p className="text-sm font-medium text-text-heading">效率分析</p>
+                  <p className="text-xs text-text-muted">综合效率评估</p>
                 </div>
               </div>
             </CardHeader>
@@ -554,22 +554,22 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div className="text-center">
-                    <p className="text-lg font-bold text-chart-4">{kpiData.efficiencyMetrics.avgCallDuration}min</p>
-                    <p className="text-xs text-chart-8">平均通话</p>
+                    <p className="text-lg font-bold text-info">{kpiData.efficiencyMetrics.avgCallDuration}min</p>
+                    <p className="text-xs text-text-muted">平均通话</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-bold text-chart-5">{kpiData.efficiencyMetrics.conversionRate}%</p>
-                    <p className="text-xs text-chart-8">转化率</p>
+                    <p className="text-lg font-bold text-success">{kpiData.efficiencyMetrics.conversionRate}%</p>
+                    <p className="text-xs text-text-muted">转化率</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="text-center">
-                    <p className="text-lg font-bold text-chart-6">{kpiData.efficiencyMetrics.avgResponseTime}s</p>
-                    <p className="text-xs text-chart-8">响应时间</p>
+                    <p className="text-lg font-bold text-warning">{kpiData.efficiencyMetrics.avgResponseTime}s</p>
+                    <p className="text-xs text-text-muted">响应时间</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-bold text-chart-7">{kpiData.efficiencyMetrics.customerSatisfaction}</p>
-                    <p className="text-xs text-chart-8">满意度</p>
+                    <p className="text-lg font-bold text-primary">{kpiData.efficiencyMetrics.customerSatisfaction}</p>
+                    <p className="text-xs text-text-muted">满意度</p>
                   </div>
                 </div>
               </div>
@@ -581,29 +581,29 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       {/* 数据对比分析 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 历史对比趋势 */}
-        <Card className="col-span-1 shadow-lg shadow-chart-1/5 border-chart-1/20">
-          <CardHeader className="bg-gradient-to-r from-chart-1/5 to-chart-2/5">
+        <Card className="col-span-1">
+          <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <TrendingUp className="w-5 h-5 text-chart-1" />
-              <span className="text-chart-1">历史对比趋势</span>
+              <TrendingUp className="w-5 h-5 text-primary" />
+              <span className="text-text-heading">历史对比趋势</span>
             </CardTitle>
-            <CardDescription className="text-chart-5">
+            <CardDescription className="text-text-muted">
               当期与历史同期业绩对比分析
             </CardDescription>
           </CardHeader>
           <CardContent className="p-4">
             <ChartContainer config={chartConfig} className="h-80 w-full">
               <ComposedChart data={kpiData.trendData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--chart-5))" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis 
                   dataKey="time" 
-                  stroke="hsl(var(--chart-1))"
+                  stroke="hsl(var(--text-muted))"
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
                 />
                 <YAxis 
-                  stroke="hsl(var(--chart-1))"
+                  stroke="hsl(var(--text-muted))"
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
@@ -647,13 +647,13 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
         </Card>
 
         {/* 业绩分布饼图 */}
-        <Card className="col-span-1 shadow-lg shadow-chart-2/5 border-chart-2/20">
-          <CardHeader className="bg-gradient-to-r from-chart-2/5 to-chart-3/5">
+        <Card className="col-span-1">
+          <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <PieChartIcon className="w-5 h-5 text-chart-2" />
-              <span className="text-chart-2">业绩分布情况</span>
+              <PieChartIcon className="w-5 h-5 text-primary" />
+              <span className="text-text-heading">业绩分布情况</span>
             </CardTitle>
-            <CardDescription className="text-chart-6">
+            <CardDescription className="text-text-muted">
               各绩效等级人员分布
             </CardDescription>
           </CardHeader>
@@ -682,13 +682,13 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       </div>
 
       {/* KPI详细表格 */}
-      <Card className="shadow-lg shadow-chart-3/5 border-chart-3/20">
-        <CardHeader className="bg-gradient-to-r from-chart-3/5 to-chart-4/5">
+      <Card>
+        <CardHeader>
           <CardTitle className="flex items-center space-x-2">
-            <Calculator className="w-5 h-5 text-chart-3" />
-            <span className="text-chart-3">KPI详细分析</span>
+            <Calculator className="w-5 h-5 text-primary" />
+            <span className="text-text-heading">KPI详细分析</span>
           </CardTitle>
-          <CardDescription className="text-chart-7">
+          <CardDescription className="text-text-muted">
             各项关键指标详细数据与完成情况
           </CardDescription>
         </CardHeader>
@@ -696,29 +696,29 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gradient-to-r from-chart-1/10 to-chart-2/10">
-                  <th className="text-left p-3 text-chart-1 font-semibold">指标名称</th>
-                  <th className="text-center p-3 text-chart-2 font-semibold">目标</th>
-                  <th className="text-center p-3 text-chart-3 font-semibold">实际</th>
-                  <th className="text-center p-3 text-chart-4 font-semibold">完成率</th>
-                  <th className="text-center p-3 text-chart-5 font-semibold">缺口</th>
-                  <th className="text-center p-3 text-chart-6 font-semibold">日均</th>
-                  <th className="text-center p-3 text-chart-7 font-semibold">状态</th>
+                <tr className="bg-muted">
+                  <th className="text-left p-3 text-text-heading font-semibold">指标名称</th>
+                  <th className="text-center p-3 text-text-heading font-semibold">目标</th>
+                  <th className="text-center p-3 text-text-heading font-semibold">实际</th>
+                  <th className="text-center p-3 text-text-heading font-semibold">完成率</th>
+                  <th className="text-center p-3 text-text-heading font-semibold">缺口</th>
+                  <th className="text-center p-3 text-text-heading font-semibold">日均</th>
+                  <th className="text-center p-3 text-text-heading font-semibold">状态</th>
                 </tr>
               </thead>
               <tbody>
                 {kpiData.kpiDetails.map((kpi, index) => (
-                  <tr key={index} className="border-b border-chart-1/10 hover:bg-gradient-to-r hover:from-chart-1/5 hover:to-chart-2/5 transition-all duration-200">
-                    <td className="p-3 font-medium text-chart-1">{kpi.name}</td>
-                    <td className="text-center p-3 text-chart-2 font-semibold">{kpi.target}{kpi.unit}</td>
-                    <td className="text-center p-3 text-chart-3 font-semibold">{kpi.actual}{kpi.unit}</td>
+                  <tr key={index} className="border-b border-border hover:bg-muted/50 transition-all duration-200">
+                    <td className="p-3 font-medium text-text-body">{kpi.name}</td>
+                    <td className="text-center p-3 text-text-body font-semibold">{kpi.target}{kpi.unit}</td>
+                    <td className="text-center p-3 text-text-body font-semibold">{kpi.actual}{kpi.unit}</td>
                     <td className="text-center p-3">
                       <span className={`font-bold ${getStatusColor(kpi.completion)}`}>
                         {kpi.completion}%
                       </span>
                     </td>
-                    <td className="text-center p-3 text-chart-5 font-medium">{kpi.gap}{kpi.unit}</td>
-                    <td className="text-center p-3 text-chart-6 font-medium">{kpi.avgDaily}{kpi.unit}</td>
+                    <td className="text-center p-3 text-text-secondary font-medium">{kpi.gap}{kpi.unit}</td>
+                    <td className="text-center p-3 text-text-secondary font-medium">{kpi.avgDaily}{kpi.unit}</td>
                     <td className="text-center p-3">
                       {getStatusBadge(kpi.completion)}
                     </td>
@@ -731,25 +731,25 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       </Card>
 
       {/* 能力雷达图 */}
-      <Card className="shadow-lg shadow-chart-4/5 border-chart-4/20">
-        <CardHeader className="bg-gradient-to-r from-chart-4/5 to-chart-5/5">
+      <Card>
+        <CardHeader>
           <CardTitle className="flex items-center space-x-2">
-            <Target className="w-5 h-5 text-chart-4" />
-            <span className="text-chart-4">综合能力评估</span>
+            <Target className="w-5 h-5 text-primary" />
+            <span className="text-text-heading">综合能力评估</span>
           </CardTitle>
-          <CardDescription className="text-chart-8">
+          <CardDescription className="text-text-muted">
             多维度能力雷达图分析
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4">
           <ChartContainer config={chartConfig} className="h-80 w-full">
             <RadarChart data={kpiData.radarData}>
-              <PolarGrid stroke="hsl(var(--chart-5))" />
-              <PolarAngleAxis dataKey="indicator" tick={{ fill: 'hsl(var(--chart-1))', fontSize: 12 }} />
+              <PolarGrid stroke="hsl(var(--border))" />
+              <PolarAngleAxis dataKey="indicator" tick={{ fill: 'hsl(var(--text-body))', fontSize: 12 }} />
               <PolarRadiusAxis 
                 angle={30} 
                 domain={[0, 100]} 
-                tick={{ fill: 'hsl(var(--chart-2))', fontSize: 10 }}
+                tick={{ fill: 'hsl(var(--text-muted))', fontSize: 10 }}
               />
               <Radar
                 name="当前能力"
