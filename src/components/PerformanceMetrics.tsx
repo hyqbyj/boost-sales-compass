@@ -1,12 +1,11 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { TrendingUp, TrendingDown, Target, Calendar, BarChart3, PieChart, Activity } from 'lucide-react';
+import { TrendingUp, TrendingDown, Target, Calendar, BarChart3, PieChart as PieChartIcon, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, ResponsiveContainer, PieChart as RechartsPieChart, Cell, Area, AreaChart } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, ResponsiveContainer, PieChart, Cell, Pie, Area, AreaChart } from 'recharts';
 
 interface PerformanceMetricsProps {
   department: {
@@ -232,15 +231,15 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           <Card className="border-2">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg font-medium flex items-center">
-                <PieChart className="w-5 h-5 mr-2 text-blue-600" />
+                <PieChartIcon className="w-5 h-5 mr-2 text-blue-600" />
                 完成分布
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-center h-32">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RechartsPieChart>
-                    <RechartsPieChart.Pie
+                  <PieChart>
+                    <Pie
                       data={pieData}
                       cx="50%"
                       cy="50%"
@@ -251,8 +250,8 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                       {pieData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
-                    </RechartsPieChart.Pie>
-                  </RechartsPieChart>
+                    </Pie>
+                  </PieChart>
                 </ResponsiveContainer>
               </div>
               <div className="text-center text-sm text-muted-foreground mt-2">
