@@ -15,7 +15,6 @@ import {
   Calendar,
   Award,
   BarChart3,
-  PieChart,
   LineChart
 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -28,10 +27,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
-  PieChart as RechartsPieChart,
-  Cell,
-  Pie
+  ResponsiveContainer
 } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
@@ -55,13 +51,6 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
     { time: '13:00', calls: 8, efficiency: 60, target: 10 },
     { time: '14:00', calls: 18, efficiency: 88, target: 20 },
     { time: '15:00', calls: 22, efficiency: 92, target: 25 }
-  ];
-
-  const performanceDistribution = [
-    { name: '优秀(70-89%)', value: 45, color: '#22c55e' },
-    { name: '良好(90%+)', value: 15, color: '#3b82f6' },
-    { name: '一般(50-69%)', value: 30, color: '#f59e0b' },
-    { name: '待改进(<50%)', value: 10, color: '#ef4444' }
   ];
 
   const kpiData = [
@@ -110,7 +99,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       transition={{ duration: 0.5 }}
       className="space-y-6"
     >
-      {/* Header - removed report controls */}
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">业绩数据分析</h2>
@@ -173,129 +162,77 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
         ))}
       </div>
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-2 gap-6">
-        {/* Historical Trend */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <LineChart className="w-5 h-5 text-blue-600" />
-              <span>历史对比趋势</span>
-            </CardTitle>
-            <CardDescription>
-              当日与历史同期业绩对比分析
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer
-              config={{
-                calls: {
-                  label: "实际业绩",
-                  color: "hsl(var(--chart-1))",
-                },
-                target: {
-                  label: "目标业绩",
-                  color: "hsl(var(--chart-2))",
-                },
-                efficiency: {
-                  label: "效率指标",
-                  color: "hsl(var(--chart-3))",
-                },
-              }}
-              className="h-[300px]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={trendData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis 
-                    dataKey="time" 
-                    stroke="#888888"
-                    fontSize={12}
-                  />
-                  <YAxis 
-                    stroke="#888888"
-                    fontSize={12}
-                  />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Legend />
-                  <Bar 
-                    dataKey="calls" 
-                    fill="var(--color-calls)"
-                    name="实际业绩"
-                    radius={[2, 2, 0, 0]}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="target" 
-                    stroke="var(--color-target)"
-                    strokeWidth={2}
-                    name="目标业绩"
-                    dot={{ r: 4 }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="efficiency" 
-                    stroke="var(--color-efficiency)"
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                    name="效率指标"
-                    dot={{ r: 4 }}
-                  />
-                </ComposedChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-
-        {/* Performance Distribution */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <PieChart className="w-5 h-5 text-blue-600" />
-              <span>业绩分布情况</span>
-            </CardTitle>
-            <CardDescription>
-              各绩效区间人员分布
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <RechartsPieChart>
-                  <Pie
-                    data={performanceDistribution}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={100}
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
-                    {performanceDistribution.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </RechartsPieChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="mt-4 space-y-2">
-              {performanceDistribution.map((item, index) => (
-                <div key={index} className="flex items-center justify-between text-sm">
-                  <div className="flex items-center space-x-2">
-                    <div 
-                      className="w-3 h-3 rounded-full" 
-                      style={{ backgroundColor: item.color }}
-                    />
-                    <span className="text-gray-600">{item.name}</span>
-                  </div>
-                  <span className="font-medium">{item.value}%</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* Historical Trend - Full Width */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <LineChart className="w-5 h-5 text-blue-600" />
+            <span>历史对比趋势</span>
+          </CardTitle>
+          <CardDescription>
+            当日与历史同期业绩对比分析
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer
+            config={{
+              calls: {
+                label: "实际业绩",
+                color: "hsl(var(--chart-1))",
+              },
+              target: {
+                label: "目标业绩",
+                color: "hsl(var(--chart-2))",
+              },
+              efficiency: {
+                label: "效率指标",
+                color: "hsl(var(--chart-3))",
+              },
+            }}
+            className="h-[400px]"
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart data={trendData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <XAxis 
+                  dataKey="time" 
+                  stroke="#888888"
+                  fontSize={12}
+                />
+                <YAxis 
+                  stroke="#888888"
+                  fontSize={12}
+                />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Legend />
+                <Bar 
+                  dataKey="calls" 
+                  fill="var(--color-calls)"
+                  name="实际业绩"
+                  radius={[2, 2, 0, 0]}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="target" 
+                  stroke="var(--color-target)"
+                  strokeWidth={2}
+                  name="目标业绩"
+                  dot={{ r: 4 }}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="efficiency" 
+                  stroke="var(--color-efficiency)"
+                  strokeWidth={2}
+                  strokeDasharray="5 5"
+                  name="效率指标"
+                  dot={{ r: 4 }}
+                />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </CardContent>
+      </Card>
 
       {/* KPI Detail Analysis */}
       <Card>

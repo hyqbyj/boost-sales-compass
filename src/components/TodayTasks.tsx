@@ -34,7 +34,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   const [learningModalOpen, setLearningModalOpen] = useState(false);
   const [selectedLearningMaterial, setSelectedLearningMaterial] = useState<any>(null);
 
-  // 模拟客户数据 - 更丰富的数据结构
+  // 模拟客户数据 - 四个不同的客户背景
   const clients = [
     {
       id: '1',
@@ -45,12 +45,13 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       lastContactTime: '昨日 14:30',
       stage: '意向阶段',
       priority: 'high',
-      tags: ['在意低价', '意向阶段', '提及竞品', '决策权限', '预算充足'],
-      concerns: ['价格敏感', '功能对比', 'ROI关注'],
+      tags: ['价格敏感', '意向强烈', '决策权限', '预算充足', '对比竞品'],
+      concerns: ['成本控制', 'ROI分析', '实施周期'],
       recordUrl: '#',
-      suggestion: '基于客户价格敏感特点，建议强调产品ROI和分期付款方案。重点介绍相比竞品的成本优势，提供详细的投资回报分析报告。',
-      nextAction: '准备ROI分析材料，安排产品演示',
-      successRate: 78
+      suggestion: '客户对价格高度敏感，建议重点展示产品的成本效益优势。准备详细的ROI分析报告，强调长期收益。可以提供分期付款方案，降低初期投资压力。重点对比竞品的性价比优势。',
+      nextAction: '准备成本效益分析材料，制定分期方案',
+      successRate: 78,
+      analysisBackground: '医疗行业决策者，注重成本控制和投资回报，具有丰富的采购经验，倾向于理性决策。'
     },
     {
       id: '2', 
@@ -61,12 +62,13 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       lastContactTime: '昨日 16:45',
       stage: '潜在阶段',
       priority: 'high',
-      tags: ['决策者', '潜在阶段', '关注效果', '技术导向', '谨慎型'],
-      concerns: ['技术稳定性', '实施周期', '培训成本'],
+      tags: ['技术导向', '谨慎决策', '关注稳定性', '团队决策', '质量优先'],
+      concerns: ['技术可靠性', '系统稳定性', '技术支持'],
       recordUrl: '#',
-      suggestion: '客户为决策层且技术导向，建议准备详细的技术方案和成功案例。重点展示系统稳定性和技术优势，提供同行业标杆客户案例。',
-      nextAction: '发送技术白皮书，预约技术交流',
-      successRate: 85
+      suggestion: '客户为技术导向型决策者，高度重视产品的技术实力和稳定性。建议安排技术专家进行深度交流，提供详细的技术白皮书和架构说明。重点展示系统的稳定性测试报告和技术支持体系。',
+      nextAction: '安排技术专家会议，准备技术文档',
+      successRate: 85,
+      analysisBackground: '院长级别决策者，技术背景深厚，注重产品的技术先进性和长期稳定性，决策过程较为严谨。'
     },
     {
       id: '3',
@@ -77,12 +79,13 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       lastContactTime: '昨日 09:15',
       stage: '意向阶段',
       priority: 'urgent',
-      tags: ['预算充足', '意向阶段', '急需解决方案', '时间紧迫', '已有初步意向'],
-      concerns: ['实施速度', '服务保障', '合同条款'],
+      tags: ['需求紧急', '时间敏感', '预算明确', '快速决策', '执行力强'],
+      concerns: ['实施速度', '上线时间', '培训周期'],
       recordUrl: '#',
-      suggestion: '客户需求紧急且预算充足，建议立即安排产品演示和技术对接。准备快速实施方案和专属服务承诺，可适当让利换取快速成交。',
-      nextAction: '紧急安排产品演示，准备合同草案',
-      successRate: 92
+      suggestion: '客户需求非常紧急，时间是关键因素。建议立即提供快速实施方案，承诺加急服务。准备专门的实施团队和培训计划，确保快速上线。可以适当调整价格策略以换取时间优势。',
+      nextAction: '制定快速实施方案，安排专项团队',
+      successRate: 92,
+      analysisBackground: '中层管理者，执行导向，面临紧急业务需求压力，需要快速解决方案，决策效率高。'
     },
     {
       id: '4',
@@ -93,12 +96,13 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       lastContactTime: '昨日 11:20',
       stage: '兴趣阶段',
       priority: 'medium',
-      tags: ['初步了解', '兴趣阶段', '多方比较', '流程导向'],
-      concerns: ['产品功能', '服务质量', '价格水平'],
+      tags: ['初步了解', '多方比较', '流程规范', '审批严格', '风险规避'],
+      concerns: ['合规性', '审批流程', '风险控制'],
       recordUrl: '#',
-      suggestion: '客户处于初步了解阶段，建议先建立信任关系。发送基础产品介绍和客户案例，重点展示服务优势和产品稳定性。',
-      nextAction: '发送产品手册，安排初步交流',
-      successRate: 65
+      suggestion: '客户处于初步了解阶段，注重流程规范和风险控制。建议先建立信任关系，提供详细的合规性文件和资质证明。重点介绍服务流程的标准化和风险控制措施，帮助客户理解审批要点。',
+      nextAction: '准备合规资料，建立信任关系',
+      successRate: 65,
+      analysisBackground: '部门主管级别，严格按照制度流程执行，注重合规性和风险控制，决策需要上级审批。'
     }
   ];
 
@@ -447,7 +451,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
         </CardContent>
       </Card>
 
-      {/* Fixed modal props - removed onMaterialDetailClick and onLearningClick from CommunicationDetailModal */}
+      {/* Modals */}
       <CommunicationDetailModal 
         open={communicationModalOpen}
         onOpenChange={setCommunicationModalOpen}
