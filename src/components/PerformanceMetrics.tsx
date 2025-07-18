@@ -85,15 +85,6 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       change: '-3%',
       trend: 'down',
       description: 'vs 上月 720'
-    },
-    {
-      name: '效率分析',
-      current: 4.2,
-      target: 5.0,
-      unit: 'min',
-      change: '+2.5%',
-      trend: 'up',
-      description: '平均通话时长'
     }
   ];
 
@@ -132,59 +123,62 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
         </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-4 gap-4">
-        {kpiData.map((kpi, index) => (
-          <motion.div
-            key={kpi.name}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
-          >
-            <Card className="relative overflow-hidden">
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm font-medium text-gray-600">
-                    {kpi.name}
-                  </CardTitle>
-                  <Badge
-                    variant={kpi.trend === 'up' ? 'default' : 'destructive'}
-                    className="text-xs"
-                  >
-                    {kpi.change}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-2xl font-bold text-gray-900">
-                      {kpi.current}
-                    </span>
-                    <span className="text-lg text-gray-500">/{kpi.target}</span>
-                    <span className="text-sm text-gray-500">{kpi.unit}</span>
+      {/* KPI Cards - Centered 3 columns */}
+      <div className="flex justify-center">
+        <div className="grid grid-cols-3 gap-6 max-w-4xl">
+          {kpiData.map((kpi, index) => (
+            <motion.div
+              key={kpi.name}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+              className="w-80"
+            >
+              <Card className="relative overflow-hidden">
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium text-gray-600">
+                      {kpi.name}
+                    </CardTitle>
+                    <Badge
+                      variant={kpi.trend === 'up' ? 'default' : 'destructive'}
+                      className="text-xs"
+                    >
+                      {kpi.change}
+                    </Badge>
                   </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between text-xs text-gray-500">
-                      <span>达成率</span>
-                      <span>{Math.round((kpi.current / kpi.target) * 100)}%</span>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-2xl font-bold text-gray-900">
+                        {kpi.current}
+                      </span>
+                      <span className="text-lg text-gray-500">/{kpi.target}</span>
+                      <span className="text-sm text-gray-500">{kpi.unit}</span>
                     </div>
-                    <Progress 
-                      value={(kpi.current / kpi.target) * 100} 
-                      className="h-2" 
-                    />
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>达成率</span>
+                        <span>{Math.round((kpi.current / kpi.target) * 100)}%</span>
+                      </div>
+                      <Progress 
+                        value={(kpi.current / kpi.target) * 100} 
+                        className="h-2" 
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500">{kpi.description}</p>
                   </div>
-                  <p className="text-xs text-gray-500">{kpi.description}</p>
-                </div>
-              </CardContent>
-              <div
-                className={`absolute top-0 right-0 w-1 h-full ${
-                  kpi.trend === 'up' ? 'bg-green-500' : 'bg-red-500'
-                }`}
-              />
-            </Card>
-          </motion.div>
-        ))}
+                </CardContent>
+                <div
+                  className={`absolute top-0 right-0 w-1 h-full ${
+                    kpi.trend === 'up' ? 'bg-green-500' : 'bg-red-500'
+                  }`}
+                />
+              </Card>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* Historical Trend - Full Width */}
