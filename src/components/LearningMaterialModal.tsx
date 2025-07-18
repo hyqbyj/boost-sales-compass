@@ -1,3 +1,4 @@
+
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -14,17 +15,21 @@ interface LearningMaterialModalProps {
     duration?: string;
     progress?: number;
     type: 'continue' | 'start';
-  };
+  } | null;
 }
 
 export const LearningMaterialModal = ({ open, onOpenChange, material }: LearningMaterialModalProps) => {
+  if (!material) {
+    return null;
+  }
+
   const learningContent = {
     '客户异议处理技巧训练': {
       chapters: [
-        { title: '常见异议类型识别', duration: '8分钟', completed: true },
-        { title: '价格异议应对策略', duration: '12分钟', completed: true },
+        { title: '常见异议类型识别', duration: '8分钟', completed: true, current: false },
+        { title: '价格异议应对策略', duration: '12分钟', completed: true, current: false },
         { title: '竞品对比技巧', duration: '10分钟', completed: false, current: true },
-        { title: '异议转化机会', duration: '15分钟', completed: false }
+        { title: '异议转化机会', duration: '15分钟', completed: false, current: false }
       ],
       totalDuration: '45分钟',
       difficulty: '中级',
@@ -35,9 +40,9 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
     '产品功能深度解析': {
       chapters: [
         { title: 'AI智能分析功能', duration: '15分钟', completed: false, current: true },
-        { title: '数据dashboard应用', duration: '20分钟', completed: false },
-        { title: '客户管理最佳实践', duration: '18分钟', completed: false },
-        { title: '系统集成方案', duration: '12分钟', completed: false }
+        { title: '数据dashboard应用', duration: '20分钟', completed: false, current: false },
+        { title: '客户管理最佳实践', duration: '18分钟', completed: false, current: false },
+        { title: '系统集成方案', duration: '12分钟', completed: false, current: false }
       ],
       totalDuration: '1小时5分钟',
       difficulty: '高级',
@@ -47,10 +52,10 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
     },
     '销售话术模拟训练': {
       chapters: [
-        { title: '开场白标准化训练', duration: '10分钟', completed: true },
-        { title: '产品介绍话术', duration: '15分钟', completed: true },
-        { title: '异议处理实战', duration: '20分钟', completed: true },
-        { title: '成交技巧训练', duration: '18分钟', completed: true }
+        { title: '开场白标准化训练', duration: '10分钟', completed: true, current: false },
+        { title: '产品介绍话术', duration: '15分钟', completed: true, current: false },
+        { title: '异议处理实战', duration: '20分钟', completed: true, current: false },
+        { title: '成交技巧训练', duration: '18分钟', completed: true, current: false }
       ],
       totalDuration: '1小时3分钟',
       difficulty: '初级',
@@ -61,9 +66,9 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
     '高效电话开场白技巧': {
       chapters: [
         { title: '电话开场的重要性', duration: '5分钟', completed: false, current: true },
-        { title: '开场白话术模板', duration: '10分钟', completed: false },
-        { title: '声音语调训练', duration: '8分钟', completed: false },
-        { title: '实战模拟练习', duration: '12分钟', completed: false }
+        { title: '开场白话术模板', duration: '10分钟', completed: false, current: false },
+        { title: '声音语调训练', duration: '8分钟', completed: false, current: false },
+        { title: '实战模拟练习', duration: '12分钟', completed: false, current: false }
       ],
       totalDuration: '35分钟',
       difficulty: '初级',
@@ -74,9 +79,9 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
     '客户需求挖掘方法': {
       chapters: [
         { title: 'SPIN销售技巧', duration: '20分钟', completed: false, current: true },
-        { title: '提问技巧训练', duration: '15分钟', completed: false },
-        { title: '客户心理分析', duration: '18分钟', completed: false },
-        { title: '需求确认方法', duration: '12分钟', completed: false }
+        { title: '提问技巧训练', duration: '15分钟', completed: false, current: false },
+        { title: '客户心理分析', duration: '18分钟', completed: false, current: false },
+        { title: '需求确认方法', duration: '12分钟', completed: false, current: false }
       ],
       totalDuration: '1小时5分钟',
       difficulty: '中级',
@@ -86,7 +91,7 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
     }
   };
 
-  const currentContent = learningContent[material?.title as keyof typeof learningContent] || {
+  const currentContent = learningContent[material.title as keyof typeof learningContent] || {
     chapters: [],
     totalDuration: '0分钟',
     difficulty: '初级',
@@ -104,10 +109,10 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
             <BookOpen className="w-5 h-5 text-blue-600" />
-            <span>{material?.title}</span>
+            <span>{material.title}</span>
           </DialogTitle>
           <DialogDescription>
-            {material?.type === 'continue' ? '继续学习进度' : '开始新的学习计划'}
+            {material.type === 'continue' ? '继续学习进度' : '开始新的学习计划'}
           </DialogDescription>
         </DialogHeader>
 
@@ -141,7 +146,7 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
           </Card>
 
           {/* 学习进度 */}
-          {material?.type === 'continue' && (
+          {material.type === 'continue' && (
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">学习进度</CardTitle>
@@ -202,7 +207,7 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
                         ) : chapter.current ? (
                           <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
                             <Play className="w-3 h-3 mr-1" />
-                            {material?.type === 'continue' ? '继续学习' : '开始学习'}
+                            {material.type === 'continue' ? '继续学习' : '开始学习'}
                           </Button>
                         ) : (
                           <Badge variant="outline" className="text-gray-500">
@@ -232,7 +237,7 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
               </Button>
               <Button className="bg-blue-600 hover:bg-blue-700">
                 <Play className="w-4 h-4 mr-2" />
-                {material?.type === 'continue' ? '继续学习' : '开始学习'}
+                {material.type === 'continue' ? '继续学习' : '开始学习'}
               </Button>
             </div>
           </div>

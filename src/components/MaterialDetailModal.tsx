@@ -13,10 +13,14 @@ interface MaterialDetailModalProps {
     title: string;
     description: string;
     type: string;
-  };
+  } | null;
 }
 
 export const MaterialDetailModal = ({ open, onOpenChange, material }: MaterialDetailModalProps) => {
+  if (!material) {
+    return null;
+  }
+
   const materialDetails = {
     '同行业成功案例': {
       content: `# 北京协和医院智能CRM系统实施案例
