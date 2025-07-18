@@ -65,125 +65,131 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2">
-            <MessageSquare className="w-5 h-5 text-blue-600" />
-            <span>{client.name} - 沟通建议详情</span>
-          </DialogTitle>
-        </DialogHeader>
+      <DialogContent className="max-w-4xl max-h-[80vh] p-0 flex flex-col">
+        {/* 固定标题区域 */}
+        <div className="sticky top-0 z-10 bg-white border-b p-6 pb-4">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              <MessageSquare className="w-5 h-5 text-blue-600" />
+              <span>{client.name} - 沟通建议详情</span>
+            </DialogTitle>
+          </DialogHeader>
+        </div>
 
-        <div className="space-y-6">
-          {/* 客户概况 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm flex items-center space-x-2">
-                <Target className="w-4 h-4" />
-                <span>客户概况</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">联系人</p>
-                  <p className="font-medium">{client.contact}</p>
+        {/* 可滚动内容区域 */}
+        <div className="flex-1 overflow-y-auto p-6 pt-2">
+          <div className="space-y-6">
+            {/* 客户概况 */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center space-x-2">
+                  <Target className="w-4 h-4" />
+                  <span>客户概况</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">联系人</p>
+                    <p className="font-medium">{client.contact}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">客户阶段</p>
+                    <Badge variant="outline">{client.stage}</Badge>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">客户阶段</p>
-                  <Badge variant="outline">{client.stage}</Badge>
+                <div className="mt-4">
+                  <p className="text-sm text-gray-600 mb-2">关注点</p>
+                  <div className="flex flex-wrap gap-1">
+                    {client.concerns.map((concern, index) => (
+                      <Badge key={index} variant="secondary" className="text-xs">
+                        {concern}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4">
-                <p className="text-sm text-gray-600 mb-2">关注点</p>
-                <div className="flex flex-wrap gap-1">
-                  {client.concerns.map((concern, index) => (
-                    <Badge key={index} variant="secondary" className="text-xs">
-                      {concern}
-                    </Badge>
-                  ))}
+              </CardContent>
+            </Card>
+
+            {/* 开场问候 */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center space-x-2">
+                  <Lightbulb className="w-4 h-4" />
+                  <span>{communicationDetails.greeting.title}</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="bg-blue-50 p-3 rounded-lg mb-3">
+                  <p className="text-sm">{communicationDetails.greeting.content}</p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+                <p className="text-xs text-gray-600">{communicationDetails.greeting.tips}</p>
+              </CardContent>
+            </Card>
 
-          {/* 开场问候 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm flex items-center space-x-2">
-                <Lightbulb className="w-4 h-4" />
-                <span>{communicationDetails.greeting.title}</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-blue-50 p-3 rounded-lg mb-3">
-                <p className="text-sm">{communicationDetails.greeting.content}</p>
-              </div>
-              <p className="text-xs text-gray-600">{communicationDetails.greeting.tips}</p>
-            </CardContent>
-          </Card>
+            {/* 产品介绍重点 */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center space-x-2">
+                  <BookOpen className="w-4 h-4" />
+                  <span>{communicationDetails.introduction.title}</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="bg-green-50 p-3 rounded-lg mb-3">
+                  <pre className="text-sm whitespace-pre-wrap">{communicationDetails.introduction.content}</pre>
+                </div>
+                <p className="text-xs text-gray-600">{communicationDetails.introduction.tips}</p>
+              </CardContent>
+            </Card>
 
-          {/* 产品介绍重点 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm flex items-center space-x-2">
-                <BookOpen className="w-4 h-4" />
-                <span>{communicationDetails.introduction.title}</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-green-50 p-3 rounded-lg mb-3">
-                <pre className="text-sm whitespace-pre-wrap">{communicationDetails.introduction.content}</pre>
-              </div>
-              <p className="text-xs text-gray-600">{communicationDetails.introduction.tips}</p>
-            </CardContent>
-          </Card>
+            {/* 销冠实例 */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center space-x-2">
+                  <Users className="w-4 h-4" />
+                  <span>{communicationDetails.salesExample.title}</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="bg-yellow-50 p-3 rounded-lg mb-3">
+                  <pre className="text-sm whitespace-pre-wrap">{communicationDetails.salesExample.content}</pre>
+                </div>
+                <div className="text-xs text-green-600">
+                  <strong>结果：</strong>{communicationDetails.salesExample.result}
+                </div>
+              </CardContent>
+            </Card>
 
-          {/* 销冠实例 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm flex items-center space-x-2">
-                <Users className="w-4 h-4" />
-                <span>{communicationDetails.salesExample.title}</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-yellow-50 p-3 rounded-lg mb-3">
-                <pre className="text-sm whitespace-pre-wrap">{communicationDetails.salesExample.content}</pre>
-              </div>
-              <div className="text-xs text-green-600">
-                <strong>结果：</strong>{communicationDetails.salesExample.result}
-              </div>
-            </CardContent>
-          </Card>
+            {/* 个性化模板 */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center justify-between">
+                  <span className="flex items-center space-x-2">
+                    <Copy className="w-4 h-4" />
+                    <span>{communicationDetails.template.title}</span>
+                  </span>
+                  <Button variant="outline" size="sm">复制模板</Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="bg-purple-50 p-4 rounded-lg mb-3">
+                  <pre className="text-sm whitespace-pre-wrap">{communicationDetails.template.content}</pre>
+                </div>
+                <p className="text-xs text-gray-600">{communicationDetails.template.style}</p>
+              </CardContent>
+            </Card>
 
-          {/* 个性化模板 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm flex items-center justify-between">
-                <span className="flex items-center space-x-2">
-                  <Copy className="w-4 h-4" />
-                  <span>{communicationDetails.template.title}</span>
-                </span>
-                <Button variant="outline" size="sm">复制模板</Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-purple-50 p-4 rounded-lg mb-3">
-                <pre className="text-sm whitespace-pre-wrap">{communicationDetails.template.content}</pre>
-              </div>
-              <p className="text-xs text-gray-600">{communicationDetails.template.style}</p>
-            </CardContent>
-          </Card>
-
-          {/* 下步行动 */}
-          <Card className="border-l-4 border-l-blue-500">
-            <CardHeader>
-              <CardTitle className="text-sm">下步行动计划</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm font-medium text-blue-700">{client.nextAction}</p>
-            </CardContent>
-          </Card>
+            {/* 下步行动 */}
+            <Card className="border-l-4 border-l-blue-500">
+              <CardHeader>
+                <CardTitle className="text-sm">下步行动计划</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm font-medium text-blue-700">{client.nextAction}</p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
