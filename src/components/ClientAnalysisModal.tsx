@@ -28,6 +28,22 @@ export const ClientAnalysisModal = ({ open, onOpenChange, client }: ClientAnalys
           </DialogDescription>
         </DialogHeader>
 
+         <DialogClose className="
+            absolute
+            right-6 top-6
+            p-1 rounded-sm
+            opacity-70
+            transition-opacity
+            hover:opacity-100
+            hover:bg-gray-100
+            focus:outline-none
+          ">
+            <X className="h-5 w-5 text-gray-600" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+        </div>
+      
+
         <ScrollArea className="flex-1">
           <div className="space-y-6 pr-4">
             {/* 客户基本信息 */}
@@ -110,7 +126,12 @@ export const ClientAnalysisModal = ({ open, onOpenChange, client }: ClientAnalys
             </Card>
           </div>
         </ScrollArea>
-        
+
+        <div className="flex justify-end space-x-2 pt-4">
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            关闭
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );
