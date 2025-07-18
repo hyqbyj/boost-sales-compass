@@ -62,60 +62,61 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[80vh] p-0 flex flex-col">
+      {/* 修改弹窗容器样式使其更加居中均匀 */}
+      <DialogContent className="max-w-4xl max-h-[85vh] p-0 flex flex-col my-8">
         <div className="sticky top-0 z-50 bg-white border-b p-6 pb-4 relative">
           <DialogHeader>
-            <DialogTitle className="flex items-center space-x-2">
+            <DialogTitle className="flex items-center space-x-2 justify-center">
               <MessageSquare className="w-5 h-5 text-blue-600" />
-              <span>{client.name} - 沟通建议详情</span>
+              <span className="text-xl font-semibold">{client.name} - 沟通建议详情</span>
             </DialogTitle>
           </DialogHeader>
           
-          {/* 移除蓝色边框的打叉控件 */}
           <DialogClose className="
             absolute
-            right-4 top-4
+            right-6 top-6
             p-1 rounded-sm
             opacity-70
             transition-opacity
             hover:opacity-100
-            hover:bg-gray-100  // 改为中性色悬停背景
-            focus:outline-none // 移除焦点样式
+            hover:bg-gray-100
+            focus:outline-none
           ">
-            <X className="h-4 w-4" />
+            <X className="h-5 w-5" />
             <span className="sr-only">Close</span>
           </DialogClose>
         </div>
 
-        {/* 可滚动内容区域 */}
-        <div className="flex-1 overflow-y-auto p-6 pt-2">
-          <div className="space-y-6">
-            {/* 客户概况 */}
-            <Card className="border-0 shadow-none">
-              <CardHeader className="p-3">
-                <CardTitle className="text-sm flex items-center space-x-2">
-                  <Target className="w-4 h-4" />
+        {/* 修改内容区域使其更加居中均匀 */}
+        <div className="flex-1 overflow-y-auto px-8 py-6 bg-blue-50">
+          <div className="space-y-6 max-w-3xl mx-auto">
+            {/* 客户概况 - 修改为蓝底格式 */}
+            <Card className="bg-blue-100 border border-blue-200">
+              <CardHeader className="p-4">
+                <CardTitle className="text-base flex items-center space-x-2 text-blue-800">
+                  <Target className="w-4 h-4 text-blue-600" />
                   <span>客户概况</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 pb-4 px-3">
+              <CardContent className="pt-0 pb-4 px-4 bg-blue-50">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">联系人</p>
-                    <p className="font-medium">{client.contact}</p>
+                    <p className="text-sm text-blue-700 mb-1">联系人</p>
+                    <p className="font-medium text-blue-900">{client.contact}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">客户阶段</p>
-                    <Badge variant="outline">{client.stage}</Badge>
+                    <p className="text-sm text-blue-700 mb-1">客户阶段</p>
+                    <Badge variant="outline" className="bg-blue-200 text-blue-800">
+                      {client.stage}
+                    </Badge>
                   </div>
                   <div className="col-span-2">
-                    <p className="text-sm text-gray-600 mb-2">关注点</p>
+                    <p className="text-sm text-blue-700 mb-2">关注点</p>
                     <div className="flex flex-wrap gap-1">
                       {client.concerns.map((concern, index) => (
                         <Badge 
                           key={index} 
-                          variant="secondary" 
-                          className="text-xs bg-gray-100"
+                          className="text-xs bg-blue-200 text-blue-800"
                         >
                           {concern}
                         </Badge>
@@ -126,82 +127,86 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
               </CardContent>
             </Card>
 
-            {/* 开场问候 */}
-            <Card className="border-0 shadow-none">
-              <CardHeader className="p-3">
-                <CardTitle className="text-sm flex items-center space-x-2">
-                  <Lightbulb className="w-4 h-4" />
+            {/* 开场问候 - 修改为蓝底格式 */}
+            <Card className="bg-blue-100 border border-blue-200">
+              <CardHeader className="p-4">
+                <CardTitle className="text-base flex items-center space-x-2 text-blue-800">
+                  <Lightbulb className="w-4 h-4 text-blue-600" />
                   <span>{communicationDetails.greeting.title}</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 pb-4 px-3">
-                <div className="bg-blue-50 p-4 rounded-lg mb-2">
-                  <p className="text-sm">{communicationDetails.greeting.content}</p>
+              <CardContent className="pt-0 pb-4 px-4 bg-blue-50">
+                <div className="bg-blue-200 p-4 rounded-lg mb-2">
+                  <p className="text-sm text-blue-900">{communicationDetails.greeting.content}</p>
                 </div>
-                <p className="text-xs text-gray-600">{communicationDetails.greeting.tips}</p>
+                <p className="text-xs text-blue-600 italic">{communicationDetails.greeting.tips}</p>
               </CardContent>
             </Card>
 
-            {/* 产品介绍重点 */}
-            <Card className="border border-gray-200 shadow-none">
-              <CardHeader className="p-3">
-                <CardTitle className="text-sm flex items-center space-x-2">
-                  <BookOpen className="w-4 h-4" />
+            {/* 产品介绍重点 - 修改为蓝底格式 */}
+            <Card className="bg-blue-100 border border-blue-200">
+              <CardHeader className="p-4">
+                <CardTitle className="text-base flex items-center space-x-2 text-blue-800">
+                  <BookOpen className="w-4 h-4 text-blue-600" />
                   <span>{communicationDetails.introduction.title}</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 pb-4 px-3">
-                <div className="bg-white p-4 rounded-lg border border-gray-100 mb-2">
-                  <pre className="text-sm whitespace-pre-wrap">{communicationDetails.introduction.content}</pre>
+              <CardContent className="pt-0 pb-4 px-4 bg-blue-50">
+                <div className="p-4 rounded-lg mb-2 bg-blue-200">
+                  <pre className="text-sm whitespace-pre-wrap text-blue-900">{communicationDetails.introduction.content}</pre>
                 </div>
-                <p className="text-xs text-gray-600">{communicationDetails.introduction.tips}</p>
+                <p className="text-xs text-blue-600 italic">{communicationDetails.introduction.tips}</p>
               </CardContent>
             </Card>
 
-            {/* 销冠实例 */}
-            <Card className="border border-gray-200 shadow-none">
-              <CardHeader className="p-3">
-                <CardTitle className="text-sm flex items-center space-x-2">
-                  <Users className="w-4 h-4" />
+            {/* 销冠实例 - 修改为蓝底格式 */}
+            <Card className="bg-blue-100 border border-blue-200">
+              <CardHeader className="p-4">
+                <CardTitle className="text-base flex items-center space-x-2 text-blue-800">
+                  <Users className="w-4 h-4 text-blue-600" />
                   <span>{communicationDetails.salesExample.title}</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 pb-4 px-3">
-                <div className="bg-white p-4 rounded-lg border border-gray-100 mb-2">
-                  <pre className="text-sm whitespace-pre-wrap">{communicationDetails.salesExample.content}</pre>
+              <CardContent className="pt-0 pb-4 px-4 bg-blue-50">
+                <div className="p-4 rounded-lg mb-2 bg-blue-200">
+                  <pre className="text-sm whitespace-pre-wrap text-blue-900">{communicationDetails.salesExample.content}</pre>
                 </div>
-                <div className="text-xs text-green-600">
+                <div className="text-xs text-green-700 font-medium">
                   <strong>结果：</strong>{communicationDetails.salesExample.result}
                 </div>
               </CardContent>
             </Card>
 
-            {/* 个性化模板 */}
-            <Card className="border border-gray-200 shadow-none">
-              <CardHeader className="p-3">
+            {/* 个性化模板 - 修改为蓝底格式 */}
+            <Card className="bg-blue-100 border border-blue-200">
+              <CardHeader className="p-4">
                 <div className="flex items-center justify-between w-full">
-                  <CardTitle className="text-sm flex items-center space-x-2">
-                    <Copy className="w-4 h-4" />
+                  <CardTitle className="text-base flex items-center space-x-2 text-blue-800">
+                    <Copy className="w-4 h-4 text-blue-600" />
                     <span>{communicationDetails.template.title}</span>
                   </CardTitle>
-                  <Button variant="outline" size="sm">复制模板</Button>
+                  <Button variant="outline" className="bg-blue-100 text-blue-800 border-blue-300 hover:bg-blue-200">
+                    复制模板
+                  </Button>
                 </div>
               </CardHeader>
-              <CardContent className="pt-0 pb-4 px-3">
-                <div className="bg-white p-4 rounded-lg border border-gray-100 mb-2">
-                  <pre className="text-sm whitespace-pre-wrap">{communicationDetails.template.content}</pre>
+              <CardContent className="pt-0 pb-4 px-4 bg-blue-50">
+                <div className="p-4 rounded-lg mb-2 bg-blue-200">
+                  <pre className="text-sm whitespace-pre-wrap text-blue-900">{communicationDetails.template.content}</pre>
                 </div>
-                <p className="text-xs text-gray-600">{communicationDetails.template.style}</p>
+                <p className="text-xs text-blue-600 italic">{communicationDetails.template.style}</p>
               </CardContent>
             </Card>
 
-            {/* 下步行动 */}
-            <Card className="border-0 shadow-none border-l-4 border-l-blue-500">
-              <CardHeader className="p-3">
-                <CardTitle className="text-sm">下步行动计划</CardTitle>
+            {/* 下步行动 - 修改为蓝底格式 */}
+            <Card className="bg-blue-100 border-blue-300 border-l-4 border-l-blue-700">
+              <CardHeader className="p-4">
+                <CardTitle className="text-base text-blue-800">下步行动计划</CardTitle>
               </CardHeader>
-              <CardContent className="pt-0 pb-4 px-3">
-                <p className="text-sm font-medium text-blue-700">{client.nextAction}</p>
+              <CardContent className="pt-0 pb-4 px-4">
+                <p className="text-sm font-medium text-blue-900 bg-blue-200 p-3 rounded-md">
+                  {client.nextAction}
+                </p>
               </CardContent>
             </Card>
           </div>
