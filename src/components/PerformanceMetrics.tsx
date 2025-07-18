@@ -66,7 +66,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       unit: '个',
       change: '+12%',
       trend: 'up',
-      description: 'vs 昨日 35'
+      description: 'vs 上周 35'
     },
     {
       name: '本周业绩',
@@ -179,78 +179,6 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           ))}
         </div>
       </div>
-
-      {/* Historical Trend - Full Width */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <LineChart className="w-5 h-5 text-blue-600" />
-            <span>历史对比趋势</span>
-          </CardTitle>
-          <CardDescription>
-            当日与历史同期业绩对比分析
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="p-6">
-          <ChartContainer
-            config={{
-              calls: {
-                label: "实际业绩",
-                color: "hsl(var(--chart-1))",
-              },
-              target: {
-                label: "目标业绩",
-                color: "hsl(var(--chart-2))",
-              },
-              efficiency: {
-                label: "完成率指标",
-                color: "hsl(var(--chart-3))",
-              },
-            }}
-            className="w-full h-[350px]"
-          >
-            <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={trendData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                <XAxis 
-                  dataKey="month" 
-                  stroke="#888888"
-                  fontSize={12}
-                />
-                <YAxis 
-                  stroke="#888888"
-                  fontSize={12}
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Legend />
-                <Bar 
-                  dataKey="calls" 
-                  fill="var(--color-calls)"
-                  name="实际业绩"
-                  radius={[2, 2, 0, 0]}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="target" 
-                  stroke="var(--color-target)"
-                  strokeWidth={2}
-                  name="目标业绩"
-                  dot={{ r: 4 }}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="efficiency" 
-                  stroke="var(--color-efficiency)"
-                  strokeWidth={2}
-                  strokeDasharray="5 5"
-                  name="完成率指标"
-                  dot={{ r: 4 }}
-                />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </CardContent>
-      </Card>
 
       {/* KPI Detail Analysis */}
       <Card>
