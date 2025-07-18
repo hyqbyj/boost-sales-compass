@@ -40,22 +40,6 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
 3. 系统稳定性保障 - 99.9%在线率，7*24小时服务`,
       tips: "结合客户标签中的'成本敏感'和'效率关注'特点定制"
     },
-    materials: [
-      {
-        title: "同行业成功案例",
-        description: "北京某三甲医院使用我们系统后，患者满意度提升40%",
-        link: "#case-study-1"
-      },
-      {
-        title: "ROI分析报告",
-        description: "详细的投资回报率计算和成本对比分析",
-        link: "#roi-analysis"
-      },
-      {
-        title: "产品演示视频",
-        description: "5分钟快速了解核心功能和操作流程",
-        link: "#demo-video"
-      }
     ],
     salesExample: {
       title: "销冠沟通实例",
