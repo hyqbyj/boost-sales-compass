@@ -20,7 +20,7 @@ export const DashboardLayout = ({ children, activeTab, onTabChange, departmentNa
   const menuItems = [
     { id: 'today', label: '今日待办', icon: Calendar },
     { id: 'performance', label: '业绩说明', icon: BarChart3 },
-    { id: 'history', label: '历史工作', icon: History },
+    { id: 'history', label: '技能提升', icon: History },
   ];
 
   return (
