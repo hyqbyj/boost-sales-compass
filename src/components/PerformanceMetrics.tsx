@@ -42,15 +42,20 @@ interface PerformanceMetricsProps {
 export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
   const [selectedPeriod, setSelectedPeriod] = useState('month');
 
-  // Mock data for charts
+  // Updated mock data for monthly trends (1-12月)
   const trendData = [
-    { time: '09:00', calls: 8, efficiency: 65, target: 10 },
-    { time: '10:00', calls: 12, efficiency: 75, target: 15 },
-    { time: '11:00', calls: 15, efficiency: 82, target: 18 },
-    { time: '12:00', calls: 10, efficiency: 68, target: 12 },
-    { time: '13:00', calls: 8, efficiency: 60, target: 10 },
-    { time: '14:00', calls: 18, efficiency: 88, target: 20 },
-    { time: '15:00', calls: 22, efficiency: 92, target: 25 }
+    { month: '1月', calls: 32, efficiency: 65, target: 40 },
+    { month: '2月', calls: 38, efficiency: 72, target: 40 },
+    { month: '3月', calls: 45, efficiency: 78, target: 40 },
+    { month: '4月', calls: 42, efficiency: 75, target: 40 },
+    { month: '5月', calls: 39, efficiency: 70, target: 40 },
+    { month: '6月', calls: 48, efficiency: 85, target: 40 },
+    { month: '7月', calls: 52, efficiency: 88, target: 40 },
+    { month: '8月', calls: 47, efficiency: 82, target: 40 },
+    { month: '9月', calls: 44, efficiency: 76, target: 40 },
+    { month: '10月', calls: 49, efficiency: 86, target: 40 },
+    { month: '11月', calls: 53, efficiency: 90, target: 40 },
+    { month: '12月', calls: 50, efficiency: 87, target: 40 }
   ];
 
   const kpiData = [
@@ -90,6 +95,26 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       trend: 'up',
       description: '平均通话时长'
     }
+  ];
+
+  // Process indicators
+  const processIndicators = [
+    { name: '外呼', current: 45, target: 50, unit: '个' },
+    { name: '外呼时长', current: 120, target: 150, unit: '分钟' },
+    { name: '接通数', current: 28, target: 35, unit: '个' },
+    { name: '接通率', current: 62, target: 70, unit: '%' },
+    { name: '30S有效外呼', current: 32, target: 40, unit: '个' },
+    { name: '60S有效外呼', current: 25, target: 30, unit: '个' },
+    { name: '60S时长', current: 85, target: 100, unit: '分钟' },
+    { name: '60S/接通率', current: 89, target: 85, unit: '%' },
+    { name: '3分钟有效外呼', current: 18, target: 20, unit: '个' },
+    { name: '10分钟有效外呼', current: 12, target: 15, unit: '个' },
+    { name: '10分钟时长', current: 180, target: 200, unit: '分钟' }
+  ];
+
+  // Assessment indicators
+  const assessmentIndicators = [
+    { name: '30S有效外呼达标', current: 32, target: 40, unit: '个/天', standard: '合格标准' }
   ];
 
   return (
@@ -173,7 +198,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
             当日与历史同期业绩对比分析
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <ChartContainer
             config={{
               calls: {
@@ -189,13 +214,13 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 color: "hsl(var(--chart-3))",
               },
             }}
-            className="h-[400px]"
+            className="w-full h-[350px]"
           >
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={trendData}>
+              <ComposedChart data={trendData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis 
-                  dataKey="time" 
+                  dataKey="month" 
                   stroke="#888888"
                   fontSize={12}
                 />
@@ -246,27 +271,64 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-6">
-            {department.kpis?.map((kpi, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Target className="w-4 h-4 text-blue-600" />
-                    <span className="font-medium">{kpi.name}</span>
-                    <Badge variant="outline" className="text-xs">
-                      目标: {kpi.target}{kpi.unit}
-                    </Badge>
+          <div className="space-y-8">
+            {/* Process Indicators */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-gray-900 flex items-center space-x-2">
+                <Target className="w-5 h-5 text-blue-600" />
+                <span>过程指标</span>
+              </h3>
+              <div className="space-y-4">
+                {processIndicators.map((indicator, index) => (
+                  <div key={index} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <span className="font-medium">{indicator.name}</span>
+                        <Badge variant="outline" className="text-xs">
+                          目标: {indicator.target}{indicator.unit}
+                        </Badge>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-lg font-bold">{indicator.current}/{indicator.target}</span>
+                        <span className="text-sm text-gray-500 ml-2">
+                          ({Math.round((indicator.current / indicator.target) * 100)}%)
+                        </span>
+                      </div>
+                    </div>
+                    <Progress value={(indicator.current / indicator.target) * 100} className="h-2" />
                   </div>
-                  <div className="text-right">
-                    <span className="text-lg font-bold">32/{kpi.target}</span>
-                    <span className="text-sm text-gray-500 ml-2">
-                      ({Math.round((32 / kpi.target) * 100)}%)
-                    </span>
-                  </div>
-                </div>
-                <Progress value={(32 / kpi.target) * 100} className="h-2" />
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Assessment Indicators */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-gray-900 flex items-center space-x-2">
+                <Award className="w-5 h-5 text-green-600" />
+                <span>考核指标</span>
+              </h3>
+              <div className="space-y-4">
+                {assessmentIndicators.map((indicator, index) => (
+                  <div key={index} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <span className="font-medium">{indicator.name}</span>
+                        <Badge variant="outline" className="text-xs">
+                          {indicator.standard}: {indicator.target}{indicator.unit}
+                        </Badge>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-lg font-bold">{indicator.current}/{indicator.target}</span>
+                        <span className="text-sm text-gray-500 ml-2">
+                          ({Math.round((indicator.current / indicator.target) * 100)}%)
+                        </span>
+                      </div>
+                    </div>
+                    <Progress value={(indicator.current / indicator.target) * 100} className="h-2" />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>

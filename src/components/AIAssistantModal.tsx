@@ -158,9 +158,9 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col space-y-4">
+        <div className="flex-1 flex flex-col space-y-4 min-h-0">
           {/* Preset Prompts */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 flex-shrink-0">
             {presetPrompts.map((prompt, index) => (
               <motion.button
                 key={index}
@@ -175,63 +175,65 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
             ))}
           </div>
 
-          {/* Messages with ScrollArea */}
-          <ScrollArea className="flex-1 pr-4">
-            <div className="space-y-4">
-              <AnimatePresence>
-                {messages.map((message) => (
+          {/* Messages with ScrollArea - now properly contained */}
+          <div className="flex-1 min-h-0">
+            <ScrollArea className="h-full pr-4">
+              <div className="space-y-4 pb-4">
+                <AnimatePresence>
+                  {messages.map((message) => (
+                    <motion.div
+                      key={message.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div className={`flex items-start space-x-2 max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.type === 'user' ? 'bg-blue-600' : 'bg-gray-100'}`}>
+                          {message.type === 'user' ? (
+                            <User className="w-4 h-4 text-white" />
+                          ) : (
+                            <Bot className="w-4 h-4 text-gray-600" />
+                          )}
+                        </div>
+                        <div className={`px-4 py-2 rounded-lg ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900'}`}>
+                          <div className="text-sm whitespace-pre-wrap break-words">{message.content}</div>
+                          <div className={`text-xs mt-1 ${message.type === 'user' ? 'text-blue-100' : 'text-gray-500'}`}>
+                            {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+
+                {/* Typing Indicator */}
+                {isTyping && (
                   <motion.div
-                    key={message.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className="flex justify-start"
                   >
-                    <div className={`flex items-start space-x-2 max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${message.type === 'user' ? 'bg-blue-600' : 'bg-gray-100'}`}>
-                        {message.type === 'user' ? (
-                          <User className="w-4 h-4 text-white" />
-                        ) : (
-                          <Bot className="w-4 h-4 text-gray-600" />
-                        )}
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                        <Bot className="w-4 h-4 text-gray-600" />
                       </div>
-                      <div className={`px-4 py-2 rounded-lg ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900'}`}>
-                        <div className="text-sm whitespace-pre-wrap">{message.content}</div>
-                        <div className={`text-xs mt-1 ${message.type === 'user' ? 'text-blue-100' : 'text-gray-500'}`}>
-                          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      <div className="bg-gray-100 rounded-lg px-4 py-2">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                         </div>
                       </div>
                     </div>
                   </motion.div>
-                ))}
-              </AnimatePresence>
-
-              {/* Typing Indicator */}
-              {isTyping && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex justify-start"
-                >
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                      <Bot className="w-4 h-4 text-gray-600" />
-                    </div>
-                    <div className="bg-gray-100 rounded-lg px-4 py-2">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </div>
-          </ScrollArea>
+                )}
+              </div>
+            </ScrollArea>
+          </div>
 
           {/* Input */}
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 flex-shrink-0">
             <Input
               placeholder="输入您的问题..."
               value={inputMessage}
