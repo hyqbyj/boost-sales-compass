@@ -45,17 +45,17 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
   // Updated mock data for monthly trends (1-12月)
   const trendData = [
     { month: '1月', calls: 32, efficiency: 65, target: 40 },
-    { month: '2月', calls: 38, efficiency: 72, target: 40 },
-    { month: '3月', calls: 45, efficiency: 78, target: 40 },
-    { month: '4月', calls: 42, efficiency: 75, target: 40 },
-    { month: '5月', calls: 39, efficiency: 70, target: 40 },
-    { month: '6月', calls: 48, efficiency: 85, target: 40 },
-    { month: '7月', calls: 52, efficiency: 88, target: 40 },
-    { month: '8月', calls: 47, efficiency: 82, target: 40 },
-    { month: '9月', calls: 44, efficiency: 76, target: 40 },
-    { month: '10月', calls: 49, efficiency: 86, target: 40 },
-    { month: '11月', calls: 53, efficiency: 90, target: 40 },
-    { month: '12月', calls: 50, efficiency: 87, target: 40 }
+    { month: '2月', calls: 38, efficiency: 72, target: 43 },
+    { month: '3月', calls: 45, efficiency: 78, target: 43 },
+    { month: '4月', calls: 42, efficiency: 75, target: 45 },
+    { month: '5月', calls: 39, efficiency: 70, target: 45 },
+    { month: '6月', calls: 48, efficiency: 85, target: 50 },
+    { month: '7月', calls: 52, efficiency: 88, target: 55 },
+    { month: '8月', calls: 47, efficiency: 82, target: 50 },
+    { month: '9月', calls: 44, efficiency: 76, target: 50 },
+    { month: '10月', calls: 49, efficiency: 86, target: 55 },
+    { month: '11月', calls: 53, efficiency: 90, target: 55 },
+    { month: '12月', calls: 50, efficiency: 87, target: 55 }
   ];
 
   const kpiData = [
