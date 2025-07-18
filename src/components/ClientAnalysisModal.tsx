@@ -108,45 +108,6 @@ export const ClientAnalysisModal = ({ open, onOpenChange, client }: ClientAnalys
                 </div>
               </CardContent>
             </Card>
-
-            {/* AI建议分析 */}
-            <Card>
-              <CardHeader>
-                <CardTitle>AI智能建议</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-medium mb-2 text-green-600">优势分析</h4>
-                    <ul className="text-sm space-y-1 text-gray-700">
-                      <li>• 客户对产品功能表现出浓厚兴趣</li>
-                      <li>• 决策层级较高，推进效率快</li>
-                      <li>• 预算充足，价格不是主要障碍</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-medium mb-2 text-orange-600">风险点</h4>
-                    <ul className="text-sm space-y-1 text-gray-700">
-                      <li>• 对竞品方案仍在比较中</li>
-                      <li>• 实施周期要求较紧</li>
-                      <li>• 需要更多技术细节支撑</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium mb-2 text-blue-600">下步行动建议</h4>
-                    <div className="bg-blue-50 p-3 rounded">
-                      <p className="text-sm font-medium mb-2">推荐话术：</p>
-                      <p className="text-sm text-gray-700">
-                        "{client.contact}，根据我们的沟通，我了解到您最关心的是{client.concerns[0]}。
-                        我们的解决方案在这方面有明显优势，特别是..."
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </ScrollArea>
 
