@@ -65,16 +65,37 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
 
   return (
      <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[80vh] p-0 flex flex-col">
-        {/* 固定标题区域 */}
-        <div className="sticky top-0 z-10 bg-white border-b p-6 pb-4">
-          <DialogHeader>
-            <DialogTitle className="flex items-center space-x-2">
-              <MessageSquare className="w-5 h-5 text-blue-600" />
-              <span>{client.name} - 沟通建议详情</span>
-            </DialogTitle>
-          </DialogHeader>
-        </div>
+  <DialogContent className="max-w-4xl max-h-[80vh] p-0 flex flex-col">
+    {/* 标题区域添加 relative 包裹 */}
+    <div className="sticky top-0 z-10 bg-white border-b p-6 pb-4 relative">
+      <DialogHeader>
+        <DialogTitle className="flex items-center space-x-2">
+          <MessageSquare className="w-5 h-5 text-blue-600" />
+          <span>{client.name} - 沟通建议详情</span>
+        </DialogTitle>
+      </DialogHeader>
+      
+      {/* 手动定位打叉控件 - 覆盖原生控件 */}
+      <DialogClose className="
+        absolute
+        right-4 top-4
+        p-1 rounded-sm
+        opacity-70
+        ring-offset-background
+        transition-opacity
+        hover:opacity-100
+        focus:outline-none
+        focus:ring-2
+        focus:ring-ring
+        focus:ring-offset-2
+        disabled:pointer-events-none
+        data-[state=open]:bg-accent
+        data-[state=open]:text-muted-foreground
+      ">
+        <X className="h-4 w-4" />
+        <span className="sr-only">Close</span>
+      </DialogClose>
+    </div>
 
         {/* 可滚动内容区域 */}
         <div className="flex-1 overflow-y-auto p-6 pt-2">
