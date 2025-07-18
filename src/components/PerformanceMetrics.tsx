@@ -201,7 +201,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 color: "hsl(var(--chart-2))",
               },
               efficiency: {
-                label: "效率指标",
+                label: "完成率指标",
                 color: "hsl(var(--chart-3))",
               },
             }}
@@ -241,7 +241,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                   stroke="var(--color-efficiency)"
                   strokeWidth={2}
                   strokeDasharray="5 5"
-                  name="效率指标"
+                  name="完成率指标"
                   dot={{ r: 4 }}
                 />
               </ComposedChart>
