@@ -110,12 +110,7 @@ export const ClientAnalysisModal = ({ open, onOpenChange, client }: ClientAnalys
             </Card>
           </div>
         </ScrollArea>
-
-        <div className="flex justify-end space-x-2 pt-4">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            关闭
-          </Button>
-        </div>
+        
       </DialogContent>
     </Dialog>
   );
