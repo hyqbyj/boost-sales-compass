@@ -157,14 +157,6 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
         return 'bg-gray-100 text-gray-800';
     }
   };
-  
-  // 新增函数：根据成功率值获取对应的颜色类
-  const getSuccessRateColor = (rate: number) => {
-    if (rate >= 90) return 'bg-green-100 text-green-800 border-green-200';
-    if (rate >= 80) return 'bg-teal-100 text-teal-800 border-teal-200';
-    if (rate >= 60) return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-    return 'bg-orange-100 text-orange-800 border-orange-200';
-  };
 
   const filteredClients = clients.filter(client => {
     const matchesSearch = client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -231,8 +223,8 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
               <div className="flex items-center space-x-2">
                 <Clock className="w-5 h-5 text-green-600" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">今日跟进</p>
-                  <p className="text-极2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
+                  <p className="text-sm font-medium text-gray-600">今日已跟进</p>
+                  <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
                 </div>
               </div>
             </CardContent>
@@ -279,7 +271,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       {/* 筛选和搜索 */}
       <Card>
         <CardHeader>
-          <div className="极flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center space-x-2">
                 <Eye className="w-5 h-5 text-blue-600" />
@@ -367,13 +359,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                           >
                             {client.stage}
                           </Badge>
-                          {/* 修改这里 - 修复成功率显示问题 */}
-                          <Badge 
-                            variant="outline" 
-                            className={`text-xs ${getSuccessRateColor(client.successRate)}`}
-                          >
-                            成功率: {client.successRate}%
-                          </Badge>
+                          <span className="text-xs text-gray-500">成功率: {client.successRate}%</span>
                         </div>
                       </div>
                     </TableCell>
