@@ -86,15 +86,6 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       trend: 'down',
       description: 'vs 上月 720'
     },
-    {
-      name: '效率分析',
-      current: 4.2,
-      target: 5.0,
-      unit: 'min',
-      change: '+2.5%',
-      trend: 'up',
-      description: '平均通话时长'
-    }
   ];
 
   // Process indicators
@@ -242,6 +233,15 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                   stroke="var(--color-target)"
                   strokeWidth={2}
                   name="目标业绩"
+                  dot={{ r: 4 }}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="efficiency" 
+                  stroke="var(--color-efficiency)"
+                  strokeWidth={2}
+                  strokeDasharray="5 5"
+                  name="效率指标"
                   dot={{ r: 4 }}
                 />
               </ComposedChart>
