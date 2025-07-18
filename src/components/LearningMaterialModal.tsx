@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -30,7 +29,8 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
       totalDuration: '45分钟',
       difficulty: '中级',
       points: 150,
-      certificate: true
+      certificate: true,
+      completed: false
     },
     '产品功能深度解析': {
       chapters: [
@@ -42,7 +42,8 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
       totalDuration: '1小时5分钟',
       difficulty: '高级',
       points: 200,
-      certificate: true
+      certificate: true,
+      completed: false
     },
     '销售话术模拟训练': {
       chapters: [
@@ -67,7 +68,8 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
       totalDuration: '35分钟',
       difficulty: '初级',
       points: 100,
-      certificate: false
+      certificate: false,
+      completed: false
     },
     '客户需求挖掘方法': {
       chapters: [
@@ -79,16 +81,18 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
       totalDuration: '1小时5分钟',
       difficulty: '中级',
       points: 180,
-      certificate: true
+      certificate: true,
+      completed: false
     }
   };
 
-  const currentContent = learningContent[material.title as keyof typeof learningContent] || {
+  const currentContent = learningContent[material?.title as keyof typeof learningContent] || {
     chapters: [],
     totalDuration: '0分钟',
     difficulty: '初级',
     points: 0,
-    certificate: false
+    certificate: false,
+    completed: false
   };
 
   const completedChapters = currentContent.chapters.filter(c => c.completed).length;
@@ -100,10 +104,10 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
             <BookOpen className="w-5 h-5 text-blue-600" />
-            <span>{material.title}</span>
+            <span>{material?.title}</span>
           </DialogTitle>
           <DialogDescription>
-            {material.type === 'continue' ? '继续学习进度' : '开始新的学习计划'}
+            {material?.type === 'continue' ? '继续学习进度' : '开始新的学习计划'}
           </DialogDescription>
         </DialogHeader>
 
@@ -137,7 +141,7 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
           </Card>
 
           {/* 学习进度 */}
-          {material.type === 'continue' && (
+          {material?.type === 'continue' && (
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">学习进度</CardTitle>
@@ -198,7 +202,7 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
                         ) : chapter.current ? (
                           <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
                             <Play className="w-3 h-3 mr-1" />
-                            {material.type === 'continue' ? '继续学习' : '开始学习'}
+                            {material?.type === 'continue' ? '继续学习' : '开始学习'}
                           </Button>
                         ) : (
                           <Badge variant="outline" className="text-gray-500">
@@ -228,7 +232,7 @@ export const LearningMaterialModal = ({ open, onOpenChange, material }: Learning
               </Button>
               <Button className="bg-blue-600 hover:bg-blue-700">
                 <Play className="w-4 h-4 mr-2" />
-                {material.type === 'continue' ? '继续学习' : '开始学习'}
+                {material?.type === 'continue' ? '继续学习' : '开始学习'}
               </Button>
             </div>
           </div>

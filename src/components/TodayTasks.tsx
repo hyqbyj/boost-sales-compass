@@ -447,12 +447,11 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
         </CardContent>
       </Card>
 
+      {/* Fixed modal props - removed onMaterialDetailClick and onLearningClick from CommunicationDetailModal */}
       <CommunicationDetailModal 
         open={communicationModalOpen}
         onOpenChange={setCommunicationModalOpen}
         client={selectedClientForModal}
-        onMaterialDetailClick={handleMaterialDetailClick}
-        onLearningClick={handleLearningClick}
       />
 
       <ClientAnalysisModal

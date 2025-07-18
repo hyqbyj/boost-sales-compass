@@ -30,7 +30,8 @@ import {
   Legend,
   ResponsiveContainer,
   PieChart as RechartsPieChart,
-  Cell
+  Cell,
+  Pie
 } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
@@ -109,7 +110,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       transition={{ duration: 0.5 }}
       className="space-y-6"
     >
-      {/* Header with department info - removed report controls */}
+      {/* Header - removed report controls */}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">业绩数据分析</h2>
