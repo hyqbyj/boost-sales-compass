@@ -154,9 +154,6 @@ export const ClientAnalysisModal = ({ open, onOpenChange, client }: ClientAnalys
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             关闭
           </Button>
-          <Button className="bg-blue-600 hover:bg-blue-700">
-            导出报告
-          </Button>
         </div>
       </DialogContent>
     </Dialog>
