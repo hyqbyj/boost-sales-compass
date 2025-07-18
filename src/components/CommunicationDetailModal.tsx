@@ -1,8 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Lightbulb, MessageSquare, Users, BookOpen, Target, Copy, X } from 'lucide-react'; // 添加 X 图标
+import { Lightbulb, MessageSquare, Users, BookOpen, Target, Copy, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface CommunicationDetailModalProps {
@@ -64,7 +63,6 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[80vh] p-0 flex flex-col">
-        {/* 固定标题区域 - 添加 relative 为关闭按钮提供定位上下文 */}
         <div className="sticky top-0 z-50 bg-white border-b p-6 pb-4 relative">
           <DialogHeader>
             <DialogTitle className="flex items-center space-x-2">
@@ -73,23 +71,16 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
             </DialogTitle>
           </DialogHeader>
           
-          {/* 使用原生关闭组件确保交互行为正确 */}
+          {/* 移除蓝色边框的打叉控件 */}
           <DialogClose className="
             absolute
             right-4 top-4
             p-1 rounded-sm
             opacity-70
-            ring-offset-background
             transition-opacity
             hover:opacity-100
-            hover:bg-red-50
-            focus:outline-none
-            focus:ring-2
-            focus:ring-ring
-            focus:ring-offset-2
-            disabled:pointer-events-none
-            data-[state=open]:bg-accent
-            data-[state=open]:text-muted-foreground
+            hover:bg-gray-100  // 改为中性色悬停背景
+            focus:outline-none // 移除焦点样式
           ">
             <X className="h-4 w-4" />
             <span className="sr-only">Close</span>
