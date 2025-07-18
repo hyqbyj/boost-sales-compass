@@ -30,8 +30,9 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
   ];
 
   // AI建议内容
-  const aiSuggestions = {
-    empathy: {
+  const aiSuggestions = [
+    {
+      id: 'empathy',
       title: "共情能力提升建议",
       description: "基于您当前82分的共情水平，建议重点提升情感识别和客户需求理解能力",
       suggestions: [
@@ -39,19 +40,25 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
         "练习同理心对话，从客户角度思考问题，增强情感共鸣能力",
         "学习情绪管理技巧，保持积极正面的沟通态度，避免情绪化回应",
         "通过角色扮演练习，体验不同类型客户的心理状态和需求痛点"
-      ]
+      ],
+      color: "blue",
+      icon: <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
     },
-    consensus: {
-      title: "共识建立提升建议", 
+    {
+      id: 'consensus',
+      title: "共识建立提升建议",
       description: "您的共识能力为75分，需要加强与客户建立信任和达成一致的技巧",
       suggestions: [
         "掌握SPIN提问技巧，通过引导式提问帮助客户澄清需求和期望",
         "学习价值对齐方法，找到客户关注点与产品价值的契合点",
         "提升异议处理能力，将客户疑虑转化为深度沟通的机会",
         "练习总结确认技巧，确保双方对关键信息的理解保持一致"
-      ]
+      ],
+      color: "green",
+      icon: <div className="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
     },
-    action: {
+    {
+      id: 'action',
       title: "共行执行提升建议",
       description: "您的共行能力已达88分，属于优势项目，建议保持并进一步精进",
       suggestions: [
@@ -59,7 +66,25 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
         "建立客户期望管理体系，设定合理的执行时间线和里程碑",
         "加强团队协作能力，确保跨部门配合的高效执行",
         "持续改进工作流程，提升执行效率和客户满意度"
-      ]
+      ],
+      color: "purple",
+      icon: <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+    }
+  ];
+
+  // 颜色映射
+  const colorMap = {
+    blue: {
+      border: "border-l-blue-500",
+      dot: "bg-blue-500"
+    },
+    green: {
+      border: "border-l-green-500",
+      dot: "bg-green-500"
+    },
+    purple: {
+      border: "border-l-purple-500",
+      dot: "bg-purple-500"
     }
   };
 
@@ -230,7 +255,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
         </Card>
       </div>
 
-      {/* AI建议部分 */}
+      {/* AI建议部分 - 改为三列卡片布局 */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
@@ -241,72 +266,34 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
             基于三维能力画像分析，为您提供个性化的能力提升建议
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-8">
-          {/* 共情能力建议 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="border-l-4 border-blue-500 pl-6"
-          >
-            <h3 className="text-xl font-semibold text-gray-900 mb-2 flex items-center">
-              <span className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
-              {aiSuggestions.empathy.title}
-            </h3>
-            <p className="text-gray-600 mb-4">{aiSuggestions.empathy.description}</p>
-            <div className="space-y-3">
-              {aiSuggestions.empathy.suggestions.map((suggestion, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <p className="text-gray-700 leading-relaxed">{suggestion}</p>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {aiSuggestions.map((suggestion, index) => (
+              <motion.div
+                key={suggestion.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className={`border-l-4 ${colorMap[suggestion.color].border} bg-white rounded-lg shadow-sm h-full`}
+              >
+                <div className="p-5 h-full flex flex-col">
+                  <div className="flex items-start mb-4">
+                    {suggestion.icon}
+                    <h3 className="text-lg font-semibold text-gray-900 ml-3">{suggestion.title}</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4">{suggestion.description}</p>
+                  <div className="space-y-3 flex-grow">
+                    {suggestion.suggestions.map((item, itemIndex) => (
+                      <div key={itemIndex} className="flex items-start">
+                        <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
+                        <p className="text-gray-700 ml-2">{item}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* 共识能力建议 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
-            className="border-l-4 border-green-500 pl-6"
-          >
-            <h3 className="text-xl font-semibold text-gray-900 mb-2 flex items-center">
-              <span className="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
-              {aiSuggestions.consensus.title}
-            </h3>
-            <p className="text-gray-600 mb-4">{aiSuggestions.consensus.description}</p>
-            <div className="space-y-3">
-              {aiSuggestions.consensus.suggestions.map((suggestion, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                  <p className="text-gray-700 leading-relaxed">{suggestion}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* 共行能力建议 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
-            className="border-l-4 border-purple-500 pl-6"
-          >
-            <h3 className="text-xl font-semibold text-gray-900 mb-2 flex items-center">
-              <span className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
-              {aiSuggestions.action.title}
-            </h3>
-            <p className="text-gray-600 mb-4">{aiSuggestions.action.description}</p>
-            <div className="space-y-3">
-              {aiSuggestions.action.suggestions.map((suggestion, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <p className="text-gray-700 leading-relaxed">{suggestion}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </CardContent>
       </Card>
     </motion.div>
