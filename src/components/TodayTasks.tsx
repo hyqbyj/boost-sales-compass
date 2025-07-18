@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star, Expand } from 'lucide-react';
+import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star, Expand, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CommunicationDetailModal } from './CommunicationDetailModal';
 import { ClientAnalysisModal } from './ClientAnalysisModal';
@@ -33,6 +33,15 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   const [selectedMaterial, setSelectedMaterial] = useState<any>(null);
   const [learningModalOpen, setLearningModalOpen] = useState(false);
   const [selectedLearningMaterial, setSelectedLearningMaterial] = useState<any>(null);
+  const [clientRatings, setClientRatings] = useState<Record<string, number>>({});
+
+  // 处理评分变化
+  const handleRatingChange = (clientId: string, rating: number) => {
+    setClientRatings(prev => ({
+      ...prev,
+      [clientId]: rating
+    }));
+  };
 
   // 模拟客户数据 - 四个不同的客户背景
   const clients = [
@@ -186,12 +195,18 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
     setLearningModalOpen(true);
   };
 
+  // 处理导出功能
+  const handleExportClick = () => {
+    console.log('正在导出重点客户列表数据...');
+    // 实际项目中这里应该有导出逻辑
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="space-y-6"
+      className="space-y-8" // 增加了间距
     >
       {/* 页面头部统计 */}
       <div className="grid grid-cols-4 gap-4">
@@ -223,7 +238,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
               <div className="flex items-center space-x-2">
                 <Clock className="w-5 h-5 text-green-600" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">今日已跟进</p>
+                  <p className="text-sm font-medium text-gray-600">今日跟进</p>
                   <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
                 </div>
               </div>
@@ -270,14 +285,14 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
 
       {/* 筛选和搜索 */}
       <Card>
-        <CardHeader>
+        <CardHeader className="pb-6 pt-8"> {/* 增大了标题与内容的间距 */}
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center space-x-2">
                 <Eye className="w-5 h-5 text-blue-600" />
                 <span>重点客户列表</span>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="mt-3"> {/* 增加了间距 */}
                 根据昨日沟通情况和客户意向度智能排序的重点跟进客户
               </CardDescription>
             </div>
@@ -313,6 +328,15 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                   <SelectItem value="微信语音">微信语音</SelectItem>
                 </SelectContent>
               </Select>
+              {/* 添加一键导出按钮 */}
+              <Button 
+                size="sm" 
+                className="flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={handleExportClick}
+              >
+                <Download className="w-4 h-4" />
+                <span>一键导出</span>
+              </Button>
             </div>
           </div>
         </CardHeader>
@@ -327,6 +351,8 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                   <TableHead className="font-semibold w-24">对话条数</TableHead>
                   <TableHead className="font-semibold w-64">客户标签</TableHead>
                   <TableHead className="font-semibold">沟通建议与下步行动</TableHead>
+                  {/* 添加客户价值列 */}
+                  <TableHead className="font-semibold w-40">客户价值</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -434,6 +460,27 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                           <Expand className="w-3 h-3" />
                           <span>查看详细建议</span>
                         </Button>
+                      </div>
+                    </TableCell>
+                    {/* 添加客户价值评分列 */}
+                    <TableCell>
+                      <div className="flex items-center space-x-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRatingChange(client.id, star);
+                            }}
+                            className="focus:outline-none"
+                          >
+                            <Star 
+                              className={`w-4 h-4 ${star <= (clientRatings[client.id] || 0) 
+                                ? 'fill-current text-yellow-500' 
+                                : 'text-gray-300'}`}
+                            />
+                          </button>
+                        ))}
                       </div>
                     </TableCell>
                   </motion.tr>
