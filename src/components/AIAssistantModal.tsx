@@ -175,7 +175,7 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
             ))}
           </div>
 
-          {/* Messages */}
+          {/* Messages with ScrollArea */}
           <ScrollArea className="flex-1 pr-4">
             <div className="space-y-4">
               <AnimatePresence>

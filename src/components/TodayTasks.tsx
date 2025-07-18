@@ -8,6 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star, Expand } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CommunicationDetailModal } from './CommunicationDetailModal';
+import { ClientAnalysisModal } from './ClientAnalysisModal';
+import { MaterialDetailModal } from './MaterialDetailModal';
+import { LearningMaterialModal } from './LearningMaterialModal';
 
 interface TodayTasksProps {
   department: {
@@ -24,6 +27,12 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   const [filterMethod, setFilterMethod] = useState('all');
   const [communicationModalOpen, setCommunicationModalOpen] = useState(false);
   const [selectedClientForModal, setSelectedClientForModal] = useState<any>(null);
+  const [clientAnalysisModalOpen, setClientAnalysisModalOpen] = useState(false);
+  const [selectedClientForAnalysis, setSelectedClientForAnalysis] = useState<any>(null);
+  const [materialDetailModalOpen, setMaterialDetailModalOpen] = useState(false);
+  const [selectedMaterial, setSelectedMaterial] = useState<any>(null);
+  const [learningModalOpen, setLearningModalOpen] = useState(false);
+  const [selectedLearningMaterial, setSelectedLearningMaterial] = useState<any>(null);
 
   // 模拟客户数据 - 更丰富的数据结构
   const clients = [
@@ -156,6 +165,21 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   const handleCommunicationDetailClick = (client: any) => {
     setSelectedClientForModal(client);
     setCommunicationModalOpen(true);
+  };
+
+  const handleAnalysisDetailClick = (client: any) => {
+    setSelectedClientForAnalysis(client);
+    setClientAnalysisModalOpen(true);
+  };
+
+  const handleMaterialDetailClick = (material: any) => {
+    setSelectedMaterial(material);
+    setMaterialDetailModalOpen(true);
+  };
+
+  const handleLearningClick = (material: any, type: 'continue' | 'start') => {
+    setSelectedLearningMaterial({ ...material, type });
+    setLearningModalOpen(true);
   };
 
   return (
@@ -352,6 +376,10 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                         variant="outline" 
                         size="sm"
                         className="flex items-center space-x-1 hover:bg-blue-50"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAnalysisDetailClick(client);
+                        }}
                       >
                         <FileText className="w-3 h-3" />
                         <span>查看解析</span>
@@ -423,6 +451,26 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
         open={communicationModalOpen}
         onOpenChange={setCommunicationModalOpen}
         client={selectedClientForModal}
+        onMaterialDetailClick={handleMaterialDetailClick}
+        onLearningClick={handleLearningClick}
+      />
+
+      <ClientAnalysisModal
+        open={clientAnalysisModalOpen}
+        onOpenChange={setClientAnalysisModalOpen}
+        client={selectedClientForAnalysis}
+      />
+
+      <MaterialDetailModal
+        open={materialDetailModalOpen}
+        onOpenChange={setMaterialDetailModalOpen}
+        material={selectedMaterial}
+      />
+
+      <LearningMaterialModal
+        open={learningModalOpen}
+        onOpenChange={setLearningModalOpen}
+        material={selectedLearningMaterial}
       />
     </motion.div>
   );
