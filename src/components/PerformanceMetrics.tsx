@@ -66,7 +66,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       unit: '个',
       change: '+12%',
       trend: 'up',
-      description: 'vs 上周 35'
+      description: 'vs 昨日 35'
     },
     {
       name: '本周业绩',
