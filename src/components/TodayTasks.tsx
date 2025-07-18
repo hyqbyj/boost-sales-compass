@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star, Expand } from 'lucide-react';
+import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star, Expand, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { CommunicationDetailModal } from './CommunicationDetailModal';
 import { ClientAnalysisModal } from './ClientAnalysisModal';
@@ -33,9 +33,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   const [selectedMaterial, setSelectedMaterial] = useState<any>(null);
   const [learningModalOpen, setLearningModalOpen] = useState(false);
   const [selectedLearningMaterial, setSelectedLearningMaterial] = useState<any>(null);
-
-  // 模拟客户数据 - 四个不同的客户背景
-  const clients = [
+  const [clients, setClients] = useState([
     {
       id: '1',
       name: '北京协和医院',
@@ -51,7 +49,8 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       suggestion: '客户对价格高度敏感，建议重点展示产品的成本效益优势。准备详细的ROI分析报告，强调长期收益。可以提供分期付款方案，降低初期投资压力。重点对比竞品的性价比优势。',
       nextAction: '准备成本效益分析材料，制定分期方案',
       successRate: 78,
-      analysisBackground: '医疗行业决策者，注重成本控制和投资回报，具有丰富的采购经验，倾向于理性决策。'
+      analysisBackground: '医疗行业决策者，注重成本控制和投资回报，具有丰富的采购经验，倾向于理性决策。',
+      value: 0 // 新增客户价值字段，默认0
     },
     {
       id: '2', 
@@ -68,7 +67,8 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       suggestion: '客户为技术导向型决策者，高度重视产品的技术实力和稳定性。建议安排技术专家进行深度交流，提供详细的技术白皮书和架构说明。重点展示系统的稳定性测试报告和技术支持体系。',
       nextAction: '安排技术专家会议，准备技术文档',
       successRate: 85,
-      analysisBackground: '院长级别决策者，技术背景深厚，注重产品的技术先进性和长期稳定性，决策过程较为严谨。'
+      analysisBackground: '院长级别决策者，技术背景深厚，注重产品的技术先进性和长期稳定性，决策过程较为严谨。',
+      value: 0 // 新增客户价值字段，默认0
     },
     {
       id: '3',
@@ -85,7 +85,8 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       suggestion: '客户需求非常紧急，时间是关键因素。建议立即提供快速实施方案，承诺加急服务。准备专门的实施团队和培训计划，确保快速上线。可以适当调整价格策略以换取时间优势。',
       nextAction: '制定快速实施方案，安排专项团队',
       successRate: 92,
-      analysisBackground: '中层管理者，执行导向，面临紧急业务需求压力，需要快速解决方案，决策效率高。'
+      analysisBackground: '中层管理者，执行导向，面临紧急业务需求压力，需要快速解决方案，决策效率高。',
+      value: 0 // 新增客户价值字段，默认0
     },
     {
       id: '4',
@@ -102,9 +103,10 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       suggestion: '客户处于初步了解阶段，注重流程规范和风险控制。建议先建立信任关系，提供详细的合规性文件和资质证明。重点介绍服务流程的标准化和风险控制措施，帮助客户理解审批要点。',
       nextAction: '准备合规资料，建立信任关系',
       successRate: 65,
-      analysisBackground: '部门主管级别，严格按照制度流程执行，注重合规性和风险控制，决策需要上级审批。'
+      analysisBackground: '部门主管级别，严格按照制度流程执行，注重合规性和风险控制，决策需要上级审批。',
+      value: 0 // 新增客户价值字段，默认0
     }
-  ];
+  ]);
 
   const getContactIcon = (type: string) => {
     switch (type) {
@@ -185,6 +187,21 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
     setSelectedLearningMaterial({ ...material, type });
     setLearningModalOpen(true);
   };
+  
+  // 处理星级点击
+  const handleStarClick = (clientId: string, rating: number) => {
+    setClients(prevClients => 
+      prevClients.map(client => 
+        client.id === clientId ? { ...client, value: rating } : client
+      )
+    );
+  };
+  
+  // 导出功能
+  const handleExport = () => {
+    console.log('导出客户数据:', clients);
+    alert('客户数据已导出！');
+  };
 
   return (
     <motion.div
@@ -224,7 +241,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                 <Clock className="w-5 h-5 text-green-600" />
                 <div>
                   <p className="text-sm font-medium text-gray-600">今日跟进</p>
-                  <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
+                  <p className="text-极狐2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
                 </div>
               </div>
             </CardContent>
@@ -240,7 +257,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
                 <Star className="w-5 h-5 text-yellow-600" />
-                <div>
+                <极狐div>
                   <p className="text-sm font-medium text-gray-600">高意向客户</p>
                   <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.stage === '意向阶段').length}</p>
                 </div>
@@ -282,6 +299,16 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
               </CardDescription>
             </div>
             <div className="flex items-center space-x-2">
+              {/* 新增一键导出按钮 */}
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleExport}
+                className="flex items-center space-x-1"
+              >
+                <Download className="w-4 h-4" />
+                <span>一键导出</span>
+              </Button>
               <div className="relative">
                 <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
                 <Input
@@ -326,6 +353,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                   <TableHead className="font-semibold w-32">记录溯源</TableHead>
                   <TableHead className="font-semibold w-24">对话条数</TableHead>
                   <TableHead className="font-semibold w-64">客户标签</TableHead>
+                  <TableHead className="font-semibold w-32">客户价值</TableHead> {/* 新增列 */}
                   <TableHead className="font-semibold">沟通建议与下步行动</TableHead>
                 </TableRow>
               </TableHeader>
@@ -417,6 +445,26 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                         </div>
                       </div>
                     </TableCell>
+                    {/* 新增客户价值列 - 星级评价 */}
+                    <TableCell>
+                      <div className="flex items-center space-x-1">
+                        {[...Array(5)].map((_, i) => {
+                          const rating = i + 1;
+                          return (
+                            <Star 
+                              key={i}
+                              className={`w-4 h-4 cursor-pointer ${
+                                client.value >= rating ? 'text-yellow-500 fill-current' : 'text-gray-300'
+                              }`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleStarClick(client.id, rating);
+                              }}
+                            />
+                          );
+                        })}
+                      </div>
+                    </TableCell>
                     <TableCell className="max-w-md">
                       <div className="space-y-3">
                         <div className="text-sm text-gray-700 line-clamp-2">
@@ -430,7 +478,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                             e.stopPropagation();
                             handleCommunicationDetailClick(client);
                           }}
-                        >
+                      >
                           <Expand className="w-3 h-3" />
                           <span>查看详细建议</span>
                         </Button>
