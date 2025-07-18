@@ -65,16 +65,16 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[80vh] flex flex-col">
-        {/* 固定标题区域 */}
-        <div className="sticky top-0 z-10 bg-white border-b p-6 pb-4">
-          <DialogHeader>
-            <DialogTitle className="flex items-center space-x-2">
-              <MessageSquare className="w-5 h-5 text-blue-600" />
-              <span>{client.name} - 沟通建议详情</span>
-            </DialogTitle>
-          </DialogHeader>
-        </div>
+  {/* 移除 p-0 并调整标题区样式 */}
+  <DialogContent className="max-w-4xl max-h-[80vh] flex flex-col">
+    <div className="sticky top-0 z-10 bg-white p-6 pb-4"> {/* 移除 border-b */}
+      <DialogHeader>
+        <DialogTitle className="flex items-center space-x-2">
+          <MessageSquare className="w-5 h-5 text-blue-600" />
+          <span>{client.name} - 沟通建议详情</span>
+        </DialogTitle>
+      </DialogHeader>
+    </div>
 
         {/* 可滚动内容区域 */}
         <div className="flex-1 overflow-y-auto p-6 pt-2">
