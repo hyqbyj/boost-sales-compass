@@ -65,7 +65,7 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
 
   return (
      <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[80vh] p-0 flex flex-col">
+      <DialogContent className="max-w-4xl max-h-[80vh] flex flex-col">
         {/* 固定标题区域 */}
         <div className="sticky top-0 z-10 bg-white border-b p-6 pb-4">
           <DialogHeader>
