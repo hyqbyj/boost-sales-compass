@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Filter, Clock, User, Star, Expand, Download } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Eye, MessageCircle, Phone, Mic, FileText, Lightbulb, Search, Download } from 'lucide-react';
 import { CommunicationDetailModal } from './CommunicationDetailModal';
 import { ClientAnalysisModal } from './ClientAnalysisModal';
 import { MaterialDetailModal } from './MaterialDetailModal';
@@ -21,7 +20,6 @@ interface TodayTasksProps {
 }
 
 export const TodayTasks = ({ department }: TodayTasksProps) => {
-  const [selectedClient, setSelectedClient] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStage, setFilterStage] = useState('all');
   const [filterMethod, setFilterMethod] = useState('all');
@@ -50,7 +48,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       nextAction: '准备成本效益分析材料，制定分期方案',
       successRate: 78,
       analysisBackground: '医疗行业决策者，注重成本控制和投资回报，具有丰富的采购经验，倾向于理性决策。',
-      value: 0 // 新增客户价值字段，默认0
+      value: 0
     },
     {
       id: '2', 
@@ -68,7 +66,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       nextAction: '安排技术专家会议，准备技术文档',
       successRate: 85,
       analysisBackground: '院长级别决策者，技术背景深厚，注重产品的技术先进性和长期稳定性，决策过程较为严谨。',
-      value: 0 // 新增客户价值字段，默认0
+      value: 0
     },
     {
       id: '3',
@@ -86,7 +84,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       nextAction: '制定快速实施方案，安排专项团队',
       successRate: 92,
       analysisBackground: '中层管理者，执行导向，面临紧急业务需求压力，需要快速解决方案，决策效率高。',
-      value: 0 // 新增客户价值字段，默认0
+      value: 0
     },
     {
       id: '4',
@@ -104,7 +102,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       nextAction: '准备合规资料，建立信任关系',
       successRate: 65,
       analysisBackground: '部门主管级别，严格按照制度流程执行，注重合规性和风险控制，决策需要上级审批。',
-      value: 0 // 新增客户价值字段，默认0
+      value: 0
     }
   ]);
 
@@ -115,7 +113,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       case '微信聊天':
         return <MessageCircle className="w-4 h-4" />;
       case '微信语音':
-        return <Mic className="w-4 h-4" />;
+        return <Mic className="w-4 h极狐-4" />;
       default:
         return <MessageCircle className="w-4 h-4" />;
     }
@@ -188,7 +186,6 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
     setLearningModalOpen(true);
   };
   
-  // 处理星级点击
   const handleStarClick = (clientId: string, rating: number) => {
     setClients(prevClients => 
       prevClients.map(client => 
@@ -197,114 +194,100 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
     );
   };
   
-  // 导出功能
   const handleExport = () => {
     console.log('导出客户数据:', clients);
     alert('客户数据已导出！');
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
-      {/* 页面头部统计 */}
+    <div className="space-y-6">
+      {/* 页面头部统计 - 保持图片中的卡片样式 */}
       <div className="grid grid-cols-4 gap-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-        >
-          <Card>
+        <div>
+          <Card className="bg-blue-50">
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
-                <User className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                  <span className="text-blue-800 text-lg font-bold">{clients.length}</span>
+                </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">重点客户</p>
-                  <p className="text-2xl font-bold text-gray-900">{clients.length}</p>
+                  <p className="text-xs font-medium text-gray-600">重点客户</p>
+                  <p className="text-xl font-bold text-gray-900">重点客户</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-        >
-          <Card>
+        <div>
+          <Card className="bg-green-50">
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
-                <Clock className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                  <span className="text-green-800 text-lg font-bold">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</span>
+                </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">今日跟进</p>
-                  <p className="text-极狐2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
+                  <p className="text-xs font-medium text-gray-600">今日跟进</p>
+                  <p className="text-xl font-bold text-gray-900">今日跟进</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.3 }}
-        >
-          <Card>
+        <div>
+          <Card className="bg-yellow-50">
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
-                <Star className="w-5 h-5 text-yellow-600" />
-                <极狐div>
-                  <p className="text-sm font-medium text-gray-600">高意向客户</p>
-                  <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.stage === '意向阶段').length}</p>
+                <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center">
+                  <span className="text-yellow-800 text-lg font-bold">{clients.filter(c => c.stage === '意向阶段').length}</span>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.4 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <Lightbulb className="w-5 h-5 text-purple-600" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">平均成功率</p>
-                  <p className="text-2xl font-bold text-gray-900">{Math.round(clients.reduce((acc, c) => acc + c.successRate, 0) / clients.length)}%</p>
+                  <p className="text-xs font-medium text-gray-600">高意向客户</p>
+                  <p className="text-xl font-bold text-gray-900">高意向客户</p>
                 </div>
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
+
+        <div>
+          <Card className="bg-purple-50">
+            <CardContent className="p-4">
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                  <span className="text-purple-800 text-lg font-bold">
+                    {Math.round(clients.reduce((acc, c) => acc + c.successRate, 0) / clients.length)}%
+                  </span>
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-gray-600">平均成功率</p>
+                  <p className="text-xl font-bold text-gray-900">平均成功率</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
-      {/* 筛选和搜索 */}
+      {/* 筛选和搜索 - 保持图片中的样式 */}
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="flex items-center space-x-2">
-                <Eye className="w-5 h-5 text-blue-600" />
+              <CardTitle className="text-lg font-bold flex items-center">
+                <Eye className="w-5 h-5 text-blue-600 mr-2" />
                 <span>重点客户列表</span>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-gray-500 text-sm">
                 根据昨日沟通情况和客户意向度智能排序的重点跟进客户
               </CardDescription>
             </div>
             <div className="flex items-center space-x-2">
-              {/* 新增一键导出按钮 */}
               <Button 
                 variant="outline" 
-                size="sm"
+                className="flex items-center space-x-1 bg-white"
                 onClick={handleExport}
-                className="flex items-center space-x-1"
               >
                 <Download className="w-4 h-4" />
                 <span>一键导出</span>
@@ -319,7 +302,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                 />
               </div>
               <Select value={filterStage} onValueChange={setFilterStage}>
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-32 bg-white">
                   <SelectValue placeholder="客户阶段" />
                 </SelectTrigger>
                 <SelectContent>
@@ -330,7 +313,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                 </SelectContent>
               </Select>
               <Select value={filterMethod} onValueChange={setFilterMethod}>
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-32 bg-white">
                   <SelectValue placeholder="沟通方式" />
                 </SelectTrigger>
                 <SelectContent>
@@ -344,62 +327,43 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="rounded-lg border">
+          <div className="rounded-lg border border-gray-200">
             <Table>
               <TableHeader>
                 <TableRow className="bg-gray-50">
-                  <TableHead className="font-semibold w-48">客户信息</TableHead>
-                  <TableHead className="font-semibold w-36">昨日沟通</TableHead>
-                  <TableHead className="font-semibold w-32">记录溯源</TableHead>
-                  <TableHead className="font-semibold w-24">对话条数</TableHead>
-                  <TableHead className="font-semibold w-64">客户标签</TableHead>
-                  <TableHead className="font-semibold w-32">客户价值</TableHead> {/* 新增列 */}
-                  <TableHead className="font-semibold">沟通建议与下步行动</TableHead>
+                  <TableHead className="font-medium w-48">客户信息</TableHead>
+                  <TableHead className="font-medium w-36">昨日沟通</TableHead>
+                  <TableHead className="font-medium w-32">记录溯源</TableHead>
+                  <TableHead className="font-medium w-24">对话条数</TableHead>
+                  <TableHead className="font-medium w-64">客户标签</TableHead>
+                  <TableHead className="font-medium w-32">客户价值</TableHead>
+                  <TableHead className="font-medium">沟通建议与下步行动</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredClients.map((client, index) => (
-                  <motion.tr
+                {filteredClients.map((client) => (
+                  <TableRow
                     key={client.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
                     className="hover:bg-gray-50 transition-colors cursor-pointer border-b"
-                    onClick={() => setSelectedClient(client.id)}
                   >
                     <TableCell>
                       <div className="space-y-1">
-                        <div className="flex items-center space-x-2">
-                          <span className="font-medium text-gray-900">{client.name}</span>
-                          <Badge 
-                            variant="outline" 
-                            className={`text-xs ${getPriorityColor(client.priority)}`}
-                          >
-                            {client.priority === 'urgent' ? '紧急' : 
-                             client.priority === 'high' ? '重要' : '一般'}
-                          </Badge>
-                        </div>
+                        <div className="font-medium text-gray-900">{client.name}</div>
                         <div className="text-sm text-gray-600">{client.contact}</div>
                         <div className="flex items-center space-x-1">
-                          <Badge 
-                            variant="secondary" 
-                            className={`text-xs ${getStageColor(client.stage)}`}
-                          >
+                          <div className={`text-xs px-2 py-1 rounded ${getStageColor(client.stage)}`}>
                             {client.stage}
-                          </Badge>
+                          </div>
                           <span className="text-xs text-gray-500">成功率: {client.successRate}%</span>
                         </div>
                       </div>
                     </TableCell>
                     <TableCell>
                       <div className="space-y-2">
-                        <Badge 
-                          variant="secondary" 
-                          className={`flex items-center space-x-1 ${getContactBadgeColor(client.lastContact)}`}
-                        >
+                        <div className={`flex items-center space-x-1 text-xs px-2 py-1 rounded ${getContactBadgeColor(client.lastContact)}`}>
                           {getContactIcon(client.lastContact)}
                           <span>{client.lastContact}</span>
-                        </Badge>
+                        </div>
                         <div className="text-xs text-gray-500">{client.lastContactTime}</div>
                       </div>
                     </TableCell>
@@ -407,37 +371,33 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        className="flex items-center space-x-1 hover:bg-blue-50"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleAnalysisDetailClick(client);
-                        }}
+                        className="flex items-center space-x-1 text-xs bg-white"
+                        onClick={() => handleAnalysisDetailClick(client)}
                       >
                         <FileText className="w-3 h-3" />
                         <span>查看解析</span>
                       </Button>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="font-medium">
+                      <div className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">
                         {client.dialogCount}条
-                      </Badge>
+                      </div>
                     </TableCell>
                     <TableCell>
                       <div className="space-y-2">
                         <div className="flex flex-wrap gap-1">
                           {client.tags.slice(0, 3).map((tag, tagIndex) => (
-                            <Badge 
+                            <div 
                               key={tagIndex}
-                              variant="secondary"
-                              className="text-xs bg-blue-100 text-blue-800"
+                              className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded"
                             >
                               {tag}
-                            </Badge>
+                            </div>
                           ))}
                           {client.tags.length > 3 && (
-                            <Badge variant="outline" className="text-xs">
+                            <div className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">
                               +{client.tags.length - 3}
-                            </Badge>
+                            </div>
                           )}
                         </div>
                         <div className="text-xs text-gray-600">
@@ -445,27 +405,23 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                         </div>
                       </div>
                     </TableCell>
-                    {/* 新增客户价值列 - 星级评价 */}
                     <TableCell>
                       <div className="flex items-center space-x-1">
                         {[...Array(5)].map((_, i) => {
                           const rating = i + 1;
                           return (
-                            <Star 
+                            <button 
                               key={i}
-                              className={`w-4 h-4 cursor-pointer ${
-                                client.value >= rating ? 'text-yellow-500 fill-current' : 'text-gray-300'
-                              }`}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleStarClick(client.id, rating);
-                              }}
-                            />
+                              className={`w-4 h-4 ${client.value >= rating ? 'text-yellow-500' : 'text-gray-300'}`}
+                              onClick={() => handleStarClick(client.id, rating)}
+                            >
+                              ★
+                            </button>
                           );
                         })}
                       </div>
                     </TableCell>
-                    <TableCell className="max-w-md">
+                    <TableCell>
                       <div className="space-y-3">
                         <div className="text-sm text-gray-700 line-clamp-2">
                           {client.suggestion}
@@ -473,29 +429,25 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          className="flex items-center space-x-1 hover:bg-blue-50"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleCommunicationDetailClick(client);
-                          }}
-                      >
-                          <Expand className="w-3 h-3" />
+                          className="flex items-center space-x-1 text-xs bg-white"
+                          onClick={() => handleCommunicationDetailClick(client)}
+                        >
                           <span>查看详细建议</span>
                         </Button>
                       </div>
                     </TableCell>
-                  </motion.tr>
+                  </TableRow>
                 ))}
               </TableBody>
             </Table>
+            
+            {filteredClients.length === 0 && (
+              <div className="text-center py-8 text-gray-500">
+                <Eye className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <p>暂无符合条件的客户数据</p>
+              </div>
+            )}
           </div>
-          
-          {filteredClients.length === 0 && (
-            <div className="text-center py-8 text-gray-500">
-              <Eye className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-              <p>暂无符合条件的客户数据</p>
-            </div>
-          )}
         </CardContent>
       </Card>
 
@@ -523,6 +475,6 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
         onOpenChange={setLearningModalOpen}
         material={selectedLearningMaterial}
       />
-    </motion.div>
+    </div>
   );
 };
