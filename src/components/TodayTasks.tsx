@@ -19,7 +19,7 @@ interface TodayTasksProps {
   };
 }
 
-export const TodayTasks = ({ department }: TodayTasksProps) => {
+export const TodayTasks = ({ department }: Today极狐TasksProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStage, setFilterStage] = useState('all');
   const [filterMethod, setFilterMethod] = useState('all');
@@ -113,7 +113,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       case '微信聊天':
         return <MessageCircle className="w-4 h-4" />;
       case '微信语音':
-        return <Mic className="w-4 h极狐-4" />;
+        return <Mic className="w-4 h-4" />;
       default:
         return <MessageCircle className="w-4 h-4" />;
     }
@@ -201,93 +201,76 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
 
   return (
     <div className="space-y-6">
-      {/* 页面头部统计 - 保持图片中的卡片样式 */}
+      {/* 页面头部统计 - 使用原本的表格布局样式 */}
       <div className="grid grid-cols-4 gap-4">
-        <div>
-          <Card className="bg-blue-50">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                  <span className="text-blue-800 text-lg font-bold">{clients.length}</span>
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-gray-600">重点客户</p>
-                  <p className="text-xl font-bold text-gray-900">重点客户</p>
-                </div>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <User className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">重点客户</p>
+                <p className="text-2xl font-bold text-gray-900">{clients.length}</p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        <div>
-          <Card className="bg-green-50">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                  <span className="text-green-800 text-lg font-bold">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</span>
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-gray-600">今日跟进</p>
-                  <p className="text-xl font-bold text-gray-900">今日跟进</p>
-                </div>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <Clock className="w-5 h-5 text-green-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">今日跟进</p>
+                <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        <div>
-          <Card className="bg-yellow-50">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center">
-                  <span className="text-yellow-800 text-lg font-bold">{clients.filter(c => c.stage === '意向阶段').length}</span>
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-gray-600">高意向客户</p>
-                  <p className="text-xl font-bold text-gray-900">高意向客户</p>
-                </div>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <Star className="w-5 h-5 text-yellow-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">高意向客户</p>
+                <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.stage === '意向阶段').length}</p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        <div>
-          <Card className="bg-purple-50">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
-                  <span className="text-purple-800 text-lg font-bold">
-                    {Math.round(clients.reduce((acc, c) => acc + c.successRate, 0) / clients.length)}%
-                  </span>
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-gray-600">平均成功率</p>
-                  <p className="text-xl font-bold text-gray-900">平均成功率</p>
-                </div>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <Lightbulb className="w-5 h-5 text-purple-600" />
+              <div>
+                <p className="text-sm font-medium text-gray-600">平均成功率</p>
+                <p className="text-2xl font-bold text-gray-900">{Math.round(clients.reduce((acc, c) => acc + c.successRate, 0) / clients.length)}%</p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* 筛选和搜索 - 保持图片中的样式 */}
+      {/* 筛选和搜索 */}
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-lg font-bold flex items-center">
-                <Eye className="w-5 h-5 text-blue-600 mr-2" />
+              <CardTitle className="flex items-center space-x-2">
+                <Eye className="w-5 h-5 text-blue-600" />
                 <span>重点客户列表</span>
               </CardTitle>
-              <CardDescription className="text-gray-500 text-sm">
+              <CardDescription>
                 根据昨日沟通情况和客户意向度智能排序的重点跟进客户
               </CardDescription>
             </div>
             <div className="flex items-center space-x-2">
               <Button 
                 variant="outline" 
-                className="flex items-center space-x-1 bg-white"
+                size="sm"
                 onClick={handleExport}
+                className="flex items-center space-x-1"
               >
                 <Download className="w-4 h-4" />
                 <span>一键导出</span>
@@ -302,24 +285,24 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                 />
               </div>
               <Select value={filterStage} onValueChange={setFilterStage}>
-                <SelectTrigger className="w-32 bg-white">
+                <SelectTrigger className="w-32">
                   <SelectValue placeholder="客户阶段" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">全部阶段</SelectItem>
                   <SelectItem value="意向阶段">意向阶段</SelectItem>
                   <SelectItem value="潜在阶段">潜在阶段</SelectItem>
-                  <SelectItem value="兴趣阶段">兴趣阶段</SelectItem>
+                  <SelectItem value="兴趣极狐阶段">兴趣阶段</SelectItem>
                 </SelectContent>
               </Select>
               <Select value={filterMethod} onValueChange={setFilterMethod}>
-                <SelectTrigger className="w-32 bg-white">
+                <SelectTrigger className="w-32">
                   <SelectValue placeholder="沟通方式" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">全部方式</SelectItem>
                   <SelectItem value="kcall语音">kcall语音</SelectItem>
-                  <SelectItem value="微信聊天">微信聊天</SelectItem>
+                  <SelectItem value="微信聊天">微信聊天</Select极狐Item>
                   <SelectItem value="微信语音">微信语音</SelectItem>
                 </SelectContent>
               </Select>
@@ -327,17 +310,17 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="rounded-lg border border-gray-200">
+          <div className="rounded-lg border">
             <Table>
               <TableHeader>
                 <TableRow className="bg-gray-50">
-                  <TableHead className="font-medium w-48">客户信息</TableHead>
-                  <TableHead className="font-medium w-36">昨日沟通</TableHead>
-                  <TableHead className="font-medium w-32">记录溯源</TableHead>
-                  <TableHead className="font-medium w-24">对话条数</TableHead>
-                  <TableHead className="font-medium w-64">客户标签</TableHead>
-                  <TableHead className="font-medium w-32">客户价值</TableHead>
-                  <TableHead className="font-medium">沟通建议与下步行动</TableHead>
+                  <TableHead className="font-semibold w-48">客户信息</TableHead>
+                  <TableHead className="font-semibold w-36">昨日沟通</TableHead>
+                  <TableHead className="font-semibold w-32">记录溯源</TableHead>
+                  <TableHead className="font-semibold w-24">对话条数</TableHead>
+                  <TableHead className="font-semibold w-64">客户标签</TableHead>
+                  <TableHead className="font-semibold w-32">客户价值</TableHead>
+                  <TableHead className="font-semibold">沟通建议与下步行动</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -348,10 +331,20 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                   >
                     <TableCell>
                       <div className="space-y-1">
-                        <div className="font-medium text-gray-900">{client.name}</div>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium text-gray-900">{client.name}</span>
+                          <div 
+                            className={`text-xs px-2 py-1 rounded ${getPriorityColor(client.priority)}`}
+                          >
+                            {client.priority === 'urgent' ? '紧急' : 
+                             client.priority === 'high' ? '重要' : '一般'}
+                          </div>
+                        </div>
                         <div className="text-sm text-gray-600">{client.contact}</div>
                         <div className="flex items-center space-x-1">
-                          <div className={`text-xs px-2 py-1 rounded ${getStageColor(client.stage)}`}>
+                          <div 
+                            className={`text-xs px-2 py-1 rounded ${getStageColor(client.stage)}`}
+                          >
                             {client.stage}
                           </div>
                           <span className="text-xs text-gray-500">成功率: {client.successRate}%</span>
@@ -360,7 +353,9 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                     </TableCell>
                     <TableCell>
                       <div className="space-y-2">
-                        <div className={`flex items-center space-x-1 text-xs px-2 py-1 rounded ${getContactBadgeColor(client.lastContact)}`}>
+                        <div 
+                          className={`flex items-center space-x-1 px-2 py-1 rounded text-xs ${getContactBadgeColor(client.lastContact)}`}
+                        >
                           {getContactIcon(client.lastContact)}
                           <span>{client.lastContact}</span>
                         </div>
@@ -371,7 +366,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        className="flex items-center space-x-1 text-xs bg-white"
+                        className="flex items-center space-x-1 hover:bg-blue-50"
                         onClick={() => handleAnalysisDetailClick(client)}
                       >
                         <FileText className="w-3 h-3" />
@@ -413,7 +408,10 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                             <button 
                               key={i}
                               className={`w-4 h-4 ${client.value >= rating ? 'text-yellow-500' : 'text-gray-300'}`}
-                              onClick={() => handleStarClick(client.id, rating)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleStarClick(client.id, rating);
+                              }}
                             >
                               ★
                             </button>
@@ -421,7 +419,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                         })}
                       </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="max-w-md">
                       <div className="space-y-3">
                         <div className="text-sm text-gray-700 line-clamp-2">
                           {client.suggestion}
@@ -429,7 +427,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          className="flex items-center space-x-1 text-xs bg-white"
+                          className="flex items-center space-x-1 hover:bg-blue-50"
                           onClick={() => handleCommunicationDetailClick(client)}
                         >
                           <span>查看详细建议</span>
