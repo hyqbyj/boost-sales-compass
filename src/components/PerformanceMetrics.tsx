@@ -244,15 +244,6 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                   name="目标业绩"
                   dot={{ r: 4 }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="efficiency" 
-                  stroke="var(--color-efficiency)"
-                  strokeWidth={2}
-                  strokeDasharray="5 5"
-                  name="效率指标"
-                  dot={{ r: 4 }}
-                />
               </ComposedChart>
             </ResponsiveContainer>
           </ChartContainer>
