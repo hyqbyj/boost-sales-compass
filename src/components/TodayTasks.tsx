@@ -37,7 +37,24 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
   // 模拟客户数据 - 四个不同的客户背景
   const clients = [
     {
-      id: '1', 
+      id: '1',
+      name: '北京协和医院',
+      contact: '张主任',
+      lastContact: 'kcall语音',
+      dialogCount: 15,
+      lastContactTime: '昨日 14:30',
+      stage: '意向阶段',
+      priority: 'high',
+      tags: ['价格敏感', '意向强烈', '决策权限', '预算充足', '对比竞品'],
+      concerns: ['成本控制', 'ROI分析', '实施周期'],
+      recordUrl: '#',
+      suggestion: '客户对价格高度敏感，建议重点展示产品的成本效益优势。准备详细的ROI分析报告，强调长期收益。可以提供分期付款方案，降低初期投资压力。重点对比竞品的性价比优势。',
+      nextAction: '准备成本效益分析材料，制定分期方案',
+      successRate: 78,
+      analysisBackground: '医疗行业决策者，注重成本控制和投资回报，具有丰富的采购经验，倾向于理性决策。'
+    },
+    {
+      id: '2', 
       name: '上海仁济医院',
       contact: '李院长',
       lastContact: '微信聊天',
@@ -54,7 +71,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       analysisBackground: '院长级别决策者，技术背景深厚，注重产品的技术先进性和长期稳定性，决策过程较为严谨。'
     },
     {
-      id: '2',
+      id: '3',
       name: '广州中山医院',
       contact: '王科长',
       lastContact: '微信语音', 
@@ -71,7 +88,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       analysisBackground: '中层管理者，执行导向，面临紧急业务需求压力，需要快速解决方案，决策效率高。'
     },
     {
-      id: '3',
+      id: '4',
       name: '深圳人民医院',
       contact: '陈主管',
       lastContact: 'kcall语音',
@@ -140,6 +157,14 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
         return 'bg-gray-100 text-gray-800';
     }
   };
+  
+  // 新增函数：根据成功率值获取对应的颜色类
+  const getSuccessRateColor = (rate: number) => {
+    if (rate >= 90) return 'bg-green-100 text-green-800 border-green-200';
+    if (rate >= 80) return 'bg-teal-100 text-teal-800 border-teal-200';
+    if (rate >= 60) return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+    return 'bg-orange-100 text-orange-800 border-orange-200';
+  };
 
   const filteredClients = clients.filter(client => {
     const matchesSearch = client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -207,7 +232,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                 <Clock className="w-5 h-5 text-green-600" />
                 <div>
                   <p className="text-sm font-medium text-gray-600">今日跟进</p>
-                  <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
+                  <p className="text-极2xl font-bold text-gray-900">{clients.filter(c => c.priority === 'urgent' || c.priority === 'high').length}</p>
                 </div>
               </div>
             </CardContent>
@@ -254,7 +279,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       {/* 筛选和搜索 */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="极flex items-center justify-between">
             <div>
               <CardTitle className="flex items-center space-x-2">
                 <Eye className="w-5 h-5 text-blue-600" />
@@ -342,7 +367,13 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                           >
                             {client.stage}
                           </Badge>
-                          <span className="text-xs text-gray-500">成功率: {client.successRate}%</span>
+                          {/* 修改这里 - 修复成功率显示问题 */}
+                          <Badge 
+                            variant="outline" 
+                            className={`text-xs ${getSuccessRateColor(client.successRate)}`}
+                          >
+                            成功率: {client.successRate}%
+                          </Badge>
                         </div>
                       </div>
                     </TableCell>
