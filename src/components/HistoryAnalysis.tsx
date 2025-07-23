@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +21,8 @@ interface HistoryAnalysisProps {
     kpis: any[];
   };
 }
+
+export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
   // AI建议内容
   const aiSuggestions = [
     {
