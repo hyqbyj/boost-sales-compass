@@ -158,7 +158,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                         {suggestion.advantages.map((advantage, advIndex) => (
                           <div key={advIndex} className="flex items-start">
                             <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
-                            <p className={`ml-3 text-sm ${colorMap[suggestion.color].text}`}>{advantage}</p>
+                            <p className="ml-3 text-sm text-black">{advantage}</p>
                           </div>
                         ))}
                       </div>
@@ -171,7 +171,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                         {suggestion.disadvantages.map((disadvantage, disIndex) => (
                           <div key={disIndex} className="flex items-start">
                             <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
-                            <p className={`ml-3 text-sm ${colorMap[suggestion.color].text}`}>{disadvantage}</p>
+                            <p className="ml-3 text-sm text-black">{disadvantage}</p>
                           </div>
                         ))}
                       </div>
@@ -184,7 +184,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                         {suggestion.suggestions.map((item, itemIndex) => (
                           <div key={itemIndex} className="flex items-start">
                             <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
-                            <p className={`ml-3 text-sm ${colorMap[suggestion.color].text}`}>{item}</p>
+                            <p className="ml-3 text-sm text-black">{item}</p>
                           </div>
                         ))}
                       </div>
