@@ -1,5 +1,4 @@
 
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -115,6 +114,8 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
   const dailyQuotes = [
     {
       quote: "只有战略的持久战，才是争取最后胜利的唯一途径。",
+      author: "毛泽东",
+      date: "今日"
     }
   ];
 
@@ -308,4 +309,3 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
     </motion.div>
   );
 };
-
