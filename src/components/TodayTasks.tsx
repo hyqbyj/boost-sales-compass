@@ -334,7 +334,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                   <TableHead className="font-semibold w-24">对话条数</TableHead>
                   <TableHead className="font-semibold w-64">客户标签</TableHead>
                   <TableHead className="font-semibold">沟通建议与下步行动</TableHead>
-                  <TableHead className="font-semibold w-40">客户价值</TableHead>
+                  <TableHead className="font-semibold w-40">建议价值</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

@@ -68,7 +68,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       unit: '个',
       change: '+12%',
       trend: 'up',
-      description: 'vs 上周 35'
+      description: 'vs 昨天 35'
     },
     {
       name: '本周业绩',
@@ -114,19 +114,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
   // 每日毛选语录
   const dailyQuotes = [
     {
-      quote: "成功的销售不是把产品卖给客户，而是帮助客户解决问题。",
-      author: "销售冠军 - 张明",
-      date: "2024-01-15"
-    },
-    {
-      quote: "倾听是销售的第一步，理解是成交的关键。",
-      author: "资深顾问 - 李华",
-      date: "2024-01-14"
-    },
-    {
-      quote: "每一次拒绝都是成功路上的垫脚石。",
-      author: "团队经理 - 王强",
-      date: "2024-01-13"
+      quote: "只有战略的持久战，才是争取最后胜利的唯一途径。",
     }
   ];
 
@@ -210,7 +198,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
             <span>每日毛选语录</span>
           </CardTitle>
           <CardDescription>
-            来自优秀销售人员的心得体会和成功经验分享
+            来自毛选的精神指导
           </CardDescription>
         </CardHeader>
         <CardContent>

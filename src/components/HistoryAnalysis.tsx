@@ -20,21 +20,12 @@ interface HistoryAnalysisProps {
     kpis: any[];
   };
 }
-
-export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
-  // 三维能力雷达图数据
-  const abilityData = [
-    { skill: '共情', current: 82, target: 90, improvement: 8 },
-    { skill: '共识', current: 75, target: 85, improvement: 10 },
-    { skill: '共行', current: 88, target: 92, improvement: 4 }
-  ];
-
   // AI建议内容
   const aiSuggestions = [
     {
       id: 'empathy',
       title: "共情能力提升建议",
-      description: "基于您当前82分的共情水平，建议重点提升情感识别和客户需求理解能力",
+      description: "基于您当前的共情水平，建议重点提升情感识别和客户需求理解能力",
       suggestions: [
         "加强倾听技巧训练，学会捕捉客户语言中的情感信号和潜在需求",
         "练习同理心对话，从客户角度思考问题，增强情感共鸣能力",
@@ -47,7 +38,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
     {
       id: 'consensus',
       title: "共识建立提升建议",
-      description: "您的共识能力为75分，需要加强与客户建立信任和达成一致的技巧",
+      description: "您的共识能力中等，需要加强与客户建立信任和达成一致的技巧",
       suggestions: [
         "掌握SPIN提问技巧，通过引导式提问帮助客户澄清需求和期望",
         "学习价值对齐方法，找到客户关注点与产品价值的契合点",
@@ -60,7 +51,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
     {
       id: 'action',
       title: "共行执行提升建议",
-      description: "您的共行能力已达88分，属于优势项目，建议保持并进一步精进",
+      description: "您的共行能力属于优势项目，建议保持并进一步精进",
       suggestions: [
         "优化时间管理和跟进节奏，确保承诺事项的及时执行",
         "建立客户期望管理体系，设定合理的执行时间线和里程碑",
@@ -95,166 +86,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
       transition={{ duration: 0.5 }}
       className="space-y-6"
     >
-      {/* 页面头部统计 */}
-      <div className="grid grid-cols-4 gap-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <Calendar className="w-5 h-5 text-blue-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-600">工作天数</p>
-                  <p className="text-2xl font-bold text-gray-900">128</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <MessageSquare className="w-5 h-5 text-green-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-600">沟通记录</p>
-                  <p className="text-2xl font-bold text-gray-900">2,456</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.3 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <Award className="w-5 h-5 text-yellow-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-600">综合评分</p>
-                  <p className="text-2xl font-bold text-gray-900">82</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.4 }}
-        >
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2">
-                <Lightbulb className="w-5 h-5 text-purple-600" />
-                <div>
-                  <p className="text-sm font-medium text-gray-600">成长指数</p>
-                  <p className="text-2xl font-bold text-gray-900">+15%</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* 三维能力雷达图 */}
-        <Card className="h-full">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <User className="w-5 h-5 text-blue-600" />
-              <span>三维能力画像</span>
-            </CardTitle>
-            <CardDescription>
-              基于历史工作数据分析的三维能力评估，蓝色为当前水平，绿色为目标水平
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart data={abilityData}>
-                  <PolarGrid />
-                  <PolarAngleAxis dataKey="skill" tick={{ fontSize: 14, fontWeight: 'bold' }} />
-                  <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} />
-                  <Radar
-                    name="当前水平"
-                    dataKey="current"
-                    stroke="#3b82f6"
-                    fill="#3b82f6"
-                    fillOpacity={0.3}
-                    strokeWidth={3}
-                  />
-                  <Radar
-                    name="目标水平"
-                    dataKey="target"
-                    stroke="#10b981"
-                    fill="#10b981"
-                    fillOpacity={0.1}
-                    strokeWidth={3}
-                    strokeDasharray="5 5"
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* 能力详情 */}
-        <Card className="h-full">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Lightbulb className="w-5 h-5 text-blue-600" />
-              <span>能力分析详情</span>
-            </CardTitle>
-            <CardDescription>
-              各项能力的具体评分及提升空间分析
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              {abilityData.map((ability, index) => (
-                <motion.div
-                  key={ability.skill}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="space-y-3"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-semibold">{ability.skill}</span>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-lg text-gray-800 font-bold">{ability.current}/100</span>
-                      {ability.improvement > 0 && (
-                        <Badge variant="outline" className="text-xs bg-green-50 text-green-700">
-                          +{ability.improvement}
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                  <Progress value={ability.current} className="h-3" />
-                  <div className="text-sm text-gray-600">
-                    距离目标还需提升 {ability.target - ability.current} 分
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
+      
       {/* AI建议部分 - 改为三列卡片布局 */}
       <Card>
         <CardHeader>
