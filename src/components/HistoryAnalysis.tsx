@@ -100,15 +100,18 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
   const colorMap = {
     blue: {
       border: "border-l-blue-500",
-      dot: "bg-blue-500"
+      dot: "bg-blue-500",
+      text: "text-blue-700"
     },
     green: {
       border: "border-l-green-500",
-      dot: "bg-green-500"
+      dot: "bg-green-500",
+      text: "text-green-700"
     },
     purple: {
       border: "border-l-purple-500",
-      dot: "bg-purple-500"
+      dot: "bg-purple-500",
+      text: "text-purple-700"
     }
   };
 
@@ -150,12 +153,12 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                   <div className="space-y-6 flex-grow">
                     {/* 优点 */}
                     <div>
-                      <h4 className="font-semibold text-orange-700 mb-3">优点</h4>
+                      <h4 className={`font-semibold mb-3 ${colorMap[suggestion.color].text}`}>优点</h4>
                       <div className="space-y-2">
                         {suggestion.advantages.map((advantage, advIndex) => (
                           <div key={advIndex} className="flex items-start">
                             <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
-                            <p className="text-gray-700 ml-3 text-sm">{advantage}</p>
+                            <p className={`ml-3 text-sm ${colorMap[suggestion.color].text}`}>{advantage}</p>
                           </div>
                         ))}
                       </div>
@@ -163,12 +166,12 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
 
                     {/* 缺点 */}
                     <div>
-                      <h4 className="font-semibold text-red-700 mb-3">缺点</h4>
+                      <h4 className={`font-semibold mb-3 ${colorMap[suggestion.color].text}`}>缺点</h4>
                       <div className="space-y-2">
                         {suggestion.disadvantages.map((disadvantage, disIndex) => (
                           <div key={disIndex} className="flex items-start">
                             <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
-                            <p className="text-gray-700 ml-3 text-sm">{disadvantage}</p>
+                            <p className={`ml-3 text-sm ${colorMap[suggestion.color].text}`}>{disadvantage}</p>
                           </div>
                         ))}
                       </div>
@@ -176,12 +179,12 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
 
                     {/* 改进建议 */}
                     <div>
-                      <h4 className="font-semibold text-blue-700 mb-3">改进建议</h4>
+                      <h4 className={`font-semibold mb-3 ${colorMap[suggestion.color].text}`}>改进建议</h4>
                       <div className="space-y-2">
                         {suggestion.suggestions.map((item, itemIndex) => (
                           <div key={itemIndex} className="flex items-start">
                             <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
-                            <p className="text-gray-700 ml-3 text-sm">{item}</p>
+                            <p className={`ml-3 text-sm ${colorMap[suggestion.color].text}`}>{item}</p>
                           </div>
                         ))}
                       </div>
