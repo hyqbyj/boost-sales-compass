@@ -28,7 +28,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
     {
       id: 'empathy',
       title: "共情能力分析",
-      description: "基于您的沟通记录和客户反馈，分析共情能力的表现情况",
+      description: "理解客户痛点、情绪与未明确表达的需求，建立信任关系",
       advantages: [
         "能够准确识别客户的情绪变化和语言信号",
         "在沟通过程中表现出良好的倾听能力",
@@ -51,7 +51,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
     {
       id: 'consensus',
       title: "共识建立分析",
-      description: "评估您在与客户达成共识方面的能力和表现",
+      description: "基于共情成果，与客户达成解决方案共识，明确合作目标与路径",
       advantages: [
         "善于总结和确认客户的关键需求点",
         "能够有效地将产品价值与客户需求进行匹配",
@@ -74,7 +74,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
     {
       id: 'action',
       title: "共行执行分析",
-      description: "分析您在推动客户协同执行方面的能力表现",
+      description: "与客户协同推进方案落地，解决执行问题，实现预期价值",
       advantages: [
         "具备良好的项目推进和时间管理能力",
         "能够建立有效的客户沟通和反馈机制",
