@@ -28,7 +28,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
+  BarChart
 } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
@@ -118,6 +119,22 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       date: "今日"
     }
   ];
+
+  // 生成单个指标的柱状图数据
+  const generateChartData = (indicator: any) => {
+    return [
+      {
+        category: '本人',
+        value: indicator.current,
+        fill: '#3b82f6'
+      },
+      {
+        category: '部门最优',
+        value: indicator.topPerformer,
+        fill: '#10b981'
+      }
+    ];
+  };
 
   return (
     <motion.div
@@ -251,16 +268,20 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                         目标: {indicator.target}{indicator.unit}
                       </Badge>
                     </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">我的表现</span>
-                        <span className="font-medium">{indicator.current}{indicator.unit}</span>
-                      </div>
-                      <Progress value={(indicator.current / indicator.topPerformer) * 100} className="h-2" />
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">部门最优</span>
-                        <span className="font-medium text-green-600">{indicator.topPerformer}{indicator.unit}</span>
-                      </div>
+                    <div className="h-48">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={generateChartData(indicator)}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="category" />
+                          <YAxis />
+                          <Tooltip />
+                          <Bar dataKey="value" fill="#8884d8" />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="flex justify-between text-sm text-gray-600">
+                      <span>本人: {indicator.current}{indicator.unit}</span>
+                      <span>部门最优: {indicator.topPerformer}{indicator.unit}</span>
                     </div>
                     <div className="text-xs text-gray-500">
                       超越最优还需: {indicator.topPerformer - indicator.current > 0 ? indicator.topPerformer - indicator.current : 0}{indicator.unit}
@@ -285,16 +306,20 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                         {indicator.standard}: {indicator.target}{indicator.unit}
                       </Badge>
                     </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">我的表现</span>
-                        <span className="font-medium">{indicator.current}{indicator.unit}</span>
-                      </div>
-                      <Progress value={(indicator.current / indicator.topPerformer) * 100} className="h-2" />
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">部门最优</span>
-                        <span className="font-medium text-green-600">{indicator.topPerformer}{indicator.unit}</span>
-                      </div>
+                    <div className="h-48">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={generateChartData(indicator)}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="category" />
+                          <YAxis />
+                          <Tooltip />
+                          <Bar dataKey="value" fill="#8884d8" />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="flex justify-between text-sm text-gray-600">
+                      <span>本人: {indicator.current}{indicator.unit}</span>
+                      <span>部门最优: {indicator.topPerformer}{indicator.unit}</span>
                     </div>
                     <div className="text-xs text-gray-500">
                       超越最优还需: {indicator.topPerformer - indicator.current > 0 ? indicator.topPerformer - indicator.current : 0}{indicator.unit}
