@@ -154,7 +154,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                       <div className="space-y-2">
                         {suggestion.advantages.map((advantage, advIndex) => (
                           <div key={advIndex} className="flex items-start">
-                            <div className="w-2 h-2 rounded-full bg-green-500 mt-2"></div>
+                            <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
                             <p className="text-gray-700 ml-3 text-sm">{advantage}</p>
                           </div>
                         ))}
@@ -167,7 +167,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                       <div className="space-y-2">
                         {suggestion.disadvantages.map((disadvantage, disIndex) => (
                           <div key={disIndex} className="flex items-start">
-                            <div className="w-2 h-2 rounded-full bg-red-500 mt-2"></div>
+                            <div className={`w-2 h-2 rounded-full mt-2 ${colorMap[suggestion.color].dot}`}></div>
                             <p className="text-gray-700 ml-3 text-sm">{disadvantage}</p>
                           </div>
                         ))}
