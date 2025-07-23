@@ -1,7 +1,8 @@
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Lightbulb, MessageSquare, Users, BookOpen, Target, Copy, X } from 'lucide-react';
+import { Lightbulb, MessageSquare, Users, BookOpen, Target, Copy, X, Heart, Handshake, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface CommunicationDetailModalProps {
@@ -23,40 +24,92 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
     return null;
   }
 
+  // 基于八步法和共情共识共行的沟通建议
   const communicationDetails = {
-    greeting: {
-      title: "开场问候建议",
-      content: `${client.contact}您好，我是上次和您沟通过产品方案的小李。看到您之前对我们的AI智能客服比较感兴趣，今天想和您分享一些我们最新的成功案例。`,
-      tips: "基于客户之前的沟通记录，采用熟悉化开场，直接切入关注点"
-    },
-    introduction: {
-      title: "产品介绍重点",
-      content: `针对${client.name}的实际需求，重点介绍：
-1. AI智能客服的成本节约效果 - 可减少60%人工客服成本
-2. 套电机器人的高效率 - 日均外呼量提升3倍
-3. 系统稳定性保障 - 99.9%在线率，7 * 24小时服务`,
-      tips: "结合客户标签中的'成本敏感'和'效率关注'特点定制"
-    },
-    salesExample: {
-      title: "销冠沟通实例",
-      content: `销冠张经理面对类似客户的沟通要点：
-"${client.contact}，我理解您对成本的考虑。我们上个月刚帮助一家规模相当的医院实现了月省8万的人工成本。让我给您算一笔账..."
-关键技巧：用具体数字说话，提供可量化的收益预期。`,
-      result: "客户当场确定了试用意向，第二周签约"
-    },
-    template: {
-      title: "个性化沟通模板",
-      content: `基于您的沟通风格分析生成：
+    empathy: {
+      title: "共情建议（需求洞察与情感连接）",
+      content: `针对${client.name}的沟通建议：
 
-开场：${client.contact}您好，关于我们上次讨论的智能化升级方案，我这边有一些新的进展想和您分享。
+1. 情感连接策略：
+   - 开场时表达对医疗行业工作压力的理解和敬意
+   - 主动询问当前工作中遇到的具体挑战
+   - 用同理心语言："我理解您在成本控制方面的压力..."
 
-核心价值传递：
-- 针对您关心的成本控制，我们的方案预计可以帮您节省40-60%的相关费用
-- 关于您提到的系统稳定性，我们有99.9%的在线率保障
-- 我们已经服务了300+家医疗机构，有丰富的行业经验
+2. 需求洞察技巧：
+   - 使用开放式问题深入了解业务痛点
+   - 倾听客户言语背后的真实需求
+   - 识别客户的情绪变化和关注焦点
 
-促进行动：我建议我们安排一次15分钟的产品演示，让您直观感受一下效果，您看明天上午方便吗？`,
-      style: "基于您的历史对话风格：专业、直接、数据导向"
+3. 信任建立方法：
+   - 分享相似客户的成功案例
+   - 展示对医疗行业的专业理解
+   - 承诺提供持续的专业支持`,
+      icon: <Heart className="w-4 h-4 text-red-500" />,
+      bgColor: "bg-red-50"
+    },
+    consensus: {
+      title: "共识建议（方案匹配与价值对齐）",
+      content: `与${client.contact}达成共识的策略：
+
+1. 价值对齐方法：
+   - 将产品功能与客户关注点直接对应
+   - 用量化数据证明投资回报率
+   - 强调解决方案的行业针对性
+
+2. 方案匹配技巧：
+   - 根据客户预算制定分阶段实施计划
+   - 提供灵活的配置选项
+   - 突出与竞品的差异化优势
+
+3. 共识确认步骤：
+   - 总结客户认可的关键价值点
+   - 确认解决方案的优先级排序
+   - 获得客户对实施时间线的认同`,
+      icon: <Handshake className="w-4 h-4 text-blue-500" />,
+      bgColor: "bg-blue-50"
+    },
+    action: {
+      title: "共行建议（落地执行与持续共赢）",
+      content: `与${client.name}协同执行的计划：
+
+1. 执行推进策略：
+   - 设定明确的里程碑和时间节点
+   - 建立定期沟通机制
+   - 提供实施过程中的技术支持
+
+2. 问题解决机制：
+   - 建立快速响应的服务团队
+   - 预设常见问题的解决方案
+   - 定期收集客户反馈并优化
+
+3. 持续共赢路径：
+   - 定期评估实施效果
+   - 根据业务发展调整服务方案
+   - 建立长期合作伙伴关系`,
+      icon: <CheckCircle className="w-4 h-4 text-green-500" />,
+      bgColor: "bg-green-50"
+    },
+    eightSteps: {
+      title: "八步法实施指南",
+      content: `完整的八步法沟通流程：
+
+开场白：${client.contact}您好，关于我们讨论的智能化升级方案，我想分享一些新的进展...
+
+话天地：了解到您最近在处理的业务挑战，我们很多医疗客户都面临类似问题...
+
+挖需求：能否详细了解一下您目前在成本控制方面的具体考量？
+
+拉伤口：如果这些问题不解决，可能会影响到医院的整体运营效率...
+
+撒盐巴：竞争对手已经开始使用类似系统，时间窗口越来越紧迫...
+
+试缔结：基于我们的讨论，您认为这个方案能解决您的核心问题吗？
+
+排异议：关于您担心的实施风险，我们已经为300+医疗机构成功实施...
+
+再缔结：我建议我们下周安排一次深度演示，您看什么时间合适？`,
+      icon: <BookOpen className="w-4 h-4 text-purple-500" />,
+      bgColor: "bg-purple-50"
     }
   };
 
@@ -86,10 +139,9 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
           </DialogClose>
         </div>
 
-        {/* 内容区域 */}
         <div className="flex-1 overflow-y-auto px-8 py-6 bg-gray-50">
           <div className="space-y-6 max-w-3xl mx-auto">
-            {/* 客户概况 - 符合图片样式 */}
+            {/* 客户概况 */}
             <Card className="bg-white border border-gray-300 rounded-md">
               <CardHeader className="p-4 border-b border-gray-200 bg-white">
                 <CardTitle className="flex items-center space-x-2 text-gray-800">
@@ -127,78 +179,72 @@ export const CommunicationDetailModal = ({ open, onOpenChange, client }: Communi
               </CardContent>
             </Card>
 
-            {/* 开场问候 */}
+            {/* 共情建议 */}
             <Card className="bg-white border border-gray-300 rounded-md">
               <CardHeader className="p-4 border-b border-gray-200 bg-white">
                 <CardTitle className="flex items-center space-x-2 text-gray-800">
-                  <Lightbulb className="w-4 h-4 text-blue-600" />
-                  <span className="font-semibold">{communicationDetails.greeting.title}</span>
+                  {communicationDetails.empathy.icon}
+                  <span className="font-semibold">{communicationDetails.empathy.title}</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-4 pt-3 bg-blue-50 rounded-b-md">
+              <CardContent className={`p-4 pt-3 ${communicationDetails.empathy.bgColor} rounded-b-md`}>
                 <div className="p-4 mb-2 bg-white border border-gray-200 rounded-md">
-                  <p className="text-sm text-gray-800">{communicationDetails.greeting.content}</p>
-                </div>
-                <p className="text-xs text-gray-500 mt-2">{communicationDetails.greeting.tips}</p>
-              </CardContent>
-            </Card>
-
-            {/* 产品介绍重点 */}
-            <Card className="bg-white border border-gray-300 rounded-md">
-              <CardHeader className="p-4 border-b border-gray-200 bg-white">
-                <CardTitle className="flex items-center space-x-2 text-gray-800">
-                  <BookOpen className="w-4 h-4 text-blue-600" />
-                  <span className="font-semibold">{communicationDetails.introduction.title}</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 pt-3 bg-blue-50 rounded-b-md">
-                <div className="p-4 mb-2 bg-white border border-gray-200 rounded-md">
-                  <pre className="text-sm whitespace-pre-wrap text-gray-800">{communicationDetails.introduction.content}</pre>
-                </div>
-                <p className="text-xs text-gray-500 mt-2">{communicationDetails.introduction.tips}</p>
-              </CardContent>
-            </Card>
-
-            {/* 销冠实例 */}
-            <Card className="bg-white border border-gray-300 rounded-md">
-              <CardHeader className="p-4 border-b border-gray-200 bg-white">
-                <CardTitle className="flex items-center space-x-2 text-gray-800">
-                  <Users className="w-4 h-4 text-blue-600" />
-                  <span className="font-semibold">{communicationDetails.salesExample.title}</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 pt-3 bg-blue-50 rounded-b-md">
-                <div className="p-4 mb-2 bg-white border border-gray-200 rounded-md">
-                  <pre className="text-sm whitespace-pre-wrap text-gray-800">{communicationDetails.salesExample.content}</pre>
-                </div>
-                <div className="text-xs text-green-600 font-medium mt-2">
-                  <strong>结果：</strong>{communicationDetails.salesExample.result}
+                  <pre className="text-sm whitespace-pre-wrap text-gray-800">{communicationDetails.empathy.content}</pre>
                 </div>
               </CardContent>
             </Card>
 
-            {/* 个性化模板 */}
+            {/* 共识建议 */}
+            <Card className="bg-white border border-gray-300 rounded-md">
+              <CardHeader className="p-4 border-b border-gray-200 bg-white">
+                <CardTitle className="flex items-center space-x-2 text-gray-800">
+                  {communicationDetails.consensus.icon}
+                  <span className="font-semibold">{communicationDetails.consensus.title}</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className={`p-4 pt-3 ${communicationDetails.consensus.bgColor} rounded-b-md`}>
+                <div className="p-4 mb-2 bg-white border border-gray-200 rounded-md">
+                  <pre className="text-sm whitespace-pre-wrap text-gray-800">{communicationDetails.consensus.content}</pre>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* 共行建议 */}
+            <Card className="bg-white border border-gray-300 rounded-md">
+              <CardHeader className="p-4 border-b border-gray-200 bg-white">
+                <CardTitle className="flex items-center space-x-2 text-gray-800">
+                  {communicationDetails.action.icon}
+                  <span className="font-semibold">{communicationDetails.action.title}</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className={`p-4 pt-3 ${communicationDetails.action.bgColor} rounded-b-md`}>
+                <div className="p-4 mb-2 bg-white border border-gray-200 rounded-md">
+                  <pre className="text-sm whitespace-pre-wrap text-gray-800">{communicationDetails.action.content}</pre>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* 八步法实施指南 */}
             <Card className="bg-white border border-gray-300 rounded-md">
               <CardHeader className="p-4 border-b border-gray-200 bg-white">
                 <div className="flex items-center justify-between w-full">
                   <CardTitle className="flex items-center space-x-2 text-gray-800">
-                    <Copy className="w-4 h-4 text-blue-600" />
-                    <span className="font-semibold">{communicationDetails.template.title}</span>
+                    {communicationDetails.eightSteps.icon}
+                    <span className="font-semibold">{communicationDetails.eightSteps.title}</span>
                   </CardTitle>
                   <Button variant="outline" className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-100">
                     复制模板
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent className="p-4 pt-3 bg-blue-50 rounded-b-md">
+              <CardContent className={`p-4 pt-3 ${communicationDetails.eightSteps.bgColor} rounded-b-md`}>
                 <div className="p-4 mb-2 bg-white border border-gray-200 rounded-md">
-                  <pre className="text-sm whitespace-pre-wrap text-gray-800">{communicationDetails.template.content}</pre>
+                  <pre className="text-sm whitespace-pre-wrap text-gray-800">{communicationDetails.eightSteps.content}</pre>
                 </div>
-                <p className="text-xs text-gray-500 mt-2">{communicationDetails.template.style}</p>
               </CardContent>
             </Card>
 
-            {/* 下步行动 - 符合图片样式 */}
+            {/* 下步行动 */}
             <Card className="bg-white border border-gray-300 rounded-md">
               <CardHeader className="p-4 bg-white border-b border-gray-200">
                 <CardTitle className="text-gray-800 font-semibold">下步行动计划</CardTitle>

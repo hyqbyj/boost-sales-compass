@@ -1,4 +1,5 @@
 
+
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,7 +16,8 @@ import {
   Calendar,
   Award,
   BarChart3,
-  LineChart
+  LineChart,
+  Quote
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import {
@@ -88,24 +90,44 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
     },
   ];
 
-  // Process indicators
+  // Process indicators with comparison data
   const processIndicators = [
-    { name: '外呼', current: 45, target: 50, unit: '个' },
-    { name: '外呼时长', current: 120, target: 150, unit: '分钟' },
-    { name: '接通数', current: 28, target: 35, unit: '个' },
-    { name: '接通率', current: 62, target: 70, unit: '%' },
-    { name: '30S有效外呼', current: 32, target: 40, unit: '个' },
-    { name: '60S有效外呼', current: 25, target: 30, unit: '个' },
-    { name: '60S时长', current: 85, target: 100, unit: '分钟' },
-    { name: '60S/接通率', current: 89, target: 85, unit: '%' },
-    { name: '3分钟有效外呼', current: 18, target: 20, unit: '个' },
-    { name: '10分钟有效外呼', current: 12, target: 15, unit: '个' },
-    { name: '10分钟时长', current: 180, target: 200, unit: '分钟' }
+    { name: '外呼', current: 45, target: 50, unit: '个', topPerformer: 65 },
+    { name: '外呼时长', current: 120, target: 150, unit: '分钟', topPerformer: 180 },
+    { name: '接通数', current: 28, target: 35, unit: '个', topPerformer: 42 },
+    { name: '接通率', current: 62, target: 70, unit: '%', topPerformer: 85 },
+    { name: '30S有效外呼', current: 32, target: 40, unit: '个', topPerformer: 48 },
+    { name: '60S有效外呼', current: 25, target: 30, unit: '个', topPerformer: 38 },
+    { name: '60S时长', current: 85, target: 100, unit: '分钟', topPerformer: 125 },
+    { name: '60S/接通率', current: 89, target: 85, unit: '%', topPerformer: 95 },
+    { name: '3分钟有效外呼', current: 18, target: 20, unit: '个', topPerformer: 25 },
+    { name: '10分钟有效外呼', current: 12, target: 15, unit: '个', topPerformer: 22 },
+    { name: '10分钟时长', current: 180, target: 200, unit: '分钟', topPerformer: 280 },
+    { name: '每日触达新客户', current: 15, target: 20, unit: '个', topPerformer: 28 }
   ];
 
   // Assessment indicators
   const assessmentIndicators = [
-    { name: '30S有效外呼达标', current: 32, target: 40, unit: '个/天', standard: '合格标准' }
+    { name: '30S有效外呼达标', current: 32, target: 40, unit: '个/天', standard: '合格标准', topPerformer: 48 }
+  ];
+
+  // 每日毛选语录
+  const dailyQuotes = [
+    {
+      quote: "成功的销售不是把产品卖给客户，而是帮助客户解决问题。",
+      author: "销售冠军 - 张明",
+      date: "2024-01-15"
+    },
+    {
+      quote: "倾听是销售的第一步，理解是成交的关键。",
+      author: "资深顾问 - 李华",
+      date: "2024-01-14"
+    },
+    {
+      quote: "每一次拒绝都是成功路上的垫脚石。",
+      author: "团队经理 - 王强",
+      date: "2024-01-13"
+    }
   ];
 
   return (
@@ -180,6 +202,38 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
         </div>
       </div>
 
+      {/* 每日毛选语录 */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Quote className="w-5 h-5 text-blue-600" />
+            <span>每日毛选语录</span>
+          </CardTitle>
+          <CardDescription>
+            来自优秀销售人员的心得体会和成功经验分享
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {dailyQuotes.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg"
+              >
+                <p className="text-gray-800 font-medium mb-2">"{item.quote}"</p>
+                <div className="flex items-center justify-between text-sm text-gray-600">
+                  <span>— {item.author}</span>
+                  <span>{item.date}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
       {/* KPI Detail Analysis */}
       <Card>
         <CardHeader>
@@ -188,7 +242,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
             <span>KPI详细分析</span>
           </CardTitle>
           <CardDescription>
-            各项关键指标的详细数据与成功情况
+            个人表现与部门最优员工的对比分析
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -199,24 +253,29 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <Target className="w-5 h-5 text-blue-600" />
                 <span>过程指标</span>
               </h3>
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {processIndicators.map((indicator, index) => (
-                  <div key={index} className="space-y-2">
+                  <div key={index} className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="font-medium">{indicator.name}</span>
-                        <Badge variant="outline" className="text-xs">
-                          目标: {indicator.target}{indicator.unit}
-                        </Badge>
+                      <span className="font-medium text-gray-800">{indicator.name}</span>
+                      <Badge variant="outline" className="text-xs">
+                        目标: {indicator.target}{indicator.unit}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">我的表现</span>
+                        <span className="font-medium">{indicator.current}{indicator.unit}</span>
                       </div>
-                      <div className="text-right">
-                        <span className="text-lg font-bold">{indicator.current}/{indicator.target}</span>
-                        <span className="text-sm text-gray-500 ml-2">
-                          ({Math.round((indicator.current / indicator.target) * 100)}%)
-                        </span>
+                      <Progress value={(indicator.current / indicator.topPerformer) * 100} className="h-2" />
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">部门最优</span>
+                        <span className="font-medium text-green-600">{indicator.topPerformer}{indicator.unit}</span>
                       </div>
                     </div>
-                    <Progress value={(indicator.current / indicator.target) * 100} className="h-2" />
+                    <div className="text-xs text-gray-500">
+                      超越最优还需: {indicator.topPerformer - indicator.current > 0 ? indicator.topPerformer - indicator.current : 0}{indicator.unit}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -228,24 +287,29 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
                 <Award className="w-5 h-5 text-green-600" />
                 <span>考核指标</span>
               </h3>
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {assessmentIndicators.map((indicator, index) => (
-                  <div key={index} className="space-y-2">
+                  <div key={index} className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="font-medium">{indicator.name}</span>
-                        <Badge variant="outline" className="text-xs">
-                          {indicator.standard}: {indicator.target}{indicator.unit}
-                        </Badge>
+                      <span className="font-medium text-gray-800">{indicator.name}</span>
+                      <Badge variant="outline" className="text-xs">
+                        {indicator.standard}: {indicator.target}{indicator.unit}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">我的表现</span>
+                        <span className="font-medium">{indicator.current}{indicator.unit}</span>
                       </div>
-                      <div className="text-right">
-                        <span className="text-lg font-bold">{indicator.current}/{indicator.target}</span>
-                        <span className="text-sm text-gray-500 ml-2">
-                          ({Math.round((indicator.current / indicator.target) * 100)}%)
-                        </span>
+                      <Progress value={(indicator.current / indicator.topPerformer) * 100} className="h-2" />
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">部门最优</span>
+                        <span className="font-medium text-green-600">{indicator.topPerformer}{indicator.unit}</span>
                       </div>
                     </div>
-                    <Progress value={(indicator.current / indicator.target) * 100} className="h-2" />
+                    <div className="text-xs text-gray-500">
+                      超越最优还需: {indicator.topPerformer - indicator.current > 0 ? indicator.topPerformer - indicator.current : 0}{indicator.unit}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -256,3 +320,4 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
     </motion.div>
   );
 };
+
