@@ -127,7 +127,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
             <span>AI智能建议</span>
           </CardTitle>
           <CardDescription>
-            基于三维能力画像分析，为您提供个性化的能力提升建议
+            基于共情、共识、共行理论，为您提供个性化的能力提升建议
           </CardDescription>
         </CardHeader>
         <CardContent className="pb-8">
@@ -150,7 +150,7 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                   <div className="space-y-6 flex-grow">
                     {/* 优点 */}
                     <div>
-                      <h4 className="font-semibold text-green-700 mb-3">优点</h4>
+                      <h4 className="font-semibold text-orange-700 mb-3">优点</h4>
                       <div className="space-y-2">
                         {suggestion.advantages.map((advantage, advIndex) => (
                           <div key={advIndex} className="flex items-start">

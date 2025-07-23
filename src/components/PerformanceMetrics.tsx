@@ -62,7 +62,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
 
   const kpiData = [
     {
-      name: '今日业绩',
+      name: '今日考核数据',
       current: 32,
       target: 40,
       unit: '个',
@@ -71,7 +71,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       description: 'vs 昨天 35'
     },
     {
-      name: '本周业绩',
+      name: '本周考核数据',
       current: 168,
       target: 200,
       unit: '个',
@@ -80,7 +80,7 @@ export const PerformanceMetrics = ({ department }: PerformanceMetricsProps) => {
       description: 'vs 上周 178'
     },
     {
-      name: '本月业绩',
+      name: '本月考核数据',
       current: 545,
       target: 800,
       unit: '个',
