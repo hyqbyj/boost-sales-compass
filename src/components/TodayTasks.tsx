@@ -59,7 +59,6 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       recordUrl: '#',
       suggestion: '客户已进入意向阶段，对产品功能高度认可。建议重点展示成本效益分析，提供详细的ROI计算模型。可安排现场演示，让客户直观感受产品价值。同时准备竞品对比分析，突出我们的差异化优势。',
       nextAction: '准备ROI分析报告和现场演示，安排技术专家支持',
-      successRate: 85,
       analysisBackground: '医疗行业决策者，注重成本控制和投资回报，具有丰富的采购经验，倾向于理性决策。当前处于意向阶段，需要更多技术细节和商务条件支持。'
     },
     {
@@ -75,7 +74,6 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       recordUrl: '#',
       suggestion: '客户需求紧急，时间敏感度高，已明确表达采购意向。建议立即提供快速实施方案和详细时间表。可以适当调整商务条件以换取时间优势，安排专门的快速交付团队。',
       nextAction: '制定15天快速实施方案，安排专项交付团队',
-      successRate: 92,
       analysisBackground: '中层管理者，执行导向，面临紧急业务需求压力，需要快速解决方案，决策效率高。已基本确定采购意向，重点关注实施速度。'
     },
     {
@@ -91,7 +89,6 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       recordUrl: '#',
       suggestion: '客户为技术导向型决策者，对产品稳定性要求极高。建议安排技术专家进行深度技术交流，提供系统架构说明和稳定性测试报告。可邀请客户参观已实施的成功案例现场。',
       nextAction: '安排技术专家会议，准备技术白皮书和现场参观',
-      successRate: 75,
       analysisBackground: '院长级别决策者，技术背景深厚，注重产品的技术先进性和长期稳定性，决策过程较为严谨。目前处于潜在阶段，需要更多技术层面的深度沟通。'
     },
     {
@@ -107,7 +104,6 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
       recordUrl: '#',
       suggestion: '客户处于初步了解阶段，对多个方案进行比较中。建议重点建立信任关系，提供详细的资质证明和合规性文件。可分享同类型医院的成功案例，降低客户的决策风险感知。',
       nextAction: '准备合规资料包，分享成功案例，建立信任关系',
-      successRate: 60,
       analysisBackground: '部门主管级别，严格按照制度流程执行，注重合规性和风险控制，决策需要上级审批。目前处于兴趣阶段，需要更多信任建立和风险消除。'
     }
   ];
