@@ -253,8 +253,8 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
               <div className="flex items-center space-x-2">
                 <Lightbulb className="w-5 h-5 text-purple-600" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">平均成功率</p>
-                  <p className="text-2xl font-bold text-gray-900">NaN%</p>
+                  <p className="text-sm font-medium text-gray-600">今日过程量已完成</p>
+                  <p className="text-2xl font-bold text-gray-900">80%</p>
                 </div>
               </div>
             </CardContent>
