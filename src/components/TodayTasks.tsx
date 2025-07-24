@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -255,7 +254,7 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                 <Lightbulb className="w-5 h-5 text-purple-600" />
                 <div>
                   <p className="text-sm font-medium text-gray-600">平均成功率</p>
-                  <p className="text-2xl font-bold text-gray-900">{Math.round(clients.reduce((acc, c) => acc + c.successRate, 0) / clients.length)}%</p>
+                  <p className="text-2xl font-bold text-gray-900">NaN%</p>
                 </div>
               </div>
             </CardContent>
@@ -356,7 +355,6 @@ export const TodayTasks = ({ department }: TodayTasksProps) => {
                           >
                             {client.stage}
                           </Badge>
-                          <span className="text-xs text-gray-500">成功率: {client.successRate}%</span>
                         </div>
                       </div>
                     </TableCell>
