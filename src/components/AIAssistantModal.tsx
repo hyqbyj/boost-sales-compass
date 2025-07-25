@@ -118,15 +118,14 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
 **本月表现：**
 • 30S有效外呼：32/40 (80% 达标率)
 • 微信深聊：18/25 (72% 达标率)
-• 客户转化率：15.2% (↑2.1% vs上月)
 
 **优势领域：**
-• 客户关系维护：90分 (优秀)
-• 沟通能力：85分 (优秀)
+• 客户关系维护：优秀
+• 沟通能力：优秀
 
 **待提升点：**
-• 成交能力：68分，建议加强价格异议处理技巧
-• 产品知识：78分，建议深入学习AI客服ROI计算方法
+• 成交能力：中等，建议加强价格异议处理技巧
+• 产品知识：中等，建议深入学习AI客服ROI计算方法
 
 **本周目标：**
 • 每日外呼量需增加2个以达标
@@ -135,14 +134,8 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
 需要详细的改进计划吗？`;
     }
 
-    return `我理解您的问题。作为您的销售AI助理，我可以帮您：
-
-• 提供销售话术和技巧指导
-• 分析客户情况和跟进建议  
-• 生成业绩数据和改进建议
-• 推荐相关的销售素材和案例
-
-请告诉我您具体需要哪方面的帮助，我会为您提供更精准的建议。`;
+    return `您的提问已被收集，期待您的更多发问。
+    您的每个问题都将为此功能的开发做出贡献！`;
   };
 
   return (
@@ -235,7 +228,7 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
           {/* Input */}
           <div className="flex space-x-2 flex-shrink-0">
             <Input
-              placeholder="输入您的问题..."
+              placeholder="功能开发中，请积极输入问题，您的提问将被收集，为开发提供支持"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(inputMessage)}
