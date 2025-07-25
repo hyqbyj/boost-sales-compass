@@ -134,8 +134,7 @@ export const AIAssistantModal = ({ open, onClose }: AIAssistantModalProps) => {
 需要详细的改进计划吗？`;
     }
 
-    return `您的提问已被收集，期待您的更多发问。
-您的每个问题都将为此功能的开发做出贡献！`;
+    return `您的提问已被收集，期待您的更多发问。您的每个问题都将为此功能的开发做出贡献！`;
   };
 
   return (
