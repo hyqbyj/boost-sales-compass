@@ -46,7 +46,8 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
         "针对不同客户类型制定个性化的共情沟通方案"
       ],
       color: "blue",
-      icon: <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+      icon: <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>,
+      isPriority: true // 真实逻辑：应该根据AI分析结果动态判断哪个维度需要最先提升
     },
     {
       id: 'consensus',
@@ -69,7 +70,8 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
         "建立方案确认机制，确保双方理解一致"
       ],
       color: "green",
-      icon: <div className="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+      icon: <div className="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>,
+      isPriority: false // 真实逻辑：应该根据AI分析结果动态判断哪个维度需要最先提升
     },
     {
       id: 'action',
@@ -92,7 +94,8 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
         "建立持续改进机制，不断优化执行流程和效果"
       ],
       color: "purple",
-      icon: <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+      icon: <div className="w-8 h-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>,
+      isPriority: false // 真实逻辑：应该根据AI分析结果动态判断哪个维度需要最先提升
     }
   ];
 
@@ -146,7 +149,16 @@ export const HistoryAnalysis = ({ department }: HistoryAnalysisProps) => {
                 <div className="p-6 h-full flex flex-col">
                   <div className="flex items-start mb-4">
                     {suggestion.icon}
-                    <h3 className="text-lg font-semibold text-gray-900 ml-3">{suggestion.title}</h3>
+                    <div className="ml-3 flex-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-lg font-semibold text-gray-900">{suggestion.title}</h3>
+                        {suggestion.isPriority && (
+                          <Badge variant="outline" className="text-xs bg-yellow-50 border-yellow-200 text-yellow-700">
+                            ⭐：最先提升
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
                   </div>
                   <p className="text-gray-600 mb-6">{suggestion.description}</p>
                   
